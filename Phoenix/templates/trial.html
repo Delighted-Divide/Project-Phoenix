@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trail</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'trial_css.css' %}" />
+    {% block extra_css %}{% endblock %}
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+
+  </head>
+  <body>
+    <div id="right"></div>
+    <div id="left"></div>
+    <div class="top-bar">
+      <img id="logo" src="{% static 'images\caca-removebg-preview.png' %}" />
+      <form id="search-form" method="POST" action="">
+        <input id="search" type="text" placeholder="Search here..." />
+        <button id="search-button" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+
+      <i id = 'exit' class="material-icons">logout</i>
+    </div>
+    <div id = 'container'>
+      <div id = 'main_content'>
+        <div id ="page-title">
+          <i class="fas fa-arrow-left"></i>
+          <h2>{{pname}}</h2>
+        </div>
+        <div>
+          {% block content %}
+          {% endblock %}
+        </div>
+        <div id = "content"></div>
+      </div>
+      <div id="nav-bar" >
+        <div id="User">
+          <div class="user-image-container">
+              <img id="user_image" src="{% static 'images\user_pic.jpg' %}" alt="User Profile Picture">
+          </div>
+          <div class="user-info-container">
+              <span class="welcome-text">Welcome,</span>
+              <h3 class="username">Divided Ivy Frost</h3>
+          </div>
+      </div>
+      <div class="stat-container">
+        <div class="stat">
+            <small>Exp</small>
+            <p>12</p>
+        </div>
+        <div class="stat">
+            <small>Awards</small>
+            <p>35</p>
+        </div>
+        <div class="stat">
+            <small>Clients</small>
+            <p>500</p>
+        </div>
+    </div>
+    <div>
+
+    <!-- Material Icons -->
+    <ul id = "start" class="start">
+        <li data-target="icons"><i class="material-icons">menu</i> </li>
+        <li data-target="Graphs"><i class="material-icons">bar_chart</i> </li>
+        <li data-target="History"><i class="material-icons">history</i> </li>
+        <li data-target="Settings"><i class="material-icons">settings</i> </li>
+    </ul>
+    </div>
+    <nav>
+      <ul id = "menu" >
+        <a><i class="fas fa-chart-line"></i> Dashboard</a>
+        <a><i class="fas fa-calendar-check"></i> Appointments</a>
+        <a><i class="fas fa-user-md"></i> Doctors</a>
+        <a><i class="material-icons large-icon">people</i> Patients</a>
+        <a><i class="material-icons large-icon">single_bed</i> Rooms</a>
+        <a><i class="fas fa-capsules"></i> Pharmacy</a>
+        <a><i class="material-icons large-icon">healing</i> Operations</a>
+        <a><i class="fas fa-flask"></i> Laboratory</a>  
+        
+      </ul>
+      <ul id = "bar_chart"></ul>
+      <ul id = "history"></ul>
+      <ul id = "settings"  style="display: none;">
+        <h3>Choose Skin</h3>
+        <div id="colors">
+        <li><div style="background-color: rgb(162,124,230);"><i class="fas fa-check"></i></div>Purple</li>
+        <li><div style="background-color: rgb(103, 125, 236);"><i class="fas fa-check"></i></div>Blue</li>
+        <li><div style="background-color: rgb(80,211,138);"><i class="fas fa-check"></i></div>Green</li>
+        <li><div style="background-color: rgb(245, 87, 87);"><i class="fas fa-check"></i></div>Red</li>
+        <li><div style="background-color: rgb(230, 230, 124);"><i class="fas fa-check"></i></div>Yellow</li>
+        <li><div style="background-color: rgb(1,178,198);"><i class="fas fa-check"></i></div>Cyan</li>
+        <li><div style="background-color: rgb(230, 124, 162);"><i class="fas fa-check"></i></div>Pink</li>
+        
+        </div>
+        <br><br><br><br>
+
+        </div>
+      </ul>
+      
+    </nav>
+      
+        </div>
+      </div>
+    </div>
+    <div id = "footer"></div>
+    {% load static %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'trial_js.js' %}"></script>
+    <script src="{% static 'node_modules\chart.js\dist\chart.umd.js' %}"></script>
+  
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

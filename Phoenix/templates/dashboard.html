@@ -1,0 +1,115 @@
+{% extends 'trial.html' %} {% block extra_css %} {% load static %}
+<link rel="stylesheet" href="{% static 'dashboard.css' %}" />
+{% endblock %} {%block content%}
+
+<div id="net-stats">
+  <div id="stats">
+    <div class="info">
+      <div>
+        <div><i class="material-icons">person</i></div>
+        <div>
+          <p>Patients</p>
+          <h4>100</h4>
+        </div>
+      </div>
+      <div>
+        <div><i class="fas fa-user-md"></i></div>
+        <div>
+          <p>Doctors</p>
+          <h4>18</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="info">
+      <div>
+        <div><i class="material-icons">visibility</i></div>
+        <div>
+          <p>Vistors</p>
+          <h4>2315</h4>
+        </div>
+      </div>
+      <div>
+        <div><i class="fa fa-university"></i></div>
+        <div>
+          <p>Revenue</p>
+          <h4>$1,291,029</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="info">
+      <div>
+        <div><i class="fa-solid fa-video"></i></div>
+        <div>
+          <p>Telemed Calls</p>
+          <h4>29</h4>
+        </div>
+      </div>
+      <div>
+        <div><i class="fas fa-hotel"></i></div>
+        <div>
+          <p>Beds Occupancy</p>
+          <h4>56%</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="info">
+      <div>
+        <div><i class="fas fa-procedures"></i></div>
+        <div>
+          <p>Surgeries</p>
+          <h4>29</h4>
+        </div>
+      </div>
+      <div>
+        <div><i class="fas fa-first-aid"></i></div>
+        <div>
+          <p>ER Visits</p>
+          <h4>5</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="main-graph">
+    <div id="graph-title">
+      <h4>Total Revenue</h4>
+      <div>
+        <button class="lgraph-edit">W</button>
+        <button class="lgraph-edit">M</button>
+        <button class="lgraph-edit">Y</button>
+      </div>
+    </div>
+    <div id="graph-boxes">
+      <div class="boxes" style="background-color: rgb(41, 167, 69)">
+        <div>
+          <i class="material-icons">attach_money</i>
+          <h1>7,12,326</h1>
+        </div>
+
+        <div class="andkand">Operation Income</div>
+      </div>
+      <div class="boxes" style="background-color: rgb(255, 193, 7)">
+        <div>
+          <i class="material-icons">attach_money</i>
+          <h1>14,965</h1>
+        </div>
+        <div class="andkand">Pharmacy Income</div>
+      </div>
+      <div class="boxes" style="background-color: rgb(220, 53, 69)">
+        <div>
+          <i class="material-icons">attach_money</i>
+          <h1>25,965</h1>
+        </div>
+        <div class="andkand">Hospital Expenses</div>
+      </div>
+    </div>
+    <div id="line-g">
+      <canvas id="line-graph"></canvas>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script src="{% static 'dashboard.js' %}"></script>
+{% endblock %}

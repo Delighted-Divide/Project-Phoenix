@@ -1,0 +1,151 @@
+* {
+  margin: 0px;
+}
+
+#net-stats {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+#stats {
+  max-width: 25%;
+  max-height: 70%;
+  flex-grow: 1;
+}
+
+#main-graph {
+  background-color: rgb(28, 34, 45);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  flex-grow: 1;
+  max-width: 60%;
+  min-height: 100%;
+}
+#graph-boxes {
+  display: flex;
+  flex-direction: row;
+  margin: 0px 5px;
+  margin-bottom: 15px;
+}
+.boxes {
+  width: 33%;
+  margin: 15px 10px;
+  display: flex;
+  flex-direction: column;
+}
+.boxes * {
+  color: white;
+  font-weight: 300;
+}
+
+.boxes div {
+  display: flex;
+  flex-direction: row;
+  margin: 0px 10px;
+  margin-top: 20px;
+}
+.boxes i {
+  font-size: 2em;
+  padding-top: 3px;
+  width: 26px;
+}
+
+.boxes .andkand {
+  font-size: 0.9em;
+  margin-top: 3px;
+  margin-bottom: 20px;
+  text-align: right;
+  flex-grow: 1;
+  padding-left: 8px;
+}
+
+#line-graph {
+  height: 320%;
+}
+#graph-title {
+  display: flex;
+  flex-direction: row;
+  line-height: 4em;
+  vertical-align: middle;
+  padding: 0px 15px;
+}
+
+#graph-title div {
+  text-align: right;
+  flex-grow: 1;
+}
+
+.lgraph-edit {
+  border: none;
+  color: rgb(119, 119, 119);
+  background-color: rgb(238, 238, 238);
+  font-size: 0.6em;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+.lgraph-edit:hover {
+  background-color: var(--third-color);
+  color: rgb(238, 238, 238);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 30%;
+  background-color: var(--primary-color);
+  margin: 38px 25px;
+  border-radius: 10px;
+}
+
+.info div {
+  display: flex;
+  flex-direction: row;
+}
+
+.info div div i {
+  text-align: center;
+  width: 20px;
+  vertical-align: bottom;
+  margin: 15px;
+  padding-top: 10px;
+  width: 40px;
+  height: 40px;
+}
+
+.info i:hover {
+  background-color: white;
+  color: var(--secondary-color);
+  border-radius: 8px;
+}
+
+.info .material-icons {
+  font-size: 1.3em;
+}
+.info .fa,
+.info .fas {
+  font-size: 1em;
+}
+
+.info div div {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.info p {
+  padding: 15px 0px 3px 0px;
+  font-weight: 100;
+  font-size: 0.8em;
+  text-align: left;
+}
+
+.info h4 {
+  text-align: left;
+  font-weight: 700;
+}
