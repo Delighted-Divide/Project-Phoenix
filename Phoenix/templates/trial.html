@@ -44,11 +44,11 @@
       <div id="nav-bar" >
         <div id="User">
           <div class="user-image-container">
-              <img id="user_image" src="{% static 'images\user_pic.jpg' %}" alt="User Profile Picture">
+              <img id="user_image" src="{{ user.image.url }}" alt="User Profile Picture">
           </div>
           <div class="user-info-container">
               <span class="welcome-text">Welcome,</span>
-              <h3 class="username">Divided Ivy Frost</h3>
+              <h3 class="username">{{user.first_name|title}} {{user.last_name|title}}</h3>
           </div>
       </div>
       <div class="stat-container">
