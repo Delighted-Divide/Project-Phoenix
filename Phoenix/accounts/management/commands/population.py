@@ -1,14 +1,22 @@
-from django.test import TestCase
+from django.core.management.base import BaseCommand, CommandError
+from django.core.management import call_command
+from accounts.models import CustomUser
 import random
 import string
-from .models import CustomUser
-# Create your tests here.
 
 
-class UserModelTest(TestCase):
-    def user_creation_test(self):
-        number_of_users = 100
-        make_admin = False
+class Command(BaseCommand):
+    help = 'Add a number of sample users to the database'
+
+    def add_arguments(self, parser):
+        parser.add_argument('number_of_users', type=int,
+                            help='Number of users to be created')
+        parser.add_argument('--admin', action='store_true',
+                            help='Make all created users as admin')
+
+    def handle(self, *args, **kwargs):
+        number_of_users = kwargs['number_of_users']
+        make_admin = kwargs['admin']
         names = ['Zion', 'Kai', 'Maeve', 'Luca', 'Nova', 'Mia', 'Aaliyah', 'Mila', 'Aurora', 'Quinn', 'Ezra', 'Eliana', 'Ivy',
                  'Jayden', 'Amara', 'Kayden', 'Lilibet', 'Isabella', 'Alina', 'Elliot', 'River', 'Xavier', 'Zoey', 'Isla',
                  'Lyla', 'Alex', 'Molly', 'Andrea', 'Remi', 'Rowan', 'Elias', 'Alice', 'Hayden', 'Rohan', 'Ophelia', 'Kyle',
@@ -58,30 +66,31 @@ class UserModelTest(TestCase):
                  'Elliott', 'Theresa', 'Briar', 'Saira', 'Simone', 'Magdalena', 'Hallie', 'Yana', 'Keziah', 'Nathan', 'Cleo',
                  'Karina', 'Greyson', 'Caiden', 'Alisa', 'Layla', 'Jovi', 'Kit', 'Hayley', 'Sutton', 'Cain', 'Presley', 'Rayna']
 
-        for _ in range(number_of_users):
-            no_of_words = random.randint(1, 4)
-            name_gen = list(set([random.choice(names)
-                            for i in range(no_of_words)]))
-            user_name = " ".join(name_gen)
-            # username = ''.join(random.choice(
-            #     string.ascii_lowercase) for i in range(10))
-            username = "".join(name_gen)
-            email = f"{username}@example.com"
-            password = 'testpassword'
-            if make_admin:
-                CustomUser.objects.create_superuser(
-                    username=username, email=email, password=password)
-            else:
-                CustomUser.objects.create_user(
-                    username=username, email=email, password=password)
+        try:
+            for _ in range(number_of_users):
+                no_of_words = random.randint(1, 4)
+                name_gen = list(set(random.choice(names)))
+                user_name = " ".join(name_gen)
+                # username = ''.join(random.choice(
+                #     string.ascii_lowercase) for i in range(10))
+                username = "".join(name_gen)
+                email = f"{username}@example.com"
+                password = 'testpassword'
+                if make_admin:
+                    CustomUser.objects.create_superuser(
+                        username=username, email=email, password=password)
+                else:
+                    CustomUser.objects.create_user(
+                        username=username, email=email, password=password)
 
-            print(
-                f'Successfully created user: {username}')
+                self.stdout.write(self.style.SUCCESS(
+                    f'Successfully created user: {username}'))
 
             # Call the 'clearsessions' command
+            call_command('clearsessions')
 
-        print(
-            f'Successfully added {number_of_users} users!')
+        except Exception as e:
+            raise CommandError(f"Error occurred: {e}")
 
-        self.assertEqual(CustomUser.objects.count(),
-                         110)
+        self.stdout.write(self.style.SUCCESS(
+            f'Successfully added {number_of_users} users!'))

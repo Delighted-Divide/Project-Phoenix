@@ -16,5 +16,9 @@ class CustomUser(AbstractUser):
     birthday = models.DateField(null=True, blank=True)
     city = models.CharField(max_length=100, blank=True)
     country = models.CharField(max_length=100, blank=True)
+    date_of_employment = models.DateField(auto_now_add=True)
     image = models.ImageField(
         upload_to='profile_pics/', blank=True, null=True)
+
+    class Meta:
+        get_latest_by = 'date_of_employment'
