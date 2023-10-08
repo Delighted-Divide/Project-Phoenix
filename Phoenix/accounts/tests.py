@@ -6,8 +6,11 @@ from .models import CustomUser
 
 
 class UserModelTest(TestCase):
-    def user_creation_test(self):
-        number_of_users = 100
+    def test_user_creation(self):
+        def CustomuserCreation(username):
+            return CustomUser(username=username, password='testpassword', email=f"{username}@example.com")
+
+        number_of_users = 2000
         make_admin = False
         names = ['Zion', 'Kai', 'Maeve', 'Luca', 'Nova', 'Mia', 'Aaliyah', 'Mila', 'Aurora', 'Quinn', 'Ezra', 'Eliana', 'Ivy',
                  'Jayden', 'Amara', 'Kayden', 'Lilibet', 'Isabella', 'Alina', 'Elliot', 'River', 'Xavier', 'Zoey', 'Isla',
@@ -59,7 +62,7 @@ class UserModelTest(TestCase):
                  'Karina', 'Greyson', 'Caiden', 'Alisa', 'Layla', 'Jovi', 'Kit', 'Hayley', 'Sutton', 'Cain', 'Presley', 'Rayna']
 
         for _ in range(number_of_users):
-            no_of_words = random.randint(1, 4)
+            no_of_words = random.randint(1, 3)
             name_gen = list(set([random.choice(names)
                             for i in range(no_of_words)]))
             user_name = " ".join(name_gen)
@@ -68,20 +71,23 @@ class UserModelTest(TestCase):
             username = "".join(name_gen)
             email = f"{username}@example.com"
             password = 'testpassword'
+            while username in CustomUser.objects.values_list(
+                    'username', flat=True):
+                number = random.randint(1, 999)
+                username += str(number)
             if make_admin:
                 CustomUser.objects.create_superuser(
                     username=username, email=email, password=password)
             else:
                 CustomUser.objects.create_user(
                     username=username, email=email, password=password)
-
-            print(
-                f'Successfully created user: {username}')
-
+            # print(CustomuserCreation(username))
+            # print("_"*400)
+            # print()
+            # self.assertEqual(CustomUser.objects.get(id=_).__str__(),
+            #                  username)
             # Call the 'clearsessions' command
-
-        print(
-            f'Successfully added {number_of_users} users!')
-
+        # for i in CustomUser.objects.values_list('username', flat=True):
+        #     print(i)
         self.assertEqual(CustomUser.objects.count(),
-                         110)
+                         number_of_users)

@@ -68,12 +68,17 @@ class Command(BaseCommand):
 
         try:
             for _ in range(number_of_users):
-                no_of_words = random.randint(1, 4)
-                name_gen = list(set(random.choice(names)))
+                no_of_words = random.randint(1, 3)
+                name_gen = list(set([random.choice(names)
+                                for i in range(no_of_words)]))
                 user_name = " ".join(name_gen)
                 # username = ''.join(random.choice(
                 #     string.ascii_lowercase) for i in range(10))
                 username = "".join(name_gen)
+                while username in CustomUser.objects.values_list(
+                        'username', flat=True):
+                    number = random.randint(1, 999)
+                    username += str(number)
                 email = f"{username}@example.com"
                 password = 'testpassword'
                 if make_admin:
@@ -83,8 +88,8 @@ class Command(BaseCommand):
                     CustomUser.objects.create_user(
                         username=username, email=email, password=password)
 
-                self.stdout.write(self.style.SUCCESS(
-                    f'Successfully created user: {username}'))
+                    self.stdout.write(self.style.SUCCESS(
+                        f'Successfully created user: {username}'))
 
             # Call the 'clearsessions' command
             call_command('clearsessions')
