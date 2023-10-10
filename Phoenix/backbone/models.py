@@ -3,6 +3,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from datetime import datetime
 import uuid
+import string
 
 # Create your models here.
 
@@ -150,6 +151,8 @@ class OutpatientVisit(models.Model):
     # Recommendations and follow-up
     treatment_plan = models.TextField(
         blank=True, help_text="Recommended treatment plan")
+    medications_prescribed = models.TextField(
+        blank=True, help_text="Medication")
     follow_up_date = models.DateField(
         blank=True, null=True, help_text="Next scheduled visit, if any")
     additional_notes = models.TextField(
@@ -157,3 +160,185 @@ class OutpatientVisit(models.Model):
 
     def __str__(self):
         return f"{self.patient} with {self.doctor} -- Visit on {self.visit_date.date()}"
+
+
+class Room(models.Model):
+    ROOM_TYPES = (
+        ('GW', 'General Ward'),
+        ('SP', 'Semi Private'),
+        ('PR', 'Private'),
+        ('DL', 'Delux'),
+        ('KD', 'King\'s Delux'),
+    )
+
+    BED_COUNTS = {
+        'GW': 8,
+        'SP': 2,
+        'PR': 1,
+        'DL': 1,
+        'KD': 1,
+    }
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    room_type = models.CharField(max_length=2, choices=ROOM_TYPES)
+    room_id = models.CharField(
+        max_length=10, unique=True, blank=True, editable=False)
+
+    def save(self, *args, **kwargs):
+        is_new = not self.room_id
+        if not self.room_id:
+            # Get the prefix from the room type
+            prefix = self.room_type
+            # Count the existing rooms of this type
+            count = Room.objects.filter(room_type=self.room_type).count() + 1
+            # Construct the room_id
+            self.room_id = f"{prefix}{count:03}"
+        super().save(*args, **kwargs)
+        if is_new:
+            # If it's a new room, create the beds for it
+            bed_count = self.BED_COUNTS.get(self.room_type, 0)
+            for i in range(bed_count):
+                bed_label = string.ascii_uppercase[i]
+                Bed.objects.create(bed_label=bed_label, room=self)
+
+    def __str__(self) -> str:
+        return f"{self.room_id}"
+
+
+class Bed(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    bed_label = models.CharField(max_length=5, editable=False)
+    is_occupied = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = ["room", "bed_label"]
+
+    def __str__(self) -> str:
+        return f"{self.room.room_id} - {self.bed_label}"
+
+
+class DoctorVisit(models.Model):
+    doctor = models.ForeignKey('Doctor', on_delete=models.CASCADE)
+    inpatient_visit = models.ForeignKey(
+        'InpatientVisit', on_delete=models.CASCADE)
+
+    visit_date = models.DateTimeField(auto_now_add=True)
+    symptoms_presented = models.TextField(
+        help_text="Symptoms observed or reported by the patient during the visit.")
+    physical_examination_results = models.TextField(
+        blank=True, null=True, help_text="Results from the physical examination, e.g., heart rate, respiratory rate, etc.")
+    diagnosis = models.CharField(max_length=255, blank=True, null=True,
+                                 help_text="Preliminary or final diagnosis given by the doctor.")
+    prescribed_medications = models.TextField(
+        blank=True, null=True, help_text="Medications prescribed during the visit.")
+    treatment_plan = models.TextField(
+        blank=True, null=True, help_text="Detailed treatment plan or procedures to be followed.")
+    doctor_notes = models.TextField(null=True, blank=True)
+    follow_up_recommendations = models.TextField(null=True, blank=True)
+    additional_instructions = models.TextField(
+        blank=True, null=True, help_text="Any additional instructions given by the doctor to the patient.")
+    visit_duration = models.DurationField(
+        null=True, blank=True, help_text="Duration of the doctor's visit.")
+    is_emergency = models.BooleanField(
+        default=False, help_text="Indicates if the visit was due to an emergency situation.")
+
+    def __str__(self):
+        return f"Visit on {self.visit_date} by Dr. {self.doctor} for {self.inpatient_visit.patient}"
+
+
+class InpatientVisit(models.Model):
+    patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
+    admitting_doctor = models.ForeignKey(
+        'Doctor', related_name='admissions', on_delete=models.SET_NULL, null=True, blank=True)
+    bed = models.ForeignKey(
+        'Bed', on_delete=models.SET_NULL, null=True)
+
+    admission_date = models.DateTimeField(auto_now_add=True)
+    discharge_date = models.DateTimeField(null=True, blank=True)
+    reason_for_admission = models.TextField(
+        help_text="Primary reason for the patient's admission.")
+    initial_diagnosis = models.TextField(
+        blank=True, null=True, help_text="Initial diagnosis when the patient was admitted.")
+    final_diagnosis = models.TextField(
+        blank=True, null=True, help_text="Final diagnosis upon discharge or during the course of treatment.")
+    medical_history = models.TextField(
+        blank=True, null=True, help_text="Patient's past medical history.")
+    surgical_history = models.TextField(
+        blank=True, null=True, help_text="Any surgeries or operations the patient has undergone in the past.")
+    medication_history = models.TextField(
+        blank=True, null=True, help_text="List of medications the patient was on before admission.")
+    organ_donor = models.BooleanField(default=False)
+    tobacco_use = models.BooleanField(default=False)
+    alcohol_use = models.BooleanField(default=False)
+    allergies = models.TextField(
+        blank=True, null=True, help_text="Any known allergies.")
+    current_medications = models.TextField(
+        blank=True, null=True, help_text="Medications prescribed during the hospital stay.")
+    treatment_plan = models.TextField(
+        blank=True, null=True, help_text="Detailed treatment plan or procedures followed during the stay.")
+    complications = models.TextField(
+        blank=True, null=True, help_text="Any complications that arose during the hospital stay.")
+    prognosis = models.TextField(
+        blank=True, null=True, help_text="Doctor's prognosis upon discharge.")
+    follow_up_instructions = models.TextField(
+        blank=True, null=True, help_text="Instructions for the patient to follow post-discharge.")
+    next_follow_up_date = models.DateField(
+        null=True, blank=True, help_text="Date for the next follow-up visit, if scheduled.")
+    insurance_provider = models.CharField(max_length=255, blank=True)
+    insurance_policy_number = models.CharField(max_length=255, blank=True)
+    emergency_contact_name = models.CharField(
+        max_length=100, blank=True, null=True)
+    emergency_contact_phone = models.CharField(
+        max_length=15, blank=True, null=True)
+    emergency_contact_relationship = models.CharField(
+        max_length=50, blank=True, null=True)
+    notes = models.TextField(blank=True, null=True,
+                             help_text="Any additional notes or observations.")
+
+    def clean(self):
+        # Check if the bed is occupied
+        if self.discharge_date:
+            old_record = InpatientVisit.objects.get(pk=self.pk)
+            if old_record.bed != self.bed:
+                raise ValidationError({
+                    'bed': f'The given bed is {old_record.bed}. You cannot change the bed when a discharge date is entered.'
+                })
+            # If only the discharge_date is given and bed hasn't changed
+            self.bed.is_occupied = False
+        elif self.pk:  # if the instance has a primary key, it's being edited
+            org = InpatientVisit.objects.get(pk=self.pk)
+            if org.bed != self.bed and self.bed.is_occupied:
+                raise ValidationError(
+                    {'bed': "The selected bed is already occupied."})
+        elif self.bed.is_occupied:  # for new instances
+            raise ValidationError(
+                {'bed': "The selected bed is already occupied."})
+
+    def save(self, *args, **kwargs):
+        if (self.pk and self.bed != InpatientVisit.objects.get(pk=self.pk).bed):
+            old_record = InpatientVisit.objects.get(pk=self.pk)
+            print(
+                f"Moved from {old_record.bed} to {self.bed}")
+            old_record.bed.is_occupied = False
+            old_record.bed.save()
+            self.bed.is_occupied = True
+        elif not self.pk:
+            print(f"{self.patient} in {self.bed}")
+            self.bed.is_occupied = True
+
+        super().save(*args, **kwargs)
+        self.bed.save()
+
+        # If a discharge date is entered, set the bed as unoccupied
+
+    def delete(self, *args, **kwargs):
+        print(f"{self} is being deleted")
+        self.bed.is_occupied = False
+        self.bed.save()
+        super().delete(*args, **kwargs)
+
+    def __str__(self):
+        return f"Inpatient Visit for {self.patient.first_name} {self.patient.last_name} on {self.admission_date}"
+
+    class Meta:
+        unique_together = ["patient", "discharge_date"]
