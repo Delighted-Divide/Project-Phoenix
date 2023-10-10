@@ -296,23 +296,34 @@ class InpatientVisit(models.Model):
                              help_text="Any additional notes or observations.")
 
     def clean(self):
+        errors = {}
+        active_visits = InpatientVisit.objects.filter(
+            patient=self.patient, discharge_date=None)
+
+        # If we're updating an existing record, exclude the current record from the query
+        if self.pk:
+            active_visits = active_visits.exclude(pk=self.pk)
+
+        # If any active visits are found, raise a validation error
+        if active_visits.exists():
+            errors['patient'] = 'This patient already has an active InpatientVisit. A patient cannot have multiple active visits.'
         # Check if the bed is occupied
         if self.discharge_date:
             old_record = InpatientVisit.objects.get(pk=self.pk)
             if old_record.bed != self.bed:
-                raise ValidationError({
-                    'bed': f'The given bed is {old_record.bed}. You cannot change the bed when a discharge date is entered.'
-                })
+                errors['bed'] = f'The given bed is {old_record.bed}. You cannot change the bed when a discharge date is entered.'
             # If only the discharge_date is given and bed hasn't changed
             self.bed.is_occupied = False
         elif self.pk:  # if the instance has a primary key, it's being edited
             org = InpatientVisit.objects.get(pk=self.pk)
             if org.bed != self.bed and self.bed.is_occupied:
-                raise ValidationError(
-                    {'bed': "The selected bed is already occupied."})
+                errors['bed'] = "The selected bed is already occupied."
+
         elif self.bed.is_occupied:  # for new instances
-            raise ValidationError(
-                {'bed': "The selected bed is already occupied."})
+            errors['bed'] = "The selected bed is already occupied."
+
+        if errors:
+            raise ValidationError(errors)
 
     def save(self, *args, **kwargs):
         if (self.pk and self.bed != InpatientVisit.objects.get(pk=self.pk).bed):
@@ -339,6 +350,3 @@ class InpatientVisit(models.Model):
 
     def __str__(self):
         return f"Inpatient Visit for {self.patient.first_name} {self.patient.last_name} on {self.admission_date}"
-
-    class Meta:
-        unique_together = ["patient", "discharge_date"]
