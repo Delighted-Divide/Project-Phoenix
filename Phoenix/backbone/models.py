@@ -350,3 +350,30 @@ class InpatientVisit(models.Model):
 
     def __str__(self):
         return f"Inpatient Visit for {self.patient.first_name} {self.patient.last_name} on {self.admission_date}"
+
+
+class Lab(models.Model):
+    name = models.CharField(max_length=200, unique=True)
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class LabTest(models.Model):
+    name = models.CharField(max_length=200, unique=True)
+    lab = models.ForeignKey(
+        Lab, on_delete=models.CASCADE, null=True, blank=True)
+    price = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class ScanTest(models.Model):
+    name = models.CharField(max_length=200, unique=True)
+    lab = models.ForeignKey(
+        Lab, on_delete=models.CASCADE, null=True, blank=True)
+    price = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.name}"

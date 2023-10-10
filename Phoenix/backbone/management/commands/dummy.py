@@ -5,120 +5,217 @@ from backbone.models import Doctor, Degree
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         medical_specialists = [
-            "Family practice physician",
-            "Internal medicine physician",
-            "Pediatricians",
-            "Geriatric medicine doctors",
-            "Allergists",
-            "Dermatologists",
-            "Infectious disease doctors",
-            "Ophthalmologists",
-            "Obstetrician/gynecologists",
-            "Cardiologists",
-            "Endocrinologists",
-            "Gastroenterologists",
-            "Nephrologists",
-            "Urologists",
-            "Pulmonologists",
-            "Otolaryngologists",
-            "Neurologists",
-            "Psychiatrists",
-            "Oncologists",
-            "Radiologists",
-            "Rheumatologists",
-            "General surgeons",
-            "Orthopedic surgeons",
-            "Cardiac surgeons",
-            "Anesthesiologists",
-            "Family medicine",
-            "Internal Medicine",
-            "Pediatrician",
-            "Obstetricians/gynecologist (OBGYNs)",
-            "Cardiologist",
-            "Oncologist",
-            "Gastroenterologist",
-            "Pulmonologist",
-            "Infectious disease",
-            "Nephrologist",
-            "Endocrinologist",
-            "Ophthalmologist",
-            "Otolaryngologist",
-            "Dermatologist",
-            "Psychiatrist",
-            "Neurologist",
-            "Radiologist",
-            "Anesthesiologist",
-            "Surgeon",
-            "Physician executive",
-            "Addiction medicine specialist",
-            "Adolescent medicine specialist",
-            "Allergist (immunologist)",
-            "Anatomic pathologist",
-            "Cardiac electrophysiologist",
-            "Cardiovascular surgeon",
-            "Clinical laboratory immunologist",
-            "Colon and rectal surgeon",
-            "Critical care medicine specialist",
-            "Cytopathologist",
-            "Dermatopathologist",
-            "Developmental pediatrician",
-            "Emergency medicine specialist",
-            "Endocrinologist",
-            "Forensic pathologist",
-            "Gastroenterologist",
-            "Geriatric psychiatrist",
-            "Hand surgeon",
-            "Hematologist",
-            "Hepatologist",
-            "Hospitalist",
-            "Hyperbaric physician",
-            "Infectious disease specialist",
-            "Interventional cardiologist",
-            "Medical examiner",
-            "Medical geneticist",
-            "Neonatologist",
-            "Nephrologist",
-            "Neurodevelopmental pediatrician",
-            "Neurological surgeon",
-            "Neuromusculoskeletal medicine doctor",
-            "Neuropathologist",
-            "Neuroradiologist",
-            "Nuclear medicine specialist",
-            "Obstetrician",
-            "Occupational medicine specialist",
-            "Orthopedic surgeon",
-            "Otolaryngologist (head and neck surgeon)",
-            "Pain management specialist",
-            "Palliative medicine specialist",
-            "Pathologist",
-            "Pediatric allergist",
-            "Pediatric cardiologist",
-            "Pediatric endocrinologist",
-            "Pediatric gastroenterologist",
-            "Pediatric hematologist",
-            "Pediatric infectious disease specialist",
-            "Pediatric nephrologist",
-            "Pediatric pulmonologist",
-            "Pediatric rheumatologist",
-            "Pediatric surgeon",
-            "Pediatric urologist",
-            "Perinatologist",
-            "Physical medicine and rehabilitation specialist",
-            "Plastic surgeon",
-            "Preventive medicine specialist",
-            "Psychiatrist (child and adolescent)",
-            "Pulmonologist",
-            "Radiation oncologist",
-            "Reproductive endocrinologist",
-            "Rheumatologist",
-            "Sleep disorders specialist",
-            "Spinal cord injury specialist",
-            "Sports medicine specialist",
-            "Surgical pathologist",
-            "Thoracic surgeon",
-            "Transplant hepatologist",
-            "Trauma surgeon",
-            "Urologist",
-            "Vascular and interventional radiologist",
-            "Vascular surgeon"
+            '2D Echo'
+            '4D Scan'
+            'ACTH (Adreno Corticotropic Hormone) Test'
+            'Adenosine Deaminase Test'
+            'AEC (Absolute Eosinophil Count) Test'
+            'AFB (Acid Fast Bacilli) Culture Test'
+            'AFP (Alpha Feto Protein) Test'
+            'Alberts Stain'
+            'Albumin Test'
+            'Aldolase Test'
+            'Alkaline Phosphatase (ALP) Test'
+            'Allergy Test'
+            'Ammonia Test'
+            'Amylase Test'
+            'ANA (Antinuclear Antibody) Test'
+            'ANC Profile'
+            'ANCA Profile'
+            'Anti CCP (ACCP) Test'
+            'Anti Phospholipid (APL) Test'
+            'Anti TPO Test'
+            'Anti-Mullerian Hormone (AMH) Test'
+            'Antithyroglobulin Antibody Test'
+            'Antithyroid Microsomal Antibody (AMA) Test'
+            'APTT (Activated Partial Thromboplastin Time) Test'
+            'Arterial Blood Gas (ABG)'
+            'Ascitic Fluid Test'
+            'ASO Test'
+            'Audiometry Test'
+            'Beta HCG Test'
+            'Beta Thalassemia Test'
+            'Bicarbonate Test'
+            'Bilirubin Test'
+            'Biopsy'
+            'Bleeding / Clotting Time Test'
+            'Blood Culture Test'
+            'Blood Group Test'
+            'Blood Sugar Test'
+            'Blood Urea Nitrogen Test'
+            'Bone Density Test / Dexa Scan'
+            'Bone Scan'
+            'C-Peptide Test'
+            'CA 15.3 Test'
+            'CA 19.9 Test'
+            'CA  27.29Test'
+            'CA- 125(Tumor Marker) Test'
+            'Calcium Test'
+            'Carbamazepine (Tegretol) Test'
+            'Cardiolipin Antibodies (ACL)'
+            'CBC / Hemogram Test'
+            'CD Test'
+            'CEA (Carcinoembryonic Antigen) Test'
+            'Cerebral Spinal Fluid (CSF) Test'
+            'Chikungunya Test'
+            'Chlamydia Test'
+            'Chloride Test'
+            'Cholesterol Test'
+            'CK-MB Test'
+            'Color Doppler'
+            'Complement C3'
+            'Complement C4'
+            'Coombs Test'
+            'Cortisol Test'
+            'CPK (Creatine Phosphokinase) Test'
+            'Creatinine Clearance Test'
+            'Creatinine Test'
+            'CRP (C-Reactive Protein) Test'
+            'Cryptococcal Antigen Test'
+            'CT Scan'
+            'Cytomegalovirus (CMV) Test'
+            'D Dimer Test'
+            'Dengue IgG Test'
+            'Dengue IgM Test'
+            'Dengue NS Test'
+            'DHEA Test'
+            'DMSA Scan'
+            'DNA Test'
+            'Double Marker Test'
+            'ECG'
+            'EEG'
+            'Electrolytes Test'
+            'Electromyography (EMG)'
+            'ESR (Erythrocyte Sedimentation Rate) Test'
+            'Estradiol (E2) Test'
+            'Factor V Leiden Test'
+            'Ferritin Test'
+            'FNAC Test'
+            'Folic Acid Test'
+            'FSH (Follicle Stimulating Hormone) Test'
+            'Fungal Culture Test'
+            'G6PD Test'
+            'Gallium Scan'
+            'Gamma GT (GGTP) Test'
+            'Globulin / AG Ratio'
+            'Globulin Test'
+            'Glucose Tolerance Test (GTT)'
+            'Gram Stain Test'
+            'HbA1C Test'
+            'HBeAb (Hepatitis B Antibody)'
+            'HBsAg Test'
+            'HCV Antibody Test'
+            'HDL Cholesterol'
+            'Helicobacter Pylori Test'
+            'Hemoglobin (Hb) Test'
+            'Hemoglobin Electrophoresis'
+            'Hepatitis A Test'
+            'Hepatitis E Test'
+            'Herpes Simplex Virus (HSV) Test'
+            'HGH Test'
+            'HIDA Scan'
+            'HIV Test'
+            'HLA B27 Test'
+            'Homocysteine Test'
+            'HSG Test'
+            'Insulin Test'
+            'Iron Test'
+            'Karyotype Test'
+            'Kidney / Renal Function Test'
+            'L. E. Cells Test'
+            'LDH (Lactate Dehydrogenase) Test'
+            'LDL Cholesterol'
+            'LH (Luteinizing Hormone) Test'
+            'Lipase Test'
+            'Lipid Profile'
+            'Lipoprotein A / LP(a) Test'
+            'Lithium Test'
+            'Liver Function Test (LFT)'
+            'Lupus Anticoagulant (LAC) Test'
+            'Magnesium Test'
+            'Malaria (Malarial Parasite) Test'
+            'Mammography'
+            'Mantoux Test'
+            'MIBG Scan'
+            'Microalbumin Test'
+            'Microfilaria Parasite Test'
+            'MRI Scan'
+            'MUGA Scan'
+            'Nerve Conduction Velocity (NCV)'
+            'No Test'
+            'NT Scan'
+            'PAP Smear'
+            'Paratyphi Test'
+            'PCV (Packed Cell Volume) Test'
+            'Peripheral Blood Smear Test'
+            'PET-CT Scan'
+            'Phosphorus Test'
+            'Plasma Lactate (Lactic Acid) Test'
+            'Platelet Count'
+            'Pleural Fluid Analysis'
+            'Potassium Test'
+            'Pregnancy Test'
+            'Progesterone Test'
+            'Prolactin Test'
+            'Protein Test'
+            'Protein/Creatinine Ratio'
+            'PSA (Prostate Specific Antigen) Test'
+            'PT (Prothrombin Time) Test'
+            'PTH (Parathyroid Hormone) Test'
+            'Pulmonary Function Test (PFT)'
+            'Renal Profile'
+            'Renal Scan / Kidney Scan'
+            'Reticulocyte Count Test'
+            'Rheumatoid Arthritis (RA) Factor Test'
+            'Rubella Test'
+            'Semen Analysis Test'
+            'Sex Hormone Test'
+            'SGOT Test'
+            'SGPT Test'
+            'Sickling Test'
+            'Sodium Test'
+            'Sonography (Ultrasound / USG)'
+            'Sonomamography / Sonomamogram'
+            'Sperm DNA Fragmentation'
+            'Sputum Culture'
+            'Sputum Routine Test'
+            'Stool Culture'
+            'Stool Routine'
+            'Stress Echo Test'
+            'Stress Test (TMT)'
+            'Swine Flu Test (HN)'
+            'Synovial Fluid Analysis'
+            'T3 (Triiodothyronine) Test'
+            'T4 (Thyroxine) Test'
+            'TB Test'
+            'Testosterone Test'
+            'Thallium Scan'
+            'Thyroglobulin Test'
+            'Thyroid Scan'
+            'Thyroid Test'
+            'TORCH Test'
+            'Total Protein Test'
+            'Toxoplasma Test'
+            'Transferrin Test'
+            'Triglycerides Test'
+            'Triple Marker Test'
+            'Troponin-I Test'
+            'TSH (Thyroid Stimulating Hormone) Test'
+            'Typhidot Test'
+            'Urea Test'
+            'Uric Acid Test'
+            'Urine Culture'
+            'Urine Routine'
+            'Valproic Acid'
+            'VDRL Test'
+            'Vitamin A Test'
+            'Vitamin B12 Test'
+            'Vitamin C Test'
+            'Vitamin D Test'
+            'Vitamin E Test'
+            'VLDL Test'
+            'VQ Scan (Lung Ventilation and Lung Perfusion Scan)'
+            'Widal Test'
+            'X-Ray'
+            'X-Ray Skeletal Survey'
         ]
