@@ -2,6 +2,8 @@ from collections.abc import Iterable
 from django.db import models
 from django.core.exceptions import ValidationError
 from datetime import datetime
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.models import ContentType
 import uuid
 import string
 
@@ -364,6 +366,7 @@ class LabTest(models.Model):
     lab = models.ForeignKey(
         Lab, on_delete=models.CASCADE, null=True, blank=True)
     price = models.IntegerField()
+    taken_test = GenericRelation('PatientTests')
 
     def __str__(self):
         return f"{self.name}"
@@ -374,6 +377,17 @@ class ScanTest(models.Model):
     lab = models.ForeignKey(
         Lab, on_delete=models.CASCADE, null=True, blank=True)
     price = models.IntegerField()
+    taken_test = GenericRelation('PatientTests')
 
     def __str__(self):
         return f"{self.name}"
+
+
+class PatientTests(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+
+    # Fields for GenericForeignKey
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    test = GenericForeignKey('content_type', 'object_id')
+    test_date = models.DateTimeField(auto_now_add=True)
