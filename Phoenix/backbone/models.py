@@ -366,7 +366,7 @@ class LabTest(models.Model):
     lab = models.ForeignKey(
         Lab, on_delete=models.CASCADE, null=True, blank=True)
     price = models.IntegerField()
-    taken_test = GenericRelation('PatientTests')
+    patienttests = GenericRelation('patienttest')
 
     def __str__(self):
         return f"{self.name}"
@@ -377,13 +377,13 @@ class ScanTest(models.Model):
     lab = models.ForeignKey(
         Lab, on_delete=models.CASCADE, null=True, blank=True)
     price = models.IntegerField()
-    taken_test = GenericRelation('PatientTests')
+    patienttests = GenericRelation('PatientTest')
 
     def __str__(self):
         return f"{self.name}"
 
 
-class PatientTests(models.Model):
+class PatientTest(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
 
     # Fields for GenericForeignKey
