@@ -1,7 +1,26 @@
+from typing import Any
 from django.contrib import admin
 from .models import *
+from django import forms
 
 # Register your models here.
+
+
+# class PatientTestAdminForm(forms.ModelForm):
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         scan_test_choices = [(ContentType.objects.get_for_model(
+#             ScanTest).pk, obj) for obj in ScanTest.objects.all()]
+#         lab_test_choices = [(ContentType.objects.get_for_model(
+#             LabTest).pk, obj) for obj in LabTest.objects.all()]
+#         self.fields['content_type'].choices = scan_test_choices + \
+#             lab_test_choices
+#     def save(self, commit: bool = ...) -> Any:
+#         return super().save(commit)
+
+
+# class PatientTestAdmin(admin.ModelAdmin):
+#     form = PatientTestAdminForm
 
 
 admin.site.register(Doctor)

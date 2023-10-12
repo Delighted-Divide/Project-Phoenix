@@ -391,3 +391,6 @@ class PatientTest(models.Model):
     object_id = models.PositiveIntegerField()
     test = GenericForeignKey('content_type', 'object_id')
     test_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.content_type}"
