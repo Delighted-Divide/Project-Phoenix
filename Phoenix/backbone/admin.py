@@ -15,8 +15,6 @@ from django import forms
 #             LabTest).pk, obj) for obj in LabTest.objects.all()]
 #         self.fields['content_type'].choices = scan_test_choices + \
 #             lab_test_choices
-#     def save(self, commit: bool = ...) -> Any:
-#         return super().save(commit)
 
 
 # class PatientTestAdmin(admin.ModelAdmin):
@@ -35,3 +33,4 @@ admin.site.register(Lab)
 admin.site.register(LabTest)
 admin.site.register(ScanTest)
 admin.site.register(PatientTest)
+admin.site.register(Customer)

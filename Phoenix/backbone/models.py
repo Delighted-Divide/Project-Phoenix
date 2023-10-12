@@ -93,7 +93,7 @@ class Patient(models.Model):
     state = models.CharField(max_length=50)
     zip_code = models.CharField(max_length=10)
     country = models.CharField(max_length=50)
-    phone_number = models.CharField(max_length=15)
+    phone_number = models.CharField(max_length=15,)
     alternate_phone_number = models.CharField(
         max_length=15, blank=True, null=True)
     email = models.EmailField(unique=True)
@@ -393,4 +393,16 @@ class PatientTest(models.Model):
     test_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.content_type}"
+        return f"{self.test}"
+
+
+class Customer(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=15)
+    email = models.EmailField(unique=True)
+    patient = models.ForeignKey(
+        Patient, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
