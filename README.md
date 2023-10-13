@@ -5,3 +5,5 @@
 # Keys
 
 dont forget to remove the delete method from inpatient visits
+add operating hours for labs
+lab doctors and attachment

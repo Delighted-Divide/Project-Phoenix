@@ -11,3 +11,12 @@ def dashboard(request):
         'user': request.user
     }
     return render(request, "dashboard.html", context)
+
+
+def doctor(request):
+
+    context = {
+        'pname': "Doctor",
+        'user': request.user
+    }
+    return render(request, "doctor.html", context)

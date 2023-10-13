@@ -5,7 +5,8 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('', views.dashboard, name="Dashboard")
+    path('', views.dashboard, name="Dashboard"),
+    path('doctor/', views.doctor, name="Doctor")
 ]
 
 if settings.DEBUG:

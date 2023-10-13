@@ -110,6 +110,31 @@ class Patient(models.Model):
     profile_picture = models.ImageField(
         upload_to='patients/', default='profile_pics\_Pure_as_Snow__White_Fashion_Delight_.jpg')
 
+    def save(self, *args, **kwargs):
+        # Check if the instance is being created (i.e., doesn't have a primary key yet)
+        is_new = self._state.adding
+        print(is_new)
+        super().save(*args, **kwargs)
+        Customer.objects.update_or_create(
+            patient=self,
+            defaults={
+                'first_name': self.first_name,
+                'last_name': self.last_name,
+                'phone_number': self.phone_number,
+                'email': self.email
+            }
+        )
+        # if is_new:
+        #     print("hello")
+        #     # Create a corresponding Customer instance
+        #     Customer.objects.create(
+        #         first_name=self.first_name,
+        #         last_name=self.last_name,
+        #         phone_number=self.phone_number,
+        #         email=self.email,
+        #         patient=self
+        #     )
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
@@ -398,11 +423,11 @@ class PatientTest(models.Model):
 
 class Customer(models.Model):
     first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100, blank=True)
     phone_number = models.CharField(max_length=15)
     email = models.EmailField(unique=True)
-    patient = models.ForeignKey(
-        Patient, on_delete=models.SET_NULL, null=True, blank=True)
+    patient = models.OneToOneField(
+        Patient, on_delete=models.SET_NULL, null=True, blank=True, related_name="customer")
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
