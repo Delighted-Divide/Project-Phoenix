@@ -1,5 +1,56 @@
 {% extends 'trial.html' %} {% block extra_css %} {% load static %}
-<link rel="stylesheet" href="{% static 'dashboard.css' %}" />
+<link rel="stylesheet" href="{% static 'doctor.css' %}" />
 {% endblock %} {% block content %}
-<h1>Hello</h1>
+<div class="content-wrapper">
+  <div class="profile-container">
+    <!-- Example of a single doctor's profile box; repeat for each doctor -->
+    <!-- Loop through your doctors data -->
+    {% for x in times %}
+
+    <div class="profile-box">
+      <div class="profile-progress">
+        <img src="{{ user.image.url }}" alt="Doctor Profile" />
+        <svg class="progress-ring" width="160" height="160">
+          <!-- Circle to act as the background/track for the progress -->
+          <circle
+            class="progress-ring__track"
+            stroke="#D2D3D4"
+            stroke-width="4"
+            fill="transparent"
+            r="70"
+            cx="80"
+            cy="80"
+          />
+
+          <!-- Circle that will change as progress is updated -->
+          <circle
+            class="progress-ring__circle"
+            stroke="#00acc1"
+            stroke-width="4"
+            stroke-dasharray="440"
+            stroke-dashoffset="440"
+            fill="transparent"
+            r="70"
+            cx="80"
+            cy="80"
+          />
+        </svg>
+        <!-- Adjust to match your data -->
+        <!-- Here, you'll insert the circular progress bar component -->
+        <!-- The actual implementation will depend on the technology you're using (CSS, JavaScript, SVG, etc.) -->
+      </div>
+      <h2>name</h2>
+      <!-- Adjust to match your data -->
+      <p class="speciality">speciality</p>
+      <!-- Adjust to match your data -->
+      <p>email</p>
+      <!-- Adjust to match your data -->
+      <p>phone_number</p>
+      <!-- Adjust to match your data -->
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script src="{% static 'doctor.js' %}"></script>
 {% endblock %}

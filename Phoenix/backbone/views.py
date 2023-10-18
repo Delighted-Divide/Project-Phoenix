@@ -17,6 +17,7 @@ def doctor(request):
 
     context = {
         'pname': "Doctor",
-        'user': request.user
+        'user': request.user,
+        'times': [i for i in range(8)]
     }
     return render(request, "doctor.html", context)
