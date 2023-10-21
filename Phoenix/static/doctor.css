@@ -9,7 +9,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  gap: 20px; /* Adjust as needed */
+  gap: 25px; /* Adjust as needed */
 }
 
 .profile-box {
@@ -23,21 +23,69 @@
 
 .profile-progress {
   position: relative;
-  width: 100px; /* Adjust as needed */
-  height: 100px; /* Adjust as needed */
+  width: 120px; /* Adjust as needed */
+  height: 120px; /* Adjust as needed */
   margin: auto;
+}
+
+.image-container {
+  /* Position and size the image container as needed, 
+     but ensure it doesn't fill the entire .profile-container */
+  width: calc(
+    100% - 30px
+  ); /* This creates a 5px space around the image. Adjust as necessary. */
+  height: calc(100% - 30px); /* Adjust as necessary */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%; /* If you want the image container to be circular */
+  overflow: hidden; /* This ensures the image respects the container's boundaries */
 }
 
 .profile-progress img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   object-fit: cover; /* This keeps your image's aspect ratio */
 }
 
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This will make the image cover the container, respecting the boundaries */
+}
+
+.progress-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.progress-ring__circle {
+  stroke-dasharray: 326; /* Circumference of the circle */
+  stroke-dashoffset: 326; /* Initially set to full to represent 0% */
+  transition: stroke-dashoffset 0.35s;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
 /* Responsive adjustments */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1600px) {
   .profile-box {
-    flex: 0 1 calc(50% - 20px); /* Adjust as needed */
+    flex: 0 1 calc(50% - 150px); /* Adjust as needed */
+  }
+  body {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .profile-container {
+    gap: 30px;
+  }
+  .content-wrapper {
+    padding-bottom: 85px;
   }
 }

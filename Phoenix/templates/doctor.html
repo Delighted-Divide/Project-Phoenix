@@ -9,7 +9,20 @@
 
     <div class="profile-box">
       <div class="profile-progress">
-        <img src="{{ user.image.url }}" alt="Doctor Profile" />
+        <svg class="progress-ring" width="120" height="120">
+          <circle
+            class="progress-ring__circle"
+            stroke="rgb(103, 125, 236)"
+            stroke-width="4"
+            fill="transparent"
+            r="52"
+            cx="60"
+            cy="60"
+          />
+        </svg>
+        <div class="image-container">
+          <img src="{{ user.image.url }}" alt="Doctor Profile" />
+        </div>
         <!-- Adjust to match your data -->
         <!-- Here, you'll insert the circular progress bar component -->
         <!-- The actual implementation will depend on the technology you're using (CSS, JavaScript, SVG, etc.) -->

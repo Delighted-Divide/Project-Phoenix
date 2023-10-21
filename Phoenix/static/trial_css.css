@@ -31,6 +31,26 @@ body {
   overflow-y: hidden;
 }
 
+#top {
+  position: fixed;
+  background-color: var(--third-color);
+  width: 100%;
+  height: var(--lay);
+  top: 0px;
+  left: 0px;
+  z-index: 2;
+}
+
+#left {
+  position: fixed;
+  background-color: var(--third-color);
+  height: 150%;
+  width: var(--lay);
+  top: 3px;
+  left: 0px;
+  z-index: 2;
+}
+
 #right {
   position: fixed;
   background-color: var(--third-color);
@@ -66,7 +86,7 @@ body {
   display: flex;
   position: fixed;
   width: 100%;
-  border-top: var(--lay) solid var(--third-color);
+  /* border-top: var(--lay) solid var(--third-color); */
   border-bottom: 1px solid rgb(18, 21, 27);
   z-index: 1;
 }
