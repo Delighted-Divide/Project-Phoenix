@@ -7,6 +7,7 @@ from django.contrib.contenttypes.models import ContentType
 import uuid
 import string
 
+
 # Create your models here.
 
 
@@ -30,6 +31,15 @@ class Doctor(models.Model):
     awards_count = models.PositiveIntegerField(default=0)
     conferences_attended_count = models.PositiveIntegerField(default=0)
     seminars_attended_count = models.PositiveIntegerField(default=0)
+    total_score = models.PositiveIntegerField(editable=False, default=0)
+
+    def save(self, *args, **kwargs) -> None:
+        w1, w2, w3, w4, w5 = 0.1, 0.3, 0.1, 0.2, 0.4
+        total_score = w1 * self.certifications + w2 * self.awards_count + w3 * \
+            self.conferences_attended_count + w4 * \
+            self.seminars_attended_count + w5 * self.publications_count
+        self.total_score = int(total_score)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         user = str(self.user).title()
@@ -230,6 +240,9 @@ class Room(models.Model):
 
     def __str__(self) -> str:
         return f"{self.room_id}"
+
+    class Meta:
+        ordering = ['-room_type']
 
 
 class Bed(models.Model):

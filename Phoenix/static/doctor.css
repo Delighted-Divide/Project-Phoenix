@@ -73,6 +73,19 @@
   transform-origin: 50% 50%;
 }
 
+.name {
+  font-size: 1.1em;
+  color: var(--third-color);
+  line-height: 1.6em;
+}
+
+.speciality {
+  font-size: 0.85em;
+}
+.degrees {
+  font-size: 0.9em;
+}
+
 /* Responsive adjustments */
 @media screen and (max-width: 1600px) {
   .profile-box {
