@@ -22,3 +22,19 @@ class CustomUser(AbstractUser):
 
     class Meta:
         get_latest_by = 'date_of_employment'
+
+
+class NameList(models.Model):
+    name = models.CharField(max_length=100)
+    gender = models.CharField(max_length=2)
+
+    class Meta:
+        ordering = ['name']
+        unique_together = ["name", "gender"]
+
+
+class LastName(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    class Meta:
+        ordering = ['name']

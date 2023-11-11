@@ -89,7 +89,6 @@ class Patient(models.Model):
     # Personal Details
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     first_name = models.CharField(max_length=100)
-    middle_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
     date_of_birth = models.DateField()
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
@@ -103,27 +102,23 @@ class Patient(models.Model):
     state = models.CharField(max_length=50)
     zip_code = models.CharField(max_length=10)
     country = models.CharField(max_length=50)
-    phone_number = models.CharField(max_length=15,)
+    phone_number = models.CharField(max_length=30)
     alternate_phone_number = models.CharField(
-        max_length=15, blank=True, null=True)
+        max_length=30, blank=True, null=True)
     email = models.EmailField(unique=True)
 
     # Medical Details
     marital_status = models.CharField(
         max_length=1, choices=MARITAL_STATUS_CHOICES)
     occupation = models.CharField(max_length=100)
-    family_medical_history = models.TextField(blank=True, null=True)
     blood_type = models.CharField(
         max_length=3, choices=BLOOD_TYPE_CHOICES, blank=True, null=True)
 
-    # Miscellaneous
     profile_picture = models.ImageField(
         upload_to='patients/', default='profile_pics\_Pure_as_Snow__White_Fashion_Delight_.jpg')
 
     def save(self, *args, **kwargs):
-        # Check if the instance is being created (i.e., doesn't have a primary key yet)
         is_new = self._state.adding
-        print(is_new)
         super().save(*args, **kwargs)
         Customer.objects.update_or_create(
             patient=self,
@@ -437,7 +432,7 @@ class PatientTest(models.Model):
 class Customer(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100, blank=True)
-    phone_number = models.CharField(max_length=15)
+    phone_number = models.CharField(max_length=30)
     email = models.EmailField(unique=True)
     patient = models.OneToOneField(
         Patient, on_delete=models.SET_NULL, null=True, blank=True, related_name="customer")

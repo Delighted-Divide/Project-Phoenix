@@ -129,7 +129,7 @@ class Command(BaseCommand):
                         'username', flat=True):
                     number = random.randint(1, 999)
                     username += str(number)
-                email = f"{username}@example.com"
+                email = f"{username}@email.com"
                 password = 'testpassword'
                 random_user_info['Birthday'] = random_user_info['Birthday'].split("T")[
                     0]

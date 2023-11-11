@@ -12,7 +12,7 @@ class Command(BaseCommand):
     help = 'Creates Rooms'
 
     def add_arguments(self, parser):
-        parser.add_argument('--GK', type=int, default=0,
+        parser.add_argument('--GW', type=int, default=0,
                             help='The number of Rooms')
         parser.add_argument('--SP', type=int, default=0,
                             help='The number of Rooms')
@@ -26,7 +26,7 @@ class Command(BaseCommand):
                             help='The number of Rooms')
 
     def handle(self, *args, **kwargs):
-        list_of_room_types = ["GK", "SP", "PR", "DL", "KD"]
+        list_of_room_types = ["GW", "SP", "PR", "DL", "KD"]
         room_dict = {room_type: kwargs[room_type] + kwargs['all']
                      for room_type in list_of_room_types}
         [Room(room_type=room_type).save()
