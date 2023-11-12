@@ -3939,8 +3939,6 @@ class Command(BaseCommand):
             "Zora",
             "Zula",
         )
-
-
         male_names = (
                 "Aaden",
                 "Aarav",

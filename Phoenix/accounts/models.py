@@ -1,6 +1,8 @@
+from typing import Any
 import uuid
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.core.files.storage import default_storage
 
 # Create your models here.
 
@@ -19,6 +21,25 @@ class CustomUser(AbstractUser):
     date_of_employment = models.DateField(auto_now_add=True)
     image = models.ImageField(
         upload_to='profile_pics/', null=True, default='profile_pics\_Pure_as_Snow__White_Fashion_Delight_.jpg')
+    
+    def delete_old_file(self):
+        try:
+            old_file = CustomUser.objects.get(pk=self.pk).image
+            if old_file and default_storage.exists(old_file.path) and old_file != self.image:
+                default_storage.delete(old_file.path)
+                print(old_file)
+        except CustomUser.DoesNotExist:
+            pass
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            self.delete_old_file()
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        if self.image and default_storage.exists(self.image.path):
+            default_storage.delete(self.image.path)
+        super().delete(*args, **kwargs)
 
     class Meta:
         get_latest_by = 'date_of_employment'

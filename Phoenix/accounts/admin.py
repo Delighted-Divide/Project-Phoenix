@@ -1,12 +1,20 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
+from django.contrib import messages
+from .models import *
 
 # Register your models here.
 
 
 class CustomUserAdmin(UserAdmin):
+    def custom_delete_users(modeladmin, request, queryset):
+        for user in queryset:
+            # Custom delete logic for users
+            user.delete()
+            messages.success(request, f"User {user.username} was successfully deleted.")
+
     model = CustomUser
+    actions = [custom_delete_users]
     list_display = ['username', 'first_name', 'last_name', 'email',
                     'phone_number', 'gender', 'birthday', 'city', 'country']
     fieldsets = (
@@ -16,5 +24,9 @@ class CustomUserAdmin(UserAdmin):
          'gender', 'birthday', 'city', 'country', 'image')}),
     )
 
+    
 
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(NameList)
+admin.site.register(LastName)
+

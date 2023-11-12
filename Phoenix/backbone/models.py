@@ -49,6 +49,72 @@ class Doctor(models.Model):
         get_latest_by = 'user__date_of_employment'
 
 
+
+class DoctorWorkShift(models.Model):
+
+    class WeekDay(models.TextChoices):
+        MONDAY = 'Monday', 'Monday'
+        TUESDAY = 'Tuesday', 'Tuesday'
+        WEDNESDAY = 'Wednesday', 'Wednesday'
+        THURSDAY = 'Thursday', 'Thursday'
+        FRIDAY = 'Friday', 'Friday'
+        SATURDAY = 'Saturday', 'Saturday'
+        SUNDAY = 'Sunday', 'Sunday'
+
+    # Unique identifier for the work shift
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    # Link to the Doctor model
+    doctor = models.ForeignKey('Doctor', on_delete=models.CASCADE, related_name='work_shifts')
+
+    # Shift details
+    day_of_week = models.CharField(max_length=9, choices=WeekDay.choices)
+    shift_start_time = models.TimeField()
+    shift_end_time = models.TimeField()
+
+
+    def __str__(self):
+        return f"{self.get_day_of_week_display()} shift for Dr. {self.doctor} from {self.shift_start_time} to {self.shift_end_time}"
+
+    class Meta:
+        ordering = ['day_of_week', 'shift_start_time']
+        unique_together = ('doctor', 'day_of_week', 'shift_start_time', 'shift_end_time')
+
+
+
+class Appointment(models.Model):
+
+
+    class AppointmentStatus(models.TextChoices):
+        SCHEDULED = 'SCHEDULED', 'Scheduled'
+        COMPLETED = 'COMPLETED', 'Completed'
+        CANCELLED = 'CANCELLED', 'Cancelled'
+
+    # Unique identifier for the appointment
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    # Link to the Doctor and Patient models
+    doctor = models.ForeignKey('Doctor', on_delete=models.CASCADE, related_name='appointments')
+    patient = models.ForeignKey('Patient', on_delete=models.CASCADE, related_name='appointments')
+
+    # Appointment details
+    appointment_date = models.DateField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    status = models.CharField(max_length=50, choices=AppointmentStatus.choices, default=AppointmentStatus.SCHEDULED)
+
+    # Record keeping
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Appointment for {self.patient} with Dr. {self.doctor} on {self.appointment_date} at {self.start_time}"
+
+    class Meta:
+        ordering = ['appointment_date', 'start_time']
+        unique_together = ('doctor', 'appointment_date', 'start_time')
+
+
+
 class Degree(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
@@ -147,7 +213,7 @@ class Patient(models.Model):
 class OutpatientVisit(models.Model):
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
     doctor = models.ForeignKey('Doctor', on_delete=models.CASCADE)
-    visit_date = models.DateTimeField(auto_now_add=True)
+    visit_date = models.DateTimeField()  #auto_now_add=True
 
     # Basic checkup details
     weight = models.DecimalField(
@@ -192,7 +258,6 @@ class OutpatientVisit(models.Model):
 
     def __str__(self):
         return f"{self.patient} with {self.doctor} -- Visit on {self.visit_date.date()}"
-
 
 class Room(models.Model):
     ROOM_TYPES = (
@@ -257,7 +322,7 @@ class DoctorVisit(models.Model):
     inpatient_visit = models.ForeignKey(
         'InpatientVisit', on_delete=models.CASCADE)
 
-    visit_date = models.DateTimeField(auto_now_add=True)
+    visit_date = models.DateTimeField()  #auto_now_add=True
     symptoms_presented = models.TextField(
         help_text="Symptoms observed or reported by the patient during the visit.")
     physical_examination_results = models.TextField(
@@ -288,7 +353,7 @@ class InpatientVisit(models.Model):
     bed = models.ForeignKey(
         'Bed', on_delete=models.SET_NULL, null=True)
 
-    admission_date = models.DateTimeField(auto_now_add=True)
+    admission_date = models.DateTimeField()  #auto_now_add=True
     discharge_date = models.DateTimeField(null=True, blank=True)
     reason_for_admission = models.TextField(
         help_text="Primary reason for the patient's admission.")
@@ -423,7 +488,7 @@ class PatientTest(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     test = GenericForeignKey('content_type', 'object_id')
-    test_date = models.DateTimeField(auto_now_add=True)
+    test_date = models.DateTimeField() #auto_now_add=True
 
     def __str__(self):
         return f"{self.test}"
