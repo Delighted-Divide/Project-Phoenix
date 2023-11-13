@@ -5,7 +5,7 @@
   <div class="profile-container">
     <!-- Example of a single doctor's profile box; repeat for each doctor -->
     <!-- Loop through your doctors data -->
-    {% for x in times %}
+    {% for doctor in doctors.object_list %}
 
     <div class="profile-box">
       <div class="profile-progress">
@@ -21,26 +21,52 @@
           />
         </svg>
         <div class="image-container">
-          <img src="{{ user.image.url }}" alt="Doctor Profile" />
+          <img src="{{ doctor.user.image.url }}" alt="Doctor Profile" />
         </div>
 
         <!-- Here, you'll insert the circular progress bar component -->
         <!-- The actual implementation will depend on the technology you're using (CSS, JavaScript, SVG, etc.) -->
       </div>
       <br />
-      <h2 class="name">Name Here</h2>
+      <h2 class="name">{{doctor.user}}</h2>
 
-      <p class="speciality">speciality</p>
-      <br />
-
-      <p class="degrees">Degree1,Degree3,Degree3</p>
+      <p class="speciality">{{doctor.speciality}}</p>
+      <br /><br />
+      <p class="degrees">{{ doctor.degrees.all|join:", " }}</p>
 
       <!-- <p class="email">email</p>
       
       <p class="phone">phone_number</p> -->
     </div>
     {% endfor %}
+    <div class="profile-box">
+      <div class="add-doctor-text">Add New<br>Doctor</div>
+      <div class="hollow-box" style="margin-bottom: 100px;">
+          <span class="plus-sign">+</span>
+      </div>
+      </div>
+    </div>
+    <div class="pagination">
+      {% if doctors.has_previous %}
+          <a href="?page=1">&laquo; First</a>
+          <a href="?page={{ doctors.previous_page_number }}">Previous</a>
+      {% endif %}
+  
+      {% for num in doctors.paginator.page_range %}
+          {% if doctors.number == num %}
+              <strong>{{ num }}</strong>
+          {% else %}
+              <a href="?page={{ num }}">{{ num }}</a>
+          {% endif %}
+      {% endfor %}
+  
+      {% if doctors.has_next %}
+          <a href="?page={{ doctors.next_page_number }}">Next</a>
+          <a href="?page={{ doctors.paginator.num_pages }}">Last &raquo;</a>
+      {% endif %}
   </div>
+  </div>
+  
 </div>
 {% endblock %} {% block extra_js %}
 <script src="{% static 'doctor.js' %}"></script>

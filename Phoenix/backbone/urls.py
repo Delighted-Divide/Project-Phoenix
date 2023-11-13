@@ -6,7 +6,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.dashboard, name="Dashboard"),
-    path('doctor/', views.doctor, name="Doctor")
+    path('doctor/', views.doctor, name="Doctor"),
+    path('profile/<uuid:user_id>/', views.doctor_profile, name='profile')
 ]
 
 if settings.DEBUG:

@@ -41,6 +41,9 @@ class CustomUser(AbstractUser):
             default_storage.delete(self.image.path)
         super().delete(*args, **kwargs)
 
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+    
     class Meta:
         get_latest_by = 'date_of_employment'
 

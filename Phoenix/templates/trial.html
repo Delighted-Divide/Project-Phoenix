@@ -36,7 +36,7 @@
           <i class="fas fa-arrow-left"></i>
           <h2>{{pname}}</h2>
         </div>
-        <div>
+        <div class="wrapper">
           {% block content %}
           {% endblock %}
         </div>
@@ -45,25 +45,25 @@
       <div id="nav-bar" >
         <div id="User">
           <div class="user-image-container">
-              <img id="user_image" src="{{ user.image.url }}" alt="User Profile Picture">
+              <a href= "{% url 'profile' user_id=user.id %}"><img id="user_image" src="{{ user.image.url }}" alt="User Profile Picture"></a>
           </div>
           <div class="user-info-container">
               <span class="welcome-text">Welcome,</span>
-              <h3 class="username">{{user.first_name|title}} {{user.last_name|title}}</h3>
+              <h3 class="username">{{user}}</h3>
           </div>
       </div>
       <div class="stat-container">
         <div class="stat">
             <small>Exp</small>
-            <p>12</p>
+            <p>{{user.doctor_profile.years_of_experience}}</p>
         </div>
         <div class="stat">
             <small>Awards</small>
-            <p>35</p>
+            <p>{{user.doctor_profile.awards_count}}</p>
         </div>
         <div class="stat">
             <small>Clients</small>
-            <p>500</p>
+            <p>{{user.doctor_profile.number_of_patients_treated}}</p>
         </div>
     </div>
     <div>

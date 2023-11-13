@@ -87,12 +87,32 @@ function navBarOut(nav, con) {
   nav.style.left = "-250px";
   con.style.left = "0";
   con.style.width = "100%";
+  doctor_page_content_wrapper = document.querySelector(".content-wrapper");
+  if (doctor_page_content_wrapper) {
+    // console.log(document.querySelector(".content-wrapper"));
+    doctor_page_content_wrapper.style.width = "100%";
+  }
+  doctor_profile_content_wrapper = document.querySelector(".content");
+  if (doctor_profile_content_wrapper) {
+    // console.log(document.querySelector(".content-wrapper"));
+    doctor_profile_content_wrapper.style.width = "100%";
+  }
 }
 
 function navBarIn(nav, con) {
   nav.style.left = "0px";
   con.style.left = "250px";
   con.style.width = "calc(100% - 250px)";
+  doctor_page_content_wrapper = document.querySelector(".content-wrapper");
+  if (doctor_page_content_wrapper) {
+    // console.log(document.querySelector(".content-wrapper"));
+    doctor_page_content_wrapper.style.width = "90%";
+  }
+  doctor_profile_content_wrapper = document.querySelector(".content");
+  if (doctor_profile_content_wrapper) {
+    // console.log(document.querySelector(".content-wrapper"));
+    doctor_profile_content_wrapper.style.width = "90%";
+  }
 }
 
 window.addEventListener("resize", function () {
@@ -123,7 +143,7 @@ var removeNav = document.querySelector("#page-title i");
 removeNav.addEventListener("click", function () {
   const navBar = document.getElementById("nav-bar");
   const mainContent = document.getElementById("main_content");
-  console.log(this);
+
   if (navOpen) {
     this.className = "fas fa-arrow-right";
     navBarOut(navBar, mainContent);

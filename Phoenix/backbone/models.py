@@ -44,6 +44,10 @@ class Doctor(models.Model):
     def __str__(self):
         user = str(self.user).title()
         return f"Dr. {user}"
+    
+    def number_of_patients_treated(self):
+        # This will return the count of unique patients treated by the doctor
+        return OutpatientVisit.objects.filter(doctor=self).values('patient').distinct().count()
 
     class Meta:
         get_latest_by = 'user__date_of_employment'

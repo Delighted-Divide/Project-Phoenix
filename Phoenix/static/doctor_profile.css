@@ -1,0 +1,125 @@
+.profile-container {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--primary-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  max-width: 1200px;
+  margin: 40px auto;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.profile-image-container {
+  flex: 0 0 25%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-image {
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.doctor-name {
+  font-size: 2.5em;
+  color: var(--third-color);
+  margin-bottom: 0.15em;
+}
+
+.specialty {
+  font-size: 1.5em;
+  color: #555555;
+  margin-bottom: 0.6em;
+}
+
+p {
+  line-height: 1.5;
+}
+.achievements {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  padding: 0 10px; /* Adjust the padding as needed */
+}
+
+.achievements p {
+  flex: 1; /* Each paragraph takes up equal space */
+  margin: 0; /* Remove default margin */
+}
+
+/* .achievements strong {
+  
+} */
+
+.achievements span {
+  display: inline-block;
+  margin-left: 5px; /* Optional spacing between label and value */
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-image-container,
+  .profile-content {
+    width: 100%;
+  }
+}
+
+.detailed-info-section {
+  background: var(--primary-color);
+  margin: 2rem auto;
+  padding: 1rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  max-width: 1200px;
+}
+
+.section-title {
+  text-align: left;
+  font-size: 1.5rem;
+  color: var(--third-color);
+  margin: 1rem;
+}
+
+.info-boxes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.info-box {
+  background: rgb(25, 31, 40);
+  border: none;
+  border-radius: 5px;
+  padding: 1rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .info-boxes {
+    grid-template-columns: 1fr;
+  }
+}

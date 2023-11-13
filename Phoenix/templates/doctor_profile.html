@@ -1,0 +1,105 @@
+{% extends 'trial.html' %} {% block extra_css %} {% load static %}
+<link rel="stylesheet" href="{% static 'doctor_profile.css' %}" />
+{% endblock %} {% block content %}
+<div class="content">
+  <div class="profile-container">
+    <div class="profile-image-container">
+      <img
+        src="{{ profile.image.url }}"
+        alt="Doctor's Profile Picture"
+        class="profile-image"
+      />
+    </div>
+    <div class="profile-content">
+      <h1 class="doctor-name">{{profile.doctor_profile}}</h1>
+      <p class="specialty">{{profile.doctor_profile.speciality}}</p>
+
+      <p>
+        <strong>Other speciality:</strong>
+        {{profile.doctor_profile.subspecialities.all|join:", " }}
+      </p>
+      <p>
+        <strong>Degree:</strong>
+        {{profile.doctor_profile.degrees.all|join:", " }}
+      </p>
+      <div class="achievements">
+        <p>
+          <strong>Awards:</strong>
+          <span>{{ profile.doctor_profile.awards_count }}</span>
+        </p>
+        <p>
+          <strong>Seminars:</strong>
+          <span>{{ profile.doctor_profile.seminars_attended_count }}</span>
+        </p>
+        <p>
+          <strong>Publications:</strong>
+          <span>{{ profile.doctor_profile.publications_count }}</span>
+        </p>
+        <p>
+          <strong>Certifications:</strong>
+          <span>{{ profile.doctor_profile.certifications }}</span>
+        </p>
+        <p>
+          <strong>Conferences:</strong>
+          <span>{{profile.doctor_profile.conferences_attended_count}}</span>
+        </p>
+      </div>
+      <!-- <p>
+        <strong>Seminars:</strong>
+        {{profile.doctor_profile.seminars_attended_count}}
+      </p>
+      <p>
+        <strong>Publications:</strong>
+        {{profile.doctor_profile.publications_count}}
+      </p>
+      <p>
+        <strong>Certifications:</strong>
+        {{profile.doctor_profile.certifications}}
+      </p>
+      <p>
+        <strong>Conferences:</strong>
+        {{profile.doctor_profile.conferences_attended_count}}
+      </p> -->
+      <p class="info-row">
+        <span class="info-item">
+          <strong>Date of Employment:</strong> {{ profile.date_of_employment }}
+        </span>
+        <span class="info-item">
+          <strong>Years of Experience:</strong>
+          {{profile.doctor_profile.years_of_experience }}
+        </span>
+      </p>
+      <!-- <p><strong>Date of Employment:</strong> {{profile.date_of_employment}}</p> -->
+      <!-- <p><strong>Date of Birth:</strong> {{profile.birthday}}</p>
+      <p><strong>Email:</strong> {{profile.email}}</p>
+      <p><strong>Phone:</strong> {{profile.phone_number}}</p>
+      <p><strong>City:</strong> {{profile.city}}</p>
+      <p><strong>Country:</strong> {{profile.country}}</p>
+      <p><strong>Address:</strong> {{profile.address}}</p> -->
+    </div>
+  </div>
+  <div class="detailed-info-section">
+    <h2 class="section-title">Detailed Information</h2>
+    <div class="info-boxes">
+      <div class="info-box">Education</div>
+      <div class="info-box">Clinical Skills</div>
+      <div class="info-box">Certifications</div>
+      <div class="info-box">Research</div>
+      <div class="info-box">Research</div>
+      <div class="info-box">Research</div>
+      <div class="info-box">Research</div>
+      <div class="info-box">Research</div>
+      <div class="info-box">Research</div>
+      <div class="info-box">Research</div>
+
+      <!-- More boxes can be added as needed -->
+    </div>
+  </div>
+</div>
+{{ profile_json|json_script:"profile-data" }} {% endblock %} {% block extra_js%}
+<script src="{% static 'doctor_profile.js' %}"></script>
+<!-- <script>
+  let profile = document.getElementById("profile-data").textContent;
+  console.log(profile);
+</script> -->
+{% endblock %}

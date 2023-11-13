@@ -2,7 +2,7 @@
 
 .content-wrapper {
   padding-top: 60px; /* Adjust based on your navbar's actual height */
-  width: 85%;
+  width: 90%;
 }
 
 .profile-container {
@@ -101,4 +101,68 @@
   .content-wrapper {
     padding-bottom: 85px;
   }
+}
+
+.add-doctor-text {
+  position: relative;
+  text-align: center;
+  top: 27%;
+  font-size: 16px;
+  color: rgb(153, 153, 153);
+  align-self: flex-start; /* Align text to the top */
+  font-weight: bolder;
+}
+
+.hollow-box {
+  position: relative;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 15%; /* Adjust size as needed */
+  height: 20%; /* Adjust size as needed */
+  border: 2px solid var(--third-color); /* Adjust border color and thickness as needed */
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+  align-items: center;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.plus-sign {
+  font-size: 18px; /* Adjust size as needed */
+  color: rgb(153, 153, 153); /* Adjust color as needed */
+}
+
+.hollow-box:hover {
+  background-color: var(--third-color); /* Change to desired hover color */
+  cursor: pointer;
+}
+
+.hollow-box:hover .plus-sign {
+  color: var(--primary-color); /* Change plus sign color on hover */
+}
+
+.pagination {
+  text-align: center; /* Center align pagination */
+  padding: 20px 0; /* Add some padding */
+  margin-top: 20px; /* Space above pagination */
+}
+
+.pagination a,
+.pagination strong {
+  display: inline-block;
+  padding: 8px 16px; /* Adjust size of pagination links */
+  margin: 2px 0px; /* Space between pagination links */
+  border: 1px solid #ddd; /* Border for links */
+  text-decoration: none; /* Remove underline from links */
+  color: #666; /* Text color */
+}
+
+.pagination strong {
+  background-color: #eee; /* Background for current page */
+  border-color: #bbb; /* Border color for current page */
+}
+
+.pagination a:hover {
+  background-color: #ddd; /* Hover effect for links */
 }
