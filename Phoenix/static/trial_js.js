@@ -11,6 +11,9 @@ menu.classList.add("li-active");
 let page_color = document.querySelectorAll("#colors li")[1];
 page_color.classList.add("li-active");
 
+let page_color2 = document.querySelectorAll("#colors2 li")[2];
+page_color2.classList.add("li-active");
+
 // _________________________________________________________________________________________________________________________________________
 // _________________________________________________________________________________________________________________________________________
 // _________________________________________________________________________________________________________________________________________
@@ -71,6 +74,20 @@ color_lists.forEach(function (list) {
     });
     document.documentElement.style.setProperty(
       "--third-color",
+      this.firstElementChild.style.backgroundColor
+    );
+    this.classList.add("li-active");
+  });
+});
+
+var color_lists2 = document.querySelectorAll("#colors2 li");
+color_lists2.forEach(function (list) {
+  list.addEventListener("click", function () {
+    color_lists2.forEach(function (inactiveList) {
+      inactiveList.classList.remove("li-active");
+    });
+    document.documentElement.style.setProperty(
+      "--fifth-color",
       this.firstElementChild.style.backgroundColor
     );
     this.classList.add("li-active");

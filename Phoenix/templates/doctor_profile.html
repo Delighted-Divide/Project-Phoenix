@@ -12,16 +12,27 @@
     </div>
     <div class="profile-content">
       <h1 class="doctor-name">{{profile.doctor_profile}}</h1>
-      <p class="specialty">{{profile.doctor_profile.speciality}}</p>
+      <p class="specialty">{{profile.doctor_profile.speciality|title}}</p>
 
       <p>
-        <strong>Other speciality:</strong>
+        <strong>Other Speciality:</strong>
         {{profile.doctor_profile.subspecialities.all|join:", " }}
       </p>
       <p>
         <strong>Degree:</strong>
         {{profile.doctor_profile.degrees.all|join:", " }}
       </p>
+
+      <p class="info-row">
+        <span class="info-item">
+          <strong>Date of Employment:</strong> {{ profile.date_of_employment }}
+        </span>
+        <span class="info-item">
+          <strong>Years of Experience:</strong>
+          {{profile.doctor_profile.years_of_experience }}
+        </span>
+      </p>
+
       <div class="achievements">
         <p>
           <strong>Awards:</strong>
@@ -35,10 +46,10 @@
           <strong>Publications:</strong>
           <span>{{ profile.doctor_profile.publications_count }}</span>
         </p>
-        <p>
+        <!-- <p>
           <strong>Certifications:</strong>
           <span>{{ profile.doctor_profile.certifications }}</span>
-        </p>
+        </p> -->
         <p>
           <strong>Conferences:</strong>
           <span>{{profile.doctor_profile.conferences_attended_count}}</span>
@@ -60,15 +71,7 @@
         <strong>Conferences:</strong>
         {{profile.doctor_profile.conferences_attended_count}}
       </p> -->
-      <p class="info-row">
-        <span class="info-item">
-          <strong>Date of Employment:</strong> {{ profile.date_of_employment }}
-        </span>
-        <span class="info-item">
-          <strong>Years of Experience:</strong>
-          {{profile.doctor_profile.years_of_experience }}
-        </span>
-      </p>
+
       <!-- <p><strong>Date of Employment:</strong> {{profile.date_of_employment}}</p> -->
       <!-- <p><strong>Date of Birth:</strong> {{profile.birthday}}</p>
       <p><strong>Email:</strong> {{profile.email}}</p>
@@ -79,18 +82,51 @@
     </div>
   </div>
   <div class="detailed-info-section">
-    <h2 class="section-title">Detailed Information</h2>
+    <h2 class="section-title">Personal Information</h2>
     <div class="info-boxes">
-      <div class="info-box">Education</div>
-      <div class="info-box">Clinical Skills</div>
-      <div class="info-box">Certifications</div>
-      <div class="info-box">Research</div>
-      <div class="info-box">Research</div>
-      <div class="info-box">Research</div>
-      <div class="info-box">Research</div>
-      <div class="info-box">Research</div>
-      <div class="info-box">Research</div>
-      <div class="info-box">Research</div>
+      <div class="info-box" onclick="toggleInfo(this, '{{profile.gender}}')">
+        Gender
+      </div>
+      <div
+        class="info-box"
+        onclick="toggleInfo(this, '{{profile.email}}')"
+        style="font-size: 0.8em"
+      >
+        Email
+      </div>
+      <div
+        class="info-box"
+        onclick="toggleInfo(this, '{{profile.phone_number}}')"
+      >
+        Phone
+      </div>
+      <div class="info-box" onclick="toggleInfo(this, '{{profile.city}}')">
+        City
+      </div>
+      <div class="info-box" onclick="toggleInfo(this, '{{profile.country}}')">
+        Country
+      </div>
+      <div
+        class="info-box"
+        onclick="toggleInfo(this, '{{profile.nationality}}')"
+      >
+        Nationality
+      </div>
+      <div class="info-box" onclick="toggleInfo(this, '{{profile.language}}')">
+        Language
+      </div>
+      <div class="info-box" onclick="toggleInfo(this, '{{profile.birthday}}')">
+        DOB
+      </div>
+      <div
+        class="info-box"
+        onclick="toggleInfo(this, '{{profile.marital_status}}')"
+      >
+        Martial Status
+      </div>
+      <div class="info-box" onclick="toggleInfo(this, '{{profile.hobby}}')">
+        Hobby
+      </div>
 
       <!-- More boxes can be added as needed -->
     </div>

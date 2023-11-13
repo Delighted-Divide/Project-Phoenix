@@ -43,13 +43,12 @@
 }
 
 p {
-  line-height: 1.5;
+  line-height: 2.5;
+  font-size: 1.2em;
 }
 .achievements {
   display: flex;
   justify-content: space-between;
-  text-align: center;
-  padding: 0 10px; /* Adjust the padding as needed */
 }
 
 .achievements p {
@@ -57,18 +56,18 @@ p {
   margin: 0; /* Remove default margin */
 }
 
-/* .achievements strong {
-  
-} */
+strong {
+  color: var(--fifth-color);
+}
 
 .achievements span {
   display: inline-block;
-  margin-left: 5px; /* Optional spacing between label and value */
 }
 
 .info-row {
   display: flex;
   justify-content: space-between;
+  text-align: center;
 }
 
 @media (max-width: 768px) {

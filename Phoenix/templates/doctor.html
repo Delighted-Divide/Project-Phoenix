@@ -21,7 +21,7 @@
           />
         </svg>
         <div class="image-container">
-          <img src="{{ doctor.user.image.url }}" alt="Doctor Profile" />
+          <a href="{% url 'profile' user_id=doctor.user.id %}"><img src="{{ doctor.user.image.url }}" alt="Doctor Profile" /></a>
         </div>
 
         <!-- Here, you'll insert the circular progress bar component -->

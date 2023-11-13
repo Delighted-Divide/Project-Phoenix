@@ -20,6 +20,7 @@
   --secondary-color: rgb(153, 153, 153);
   --third-color: rgb(103, 125, 236);
   --fourth-color: rgb(18, 21, 27);
+  --fifth-color: rgb(80, 211, 138);
   --lay: 4px;
 }
 
@@ -326,12 +327,14 @@ body {
   display: block;
 }
 
-#settings #colors {
+#settings #colors,
+#settings #colors2 {
   display: flex;
   flex-direction: column;
 }
 
-#settings #colors li {
+#settings #colors li,
+#settings #colors2 li {
   display: flex;
   flex-direction: row;
   margin: 2px;
@@ -340,7 +343,8 @@ body {
   line-height: 2em;
 }
 
-#settings #colors li div {
+#settings #colors li div,
+#settings #colors2 li div {
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -348,11 +352,13 @@ body {
   margin: 5px;
 }
 
-#settings #colors li.li-active i {
+#settings #colors li.li-active i,
+#settings #colors2 li.li-active i {
   display: inline;
 }
 
-#colors div i {
+#colors div i,
+#colors2 div i {
   color: white;
   display: none;
   position: relative;

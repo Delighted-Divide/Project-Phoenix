@@ -21,7 +21,7 @@ class CustomUserAdmin(UserAdmin):
         (None, {'fields': ('username', 'email', 'password')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
         ('Personal Info', {'fields': ('first_name', 'last_name', 'address', 'phone_number',
-         'gender', 'birthday', 'city', 'country', 'image')}),
+         'gender', 'birthday', 'city', 'country','nationality','language','hobby','marital_status', 'image')}),
     )
 
     
