@@ -114,6 +114,7 @@ strong {
   text-align: center;
   font-weight: 500;
   cursor: pointer;
+  transition: background-color 1s ease, color 1s ease;
 }
 
 /* Responsive Layout */

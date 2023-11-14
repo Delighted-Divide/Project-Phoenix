@@ -41,9 +41,9 @@
     {% endfor %}
     <div class="profile-box">
       <div class="add-doctor-text">Add New<br>Doctor</div>
-      <div class="hollow-box" style="margin-bottom: 100px;">
-          <span class="plus-sign">+</span>
-      </div>
+      <a href="{% url 'addDoc' %}" style="text-decoration: none;"><div class="hollow-box" style="margin-bottom: 100px;">
+        <span class="plus-sign">+</span>
+    </div></a>
       </div>
     </div>
     <div class="pagination">

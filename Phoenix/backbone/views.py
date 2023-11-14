@@ -1,9 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.core.paginator import Paginator
 from .models import *
+from .forms import DoctorForm
+from accounts.forms import CustomUserForm
 from accounts.models import CustomUser
 from django.core import serializers
 from django.http import JsonResponse
+from django.contrib.auth.hashers import make_password
 # Create your views here.
 
 
@@ -42,3 +45,30 @@ def doctor_profile(request,user_id  ):
         'profile_json': user_json
     }
     return render(request, "doctor_profile.html", context)
+
+
+def register(request):
+    
+    if request.method == 'POST':
+        user_form = CustomUserForm(request.POST,request.FILES, prefix='user')
+        doctor_form = DoctorForm(request.POST, prefix='doctor')
+        if user_form.is_valid() and doctor_form.is_valid():
+            print('helo')
+            user = user_form.save(commit=False)
+            default_password = 'testpassword'  # Choose a strong default password
+            user.password = make_password(default_password)
+            user.save()
+            doctor = doctor_form.save(commit=False)
+            doctor.user = user  # Assuming a one-to-one relationship
+            doctor.save()
+            doctor_form.save_m2m()
+            return redirect('Dashboard')
+    else:
+        user_form = CustomUserForm(prefix='user')
+        doctor_form = DoctorForm(prefix='doctor')
+        print(doctor_form)
+
+    context = {'pname':"Doctor User Creation",'user_form': user_form, 'doctor_form': doctor_form}
+    return render(request, 'user.html', context)
+
+
