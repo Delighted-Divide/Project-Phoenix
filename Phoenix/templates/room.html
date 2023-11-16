@@ -1,0 +1,71 @@
+{% extends 'trial.html' %} {% block extra_css %} {% load static %}
+<link rel="stylesheet" href="{% static 'room.css' %}" />
+{% endblock %} {% block content %} {% load custom_filters %}
+<div class="content-wrapper">
+    <div class="size-adjust">
+        <form id="searchForm" method="get" action="">
+            <div class="search-container">
+                <select id="roomType" name="roomType">
+                    <option value="">------------</option>
+                    <option value="GW" {% if request.GET.roomType == "GW" %}selected{% endif %}>General Ward</option>
+                    <option value="SP" {% if request.GET.roomType == "SP" %}selected{% endif %}>Semi Private</option>
+                    <option value="PR" {% if request.GET.roomType == "PR" %}selected{% endif %}>Private</option>
+                    <option value="DL" {% if request.GET.roomType == "DL" %}selected{% endif %}>Delux</option>
+                    <option value="KD" {% if request.GET.roomType == "KD" %}selected{% endif %}>King's Delux</option>
+                    
+                </select>
+                <input type="text" id="searchBox" name = "searchQuery" placeholder="Search Rooms...">
+                <!-- <button id="searchButton">Search</button> -->
+            </div>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Room ID</th>
+                    <th>Room Type</th>
+                    <th>Bed Count</th>
+                    <th>Occupied Beds</th>
+                    <th>Available Beds</th>
+                    <th style="text-align: center;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for room in rooms.object_list %}
+                <tr>
+                <td class="room-id">{{room.room_id}}</td>
+                <td class="room-type">{{room.get_room_type_display}}</td>
+                <td class="room-bed_count">{{room.available_beds}}</td>
+                <td class="room-occupied">{{room.bed_occupancy_details|length}}</td>
+                <td class="room-available">{{room.list_available_beds.all|join:" , "}}</td>
+                <td class="room-status {% if room.status == 'RD' %}status-ready{% elif room.status == 'DM' %}status-damaged{% elif room.status == 'MT' %}status-maintenance{% endif %}">
+                    {{ room.get_status_display }}
+                </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="pagination">
+            {% if rooms.has_previous %}
+                <a href="?page=1&roomType={{ request.GET.roomType }}&searchQuery={{ request.GET.searchQuery }}">&laquo; First</a>
+                <a href="?page={{ rooms.previous_page_number }}&roomType={{ request.GET.roomType }}&searchQuery={{ request.GET.searchQuery }}">Previous</a>
+            {% endif %}
+        
+            {% for num in rooms.paginator.page_range %}
+                {% if rooms.number == num %}
+                    <strong>{{ num }}</strong>
+                {% else %}
+                    <a href="?page={{ num }}&roomType={{ request.GET.roomType }}&searchQuery={{ request.GET.searchQuery }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+        
+            {% if rooms.has_next %}
+                <a href="?page={{ rooms.next_page_number }}&roomType={{ request.GET.roomType }}&searchQuery={{ request.GET.searchQuery }}">Next</a>
+                <a href="?page={{ rooms.paginator.num_pages }}&roomType={{ request.GET.roomType }}&searchQuery={{ request.GET.searchQuery }}">Last &raquo;</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script src="{% static 'room.js' %}"></script>
+{% endblock %}

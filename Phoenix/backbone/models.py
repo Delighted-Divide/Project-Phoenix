@@ -186,7 +186,23 @@ class Patient(models.Model):
 
     profile_picture = models.ImageField(
         upload_to='patients/', default='profile_pics\_Pure_as_Snow__White_Fashion_Delight_.jpg')
+    
 
+    def get_last_outpatient_visit_date(self):
+        last_visit = self.outpatientvisit_set.order_by('-visit_date').first()
+        return last_visit.visit_date if last_visit else None
+    
+    def get_inpatient_status(self):
+        last_inpatient_visit = self.inpatientvisit_set.order_by('-admission_date').first()
+        if last_inpatient_visit is None:
+            return "No History"
+        elif last_inpatient_visit.discharge_date is None:
+            return "Admitted"
+        else:
+            return "Discharged"
+        
+        
+    
     def save(self, *args, **kwargs):
         is_new = self._state.adding
         super().save(*args, **kwargs)
@@ -264,12 +280,18 @@ class OutpatientVisit(models.Model):
         return f"{self.patient} with {self.doctor} -- Visit on {self.visit_date.date()}"
 
 class Room(models.Model):
+
+    class StatusChoices(models.TextChoices):
+        READY = 'RD', 'Ready'
+        MAINTENANCE = 'MT', 'Maintenance'
+        DAMAGED = 'DM', 'Damaged'
+    
     ROOM_TYPES = (
         ('GW', 'General Ward'),
         ('SP', 'Semi Private'),
         ('PR', 'Private'),
         ('DL', 'Delux'),
-        ('KD', 'King\'s Delux'),
+        ('KD', 'King\'s Delux')
     )
 
     BED_COUNTS = {
@@ -281,11 +303,24 @@ class Room(models.Model):
     }
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    room_type = models.CharField(max_length=2, choices=ROOM_TYPES)
+    room_type = models.CharField(max_length=3, choices=ROOM_TYPES)
     room_id = models.CharField(
         max_length=10, unique=True, blank=True, editable=False)
+    price = models.DecimalField(max_digits=10, decimal_places=2, editable=False, default=0)
+    status = models.CharField(
+        max_length=2,
+        choices=StatusChoices.choices,
+        default=StatusChoices.READY,
+    )
 
     def save(self, *args, **kwargs):
+        ROOM_PRICES = {
+            'GW': 1000,  # General Ward
+            'SP': 3500,  # Semi Private
+            'PR': 5000,  # Private
+            'DL': 6500,  # Deluxe
+            'KD': 8000,  # King's Deluxe
+        }
         is_new = not self.room_id
         if not self.room_id:
             # Get the prefix from the room type
@@ -294,6 +329,8 @@ class Room(models.Model):
             count = Room.objects.filter(room_type=self.room_type).count() + 1
             # Construct the room_id
             self.room_id = f"{prefix}{count:03}"
+            self.price = ROOM_PRICES.get(self.room_type, 0)
+
         super().save(*args, **kwargs)
         if is_new:
             # If it's a new room, create the beds for it
@@ -304,6 +341,25 @@ class Room(models.Model):
 
     def __str__(self) -> str:
         return f"{self.room_id}"
+    
+    def available_beds(self):
+        """Return the number of available beds in the room."""
+        return self.bed_set.filter(is_occupied=False).count()
+
+    def list_available_beds(self):
+        """List all available beds in the room."""
+        return self.bed_set.filter(is_occupied=False).values_list('bed_label', flat=True)
+
+    def bed_occupancy_details(self):
+        """Return details of occupied beds and associated inpatient visits."""
+        details = {}
+        for bed in self.bed_set.filter(is_occupied=True):
+            inpatient_visit = InpatientVisit.objects.filter(bed=bed).first()
+            details[bed.bed_label] = {
+                "Patient": inpatient_visit.patient if inpatient_visit else "Unoccupied",
+                "Admission Date": inpatient_visit.admission_date if inpatient_visit else None
+            }
+        return details
 
     class Meta:
         ordering = ['-room_type']
@@ -371,6 +427,8 @@ class InpatientVisit(models.Model):
         blank=True, null=True, help_text="Any surgeries or operations the patient has undergone in the past.")
     medication_history = models.TextField(
         blank=True, null=True, help_text="List of medications the patient was on before admission.")
+    was_emergency = models.BooleanField(
+        default=False, help_text="Indicates if the visit was due to an emergency situation.")
     organ_donor = models.BooleanField(default=False)
     tobacco_use = models.BooleanField(default=False)
     alcohol_use = models.BooleanField(default=False)
@@ -398,6 +456,8 @@ class InpatientVisit(models.Model):
         max_length=50, blank=True, null=True)
     notes = models.TextField(blank=True, null=True,
                              help_text="Any additional notes or observations.")
+    
+
 
     def clean(self):
         errors = {}
@@ -455,6 +515,39 @@ class InpatientVisit(models.Model):
     def __str__(self):
         return f"Inpatient Visit for {self.patient.first_name} {self.patient.last_name} on {self.admission_date}"
 
+
+class Surgery(models.Model):
+
+    SURGERY_STATUS = (
+        ('PLANNED', 'Planned'),
+        ('IN_PROGRESS', 'In Progress'),
+        ('SUCCESS', 'Success'),
+        ('FAILURE', 'Failure'),
+        ('CANCELLED', 'Cancelled'),
+    )
+
+
+    surgery_name = models.CharField(max_length=200)
+    lead_doctor = models.ForeignKey(Doctor, related_name='lead_surgeries', on_delete=models.SET_NULL,null=True)
+    assisting_doctors = models.ManyToManyField(Doctor, related_name='assisting_surgeries')
+    inpatient_visit = models.ForeignKey(InpatientVisit, on_delete=models.CASCADE)
+    operating_room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True, limit_choices_to={'room_type': 'ICU'})
+    scheduled_time = models.DateTimeField()
+    duration = models.DurationField()
+    status = models.CharField(max_length=12, choices=SURGERY_STATUS, default='PLANNED')
+
+    def clean(self):
+        # Custom validation to ensure the room is ICU
+        if self.operating_room and self.operating_room.room_type != 'ICU':
+            raise ValidationError('The room must be an ICU for surgeries.')
+        
+    def __str__(self):
+        return f"{self.surgery_type} for {self.patient.name} on {self.scheduled_time.strftime('%Y-%m-%d')}"
+    
+    class Meta:
+        ordering = ['scheduled_time']
+        
+    
 
 class Lab(models.Model):
     name = models.CharField(max_length=200, unique=True)

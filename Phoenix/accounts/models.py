@@ -19,16 +19,16 @@ class CustomUser(AbstractUser):
     city = models.CharField(max_length=100, blank=True)
     country = models.CharField(max_length=100, blank=True)
     date_of_employment = models.DateField(auto_now_add=True)
-    nationality = models.CharField(max_length=100, default='US')
-    language = models.CharField(max_length=100, default='English')
-    marital_status = models.CharField(max_length=50, default='Married', choices=[
+    nationality = models.CharField(max_length=100, blank=True)
+    language = models.CharField(max_length=100, blank=True)
+    marital_status = models.CharField(max_length=50, choices=[
         ('Single', 'Single'),
         ('Married', 'Married'),
         ('Divorced', 'Divorced'),
         ('Widowed', 'Widowed'),
         ('Other', 'Other'),
-    ])
-    hobby = models.CharField(max_length=255, default='Gaming')
+    ], blank=True)
+    hobby = models.CharField(max_length=255, blank=True)
     image = models.ImageField(
         upload_to='profile_pics/', null=True, default='profile_pics\_Pure_as_Snow__White_Fashion_Delight_.jpg')
     

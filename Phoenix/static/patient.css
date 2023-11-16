@@ -1,0 +1,108 @@
+#content-wrapper {
+  width: 97%;
+}
+
+.cont {
+  background-color: var(--primary-color);
+  align-items: center;
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  color: white;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 20px;
+}
+
+/* table,
+th,
+td {
+  border: 1px solid #ddd;
+} */
+
+th,
+td {
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: rgb(33, 37, 41);
+  line-height: 1.25em;
+}
+
+tr {
+  line-height: 1.8em;
+}
+
+.patient-status-header {
+  text-align: center;
+}
+
+
+.patient-status {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.status-admitted {
+  color: var(--third-color);
+  border: 1px solid var(--third-color);
+  border-radius: 4px;
+}
+
+.status-discharged {
+  color: var(--fifth-color);
+  border: 1px solid var(--fifth-color);
+
+  border-radius: 4px;
+}
+
+
+
+/* .patient-status::before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+} */
+
+.patient-status div {
+  display: inline-block;
+  height: auto;
+  width: 90px;
+  vertical-align: middle;
+}
+
+
+.pagination {
+  text-align: center; /* Center align pagination */
+  padding: 20px 0; /* Add some padding */
+  margin-top: 20px; /* Space above pagination */
+}
+
+.pagination a,
+.pagination strong {
+  display: inline-block;
+  padding: 8px 16px; /* Adjust size of pagination links */
+  margin: 2px 0px; /* Space between pagination links */
+  border: 1px solid #ddd; /* Border for links */
+  text-decoration: none; /* Remove underline from links */
+  color: #666; /* Text color */
+}
+
+.pagination strong {
+  background-color: #eee; /* Background for current page */
+  border-color: #bbb; /* Border color for current page */
+}
+
+.pagination a:hover {
+  background-color: #ddd; /* Hover effect for links */
+}
+
+

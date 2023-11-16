@@ -1,0 +1,111 @@
+body{
+    overflow-y: auto;
+}
+
+.content-wrapper{
+    margin: 20px;
+}
+
+.size-adjust{
+    width: 94%;
+}
+.search-container {
+    margin-bottom: 20px;
+}
+
+#roomType, #searchBox {
+    padding: 8px;
+    margin-right: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* #searchButton {
+    padding: 8px 16px;
+    background-color: var(--third-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+} */
+
+#searchButton:hover {
+    background-color: var(--fifth-color);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: none;
+}
+
+/* table, th, td {
+    border: 1px solid #ddd;
+} */
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    background-color: var(--third-color);
+    color: white;
+}
+
+tr{
+    line-height: 1.6em;
+}
+
+
+.room-status {
+
+    padding: 5px 10px;
+    color: white;
+    text-align: center;
+    margin: 10px; /* Adjust as needed */
+ 
+}
+
+.status-ready {
+    background-color: var(--fifth-color);
+
+}
+
+.status-damaged {
+    background-color: red;
+}
+
+.status-maintenance {
+
+    background-color: yellow;
+
+}
+
+
+.pagination {
+    text-align: center; /* Center align pagination */
+    padding: 20px 0; /* Add some padding */
+    margin-top: 20px; /* Space above pagination */
+  }
+  
+  .pagination a,
+  .pagination strong {
+    display: inline-block;
+    padding: 8px 16px; /* Adjust size of pagination links */
+    margin: 2px 0px; /* Space between pagination links */
+    border: 1px solid #ddd; /* Border for links */
+    text-decoration: none; /* Remove underline from links */
+    color: #666; /* Text color */
+  }
+  
+  .pagination strong {
+    background-color: #eee; /* Background for current page */
+    border-color: #bbb; /* Border color for current page */
+  }
+  
+  .pagination a:hover {
+    background-color: #ddd; /* Hover effect for links */
+  }
+  

@@ -1,0 +1,63 @@
+{% extends 'trial.html' %} {% block extra_css %} {% load static %}
+<link rel="stylesheet" href="{% static 'patient.css' %}" />
+{% endblock %} {% block content %} {% load custom_filters %}
+<div class="cont">
+  <div id="content-wrapper">
+    <h4 style="padding: 25px; padding-bottom: 0px">Patients List</h4>
+    <table>
+      <thead>
+        <tr>
+          <th class="patient-index-header">ID</th>
+          <th class="patient-name-header">Name</th>
+          <th class="patient-age-header">Age</th>
+          <th class="patient-gender-header">Gender</th>
+          <th class="patient-address-header">Address</th>
+          <th class="patient-phone-header">Phone Number</th>
+          <th class="patient-history-header">Last Visit</th>
+          <th class="patient-status-header">Status</th>
+      </tr>
+      </thead>
+      <tbody>
+        {% for patient in patients.object_list %}
+        <tr>
+          <td class="patient-index">{{ forloop.counter|add:start_index }}</td>
+        <td class="patient-name">{{patient.first_name}} {{patient.last_name}}</td>
+        <td class="patient-age">{{patient.date_of_birth|calculate_age}}</td>
+        <td class="patient-gender">{{patient.gender}}</td>
+        <td class="patient-address">{{patient.address}}</td>
+        <td class="patient-phone">{{patient.phone_number}}</td>
+        <td class="patient-history">
+            {% if patient.get_last_outpatient_visit_date %}
+                {{patient.get_last_outpatient_visit_date|date:"Y-m-d" }}
+            {% else %}
+                No History
+            {% endif %} 
+        </td>
+        <!-- <td class="patient-status"><div>{{ patient.get_inpatient_status }}</div></td> -->
+        <td class="patient-status">
+          <div class="{% if patient.get_inpatient_status == 'Admitted' %}status-admitted{% elif patient.get_inpatient_status == 'Discharged' %}status-discharged{% else %}status-none{% endif %}">
+              {{ patient.get_inpatient_status }}
+          </div>
+      </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination">
+    {% if patients.has_previous %}
+    <a href="?page=1">&laquo; First</a>
+    <a href="?page={{ patients.previous_page_number }}">Previous</a>
+    {% endif %} {% for num in patients.paginator.page_range %} {% if patients.number == num %}
+    <strong>{{ num }}</strong>
+    {% else %}
+    <a href="?page={{ num }}">{{ num }}</a>
+    {% endif %} {% endfor %} {% if patients.has_next %}
+    <a href="?page={{ patients.next_page_number }}">Next</a>
+    <a href="?page={{ patients.paginator.num_pages }}">Last &raquo;</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script src="{% static 'patient.js' %}"></script>
+{% endblock %}

@@ -1,3 +1,95 @@
 body {
   overflow-y: auto;
 }
+
+.degree-tag,
+.subspeciality-tag {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 2px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.degree-tag.selected,
+.subspeciality-tag.selected {
+  background-color: #28a745;
+  color: white;
+}
+
+.form-step {
+  margin: 20px;
+}
+
+.form-step div {
+  font-size: 28px;
+}
+input,
+select {
+  background: linear-gradient(45deg, var(--third-color), var(--fifth-color));
+  color: white;
+  border: none;
+}
+
+/* CSS */
+.page-controller {
+  padding: 0.6em 2em;
+  border: none;
+  outline: none;
+  background: var(--primary-color);
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+}
+
+.page-controller:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    rgb(245, 87, 87),
+    rgb(230, 230, 124),
+    rgb(80, 211, 138),
+    rgb(1, 178, 198),
+    rgb(103, 125, 236),
+    rgb(162, 124, 230),
+    rgb(230, 124, 162),
+    rgb(245, 87, 87)
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing-page-controller 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowing-page-controller {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.page-controller:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  left: 0;
+  top: 0;
+  border-radius: 5px;
+}

@@ -4,169 +4,204 @@
 <div class="content">
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    
-    <label for="id_user-username">Username:</label>
-    <input type="text" name="user-username" id="id_user-username" value="{{ form.username.value|default_if_none:'' }}" class="custom-input">
-    <!-- {% if user_form.username.help_text %}
-                <small style="display: block;">{{ user_form.username.help_text }}</small>
-    {% endif %} -->
-    {% for error in user_form.username.errors %}
-        <div class="error">{{ error }}</div>
-    {% endfor %}
-    <br>
-    <label for="id_user-first_name">First Name:</label>
-    <input type="text" name="user-first_name" id="id_user-first_name" value="{{ form.first_name.value|default_if_none:'' }}" class="custom-input">
-    {% for error in user_form.first_name.errors %}
-        <div class="error">{{ error }}</div>
-    {% endfor %}
-    <br>
-    <!-- Repeat the pattern for each field -->
-    <label for="id_user-last_name">Last Name:</label>
-    <input type="text" name="user-last_name" id="id_user-last_name" value="{{ form.last_name.value|default_if_none:'' }}" class="custom-input">
-    {% for error in user_form.last_name.errors %}
-        <div class="error">{{ error }}</div>
-    {% endfor %}
-    <br>
-    <label for="id_user-email">Email:</label>
-    <input type="email" name="user-email" id="id_user-email" value="{{ form.email.value|default_if_none:'' }}" class="custom-input">
-    {% for error in user_form.email.errors %}
-        <div class="error">{{ error }}</div>
-    {% endfor %}
-    <br>
-    <label for="id_user-address">Address:</label>
-    <input type="text" name="user-address" id="id_user-address" value="{{ form.address.value|default_if_none:'' }}" class="custom-input">
-    {% for error in user_form.address.errors %}
-        <div class="error">{{ error }}</div>
-    {% endfor %}
-    <br>
-    <label for="id_user-phone_number">Phone Number:</label>
-    <input type="text" name="user-phone_number" id="id_user-phone_number" value="{{ form.phone_number.value|default_if_none:'' }}" class="custom-input">
-    {% for error in user_form.phone_number.errors %}
-        <div class="error">{{ error }}</div>
-    {% endfor %}
-    <br>
-    <label for="id_user-gender">Gender:</label>
-    <select name="user-gender" id="id_user-gender" class="custom-select">
-        {% for choice in user_form.gender.field.choices %}
-            <option value="{{ choice.0 }}" {% if form.gender.value == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+    <div id="step-1" class="form-step">
+        <div>Name</div>
+        <label for="id_user-username">Username:</label>
+        <input type="text" name="user-username" id="id_user-username" value="{{ form.username.value|default_if_none:'' }}" class="custom-input">
+        <!-- {% if user_form.username.help_text %}
+                    <small style="display: block;">{{ user_form.username.help_text }}</small>
+        {% endif %} -->
+        {% for error in user_form.username.errors %}
+            <div class="error">{{ error }}</div>
         {% endfor %}
-    </select>
-    {% for error in user_form.gender.errors %}
-        <div class="error">{{ error }}</div>
-    {% endfor %}
-    <br>
-    <label for="id_user-birthday">Birthday:</label>
-    <input type="date" name="user-birthday" id="id_user-birthday" value="{{ form.birthday.value|default_if_none:'' }}" class="custom-input">
-    {% for error in user_form.birthday.errors %}
-        <div class="error">{{ error }}</div>
-    {% endfor %}
-    <br>
-    <label for="id_user-city">City:</label>
-    <input type="text" name="user-city" id="id_user-city" value="{{ form.city.value|default_if_none:'' }}" class="custom-input">
-    {% for error in user_form.city.errors %}
-        <div class="error">{{ error }}</div>
-    {% endfor %}
-    <br>
-    <label for="id_user-country">Country:</label>
-    <input type="text" name="user-country" id="id_user-country" value="{{ form.country.value|default_if_none:'' }}" class="custom-input">
-    {% for error in user_form.country.errors %}
-        <div class="error">{{ error }}</div>
-    {% endfor %}
-    <br>
-    <label for="id_user-nationality">Nationality:</label>
-    <input type="text" name="user-nationality" id="id_user-nationality" value="{{ user_form.nationality.value|default:'US' }}" class="custom-input">
-    {% for error in user_form.nationality.errors %}
-        <div class="error">{{ error }}</div>
-    {% endfor %}
-    <br>
-    <label for="id_user-language">Language:</label>
-    <input type="text" name="user-language" id="id_user-language" value="{{ user_form.language.value|default:'English' }}" class="custom-input">
-    {% for error in user_form.language.errors %}
-        <div class="error">{{ error }}</div>
-    {% endfor %}
-    <br>
-    <label for="id_user-hobby">Hobby:</label>
-    <input type="text" name="user-hobby" id="id_user-hobby" value="{{ user_form.hobby.value|default:'Gaming' }}" class="custom-input">
-    {% for error in user_form.hobby.errors %}
-        <div class="error">{{ error }}</div>
-    {% endfor %}
-    <br>
-    <label for="id_user-marital_status">Marital Status:</label>
-    <select name="user-marital_status" id="id_user-marital_status" class="custom-select">
-        {% for choice in user_form.marital_status.field.choices %}
-            <option value="{{ choice.0 }}" {% if user_form.marital_status.value == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+        <br>
+        <label for="id_user-first_name">First Name:</label>
+        <input type="text" name="user-first_name" id="id_user-first_name" value="{{ form.first_name.value|default_if_none:'' }}" class="custom-input">
+        {% for error in user_form.first_name.errors %}
+            <div class="error">{{ error }}</div>
         {% endfor %}
-    </select>
-    {% for error in user_form.martial_status.errors %}
-        <div class="error">{{ error }}</div>
-    {% endfor %}
-    <br>
-    <label for="id_user-image">Image:</label>
-    <input type="file" id="id_user-image" name="user-image" accept="image/*" class="custom-input">
-    {% for error in user_form.image.errors %}
-        <div class="error">{{ error }}</div>
-    {% endfor %}
-    <br>
-    <br>
-    <label for="id_doctor-years_of_experience">Years of Experience:</label>
-    <input type="number" name="doctor-years_of_experience" id="id_doctor-years_of_experience" value="{{ doctor_form.years_of_experience.value|default_if_none:'' }}" class="custom-input">
-    {% for error in doctor_form.years_of_experience.errors %}
-        <div class="error">{{ error }}</div>
-    {% endfor %}
-    <br>
-    <label for="id_doctor-degrees">Degrees:</label>
-    <select multiple name="doctor-degrees" id="id_doctor-degrees" class="custom-select">
+        <br>
+        <!-- Repeat the pattern for each field -->
+        <label for="id_user-last_name">Last Name:</label>
+        <input type="text" name="user-last_name" id="id_user-last_name" value="{{ form.last_name.value|default_if_none:'' }}" class="custom-input">
+        {% for error in user_form.last_name.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+        <br>
+        <label for="id_user-email">Email:</label>
+        <input type="email" name="user-email" id="id_user-email" value="{{ form.email.value|default_if_none:'' }}" class="custom-input">
+        {% for error in user_form.email.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+        <br>
+        <label for="id_user-address">Address:</label>
+        <input type="text" name="user-address" id="id_user-address" value="{{ form.address.value|default_if_none:'' }}" class="custom-input">
+        {% for error in user_form.address.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+        <br>
+        <label for="id_user-phone_number">Phone Number:</label>
+        <input type="text" name="user-phone_number" id="id_user-phone_number" value="{{ form.phone_number.value|default_if_none:'' }}" class="custom-input">
+        {% for error in user_form.phone_number.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+        <br>
+        <label for="id_user-gender">Gender:</label>
+        <select name="user-gender" id="id_user-gender" class="custom-select">
+            {% for choice in user_form.gender.field.choices %}
+                <option value="{{ choice.0 }}" {% if form.gender.value == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+            {% endfor %}
+        </select>
+        {% for error in user_form.gender.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+        <br>
+        <label for="id_user-birthday">Birthday:</label>
+        <input type="date" name="user-birthday" id="id_user-birthday" value="{{ form.birthday.value|default_if_none:'' }}" class="custom-input">
+        {% for error in user_form.birthday.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+        <br>
+        <label for="id_user-city">City:</label>
+        <input type="text" name="user-city" id="id_user-city" value="{{ form.city.value|default_if_none:'' }}" class="custom-input">
+        {% for error in user_form.city.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+        <br>
+        <label for="id_user-country">Country:</label>
+        <input type="text" name="user-country" id="id_user-country" value="{{ form.country.value|default_if_none:'' }}" class="custom-input">
+        {% for error in user_form.country.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+        <br>
+        <label for="id_user-nationality">Nationality:</label>
+        <input type="text" name="user-nationality" id="id_user-nationality" value="{{ user_form.nationality.value|default:'US' }}" class="custom-input">
+        {% for error in user_form.nationality.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+        <br>
+        <label for="id_user-language">Language:</label>
+        <input type="text" name="user-language" id="id_user-language" value="{{ user_form.language.value|default:'English' }}" class="custom-input">
+        {% for error in user_form.language.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+        <br>
+        <label for="id_user-hobby">Hobby:</label>
+        <input type="text" name="user-hobby" id="id_user-hobby" value="{{ user_form.hobby.value|default:'Gaming' }}" class="custom-input">
+        {% for error in user_form.hobby.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+        <br>
+        <label for="id_user-marital_status">Marital Status:</label>
+        <select name="user-marital_status" id="id_user-marital_status" class="custom-select">
+            {% for choice in user_form.marital_status.field.choices %}
+                <option value="{{ choice.0 }}" {% if user_form.marital_status.value == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+            {% endfor %}
+        </select>
+        {% for error in user_form.martial_status.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+        <br>
+        <label for="id_user-image">Image:</label>
+        <input type="file" id="id_user-image" name="user-image" accept="image/*" class="custom-input">
+        {% for error in user_form.image.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+        <br>
+        <br>
+        <footer><button type="button" class="page-controller Next" onclick="showStep(2)">Next</button></footer>
+    </div>
+    <div id="step-2" style="display: none;" class="form-step">
+            <!-- Speciality -->
+        <label for="id_doctor-speciality">Speciality:</label>
+        <select name="doctor-speciality" id="id_doctor-speciality" class="custom-select">
+            {% for speciality in doctor_form.speciality.field.queryset %}
+                <option value="{{ speciality.pk }}" {% if speciality.pk == doctor_form.speciality.value|default_if_none:'' %}selected{% endif %}>{{ speciality }}</option>
+            {% endfor %}
+        </select>
+        {% for error in doctor_form.speciality.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+        <br>
+        <!-- Subspecialities -->
+        <label for="id_doctor-subspecialities">Subspecialities:</label>
+        <select multiple name="doctor-subspecialities" id="id_doctor-subspecialities" class="custom-select" style="display:none;">
+            {% for subspeciality in doctor_form.subspecialities.field.queryset %}
+                <option value="{{ subspeciality.pk }}" {% if subspeciality.pk in doctor_form.subspecialities.value|default_if_none:'' %}selected{% endif %}>{{ subspeciality }}</option>
+            {% endfor %}
+        </select>
+        <div id="subspecialities-tags">
+            {% for subspeciality in doctor_form.subspecialities.field.queryset %}
+                <span class="subspeciality-tag" data-value="{{ subspeciality.pk }}">{{ subspeciality }}</span>
+            {% endfor %}
+        </div>
+        {% for error in doctor_form.subspecialities.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+        <br>
+
+        <label for="id_doctor-degrees">Degrees:</label>
+        <select multiple name="doctor-degrees" id="id_doctor-degrees" class="custom-select" style="display:none;">
+            {% for degree in doctor_form.degrees.field.queryset %}
+                <option value="{{ degree.pk }}" {% if degree.pk in doctor_form.degrees.value|default_if_none:'' %}selected{% endif %}>{{ degree }}</option>
+            {% endfor %}
+        </select>
+        <div id="degree-tags">
+            {% for degree in doctor_form.degrees.field.queryset %}
+                <span class="degree-tag" data-value="{{ degree.pk }}">{{ degree }}</span>
+            {% endfor %}
+        
+    </div>
+    <!-- <div id="degree-tags-container">
+    </div>
+    <select id="degree-select" class="custom-select">
+        <option value="">Select a Degree...</option>
         {% for degree in doctor_form.degrees.field.queryset %}
-            <option value="{{ degree.pk }}" {% if degree.pk in doctor_form.degrees.value|default_if_none:'' %}selected{% endif %}>{{ degree }}</option>
+          <option value="{{ degree.pk }}">{{ degree }}</option>
         {% endfor %}
-    </select>
+    </select> -->   
+    
     {% for error in doctor_form.degrees.errors %}
         <div class="error">{{ error }}</div>
     {% endfor %}
     <br>
-    <!-- Speciality -->
-    <label for="id_doctor-speciality">Speciality:</label>
-    <select name="doctor-speciality" id="id_doctor-speciality" class="custom-select">
-        {% for speciality in doctor_form.speciality.field.queryset %}
-            <option value="{{ speciality.pk }}" {% if speciality.pk == doctor_form.speciality.value|default_if_none:'' %}selected{% endif %}>{{ speciality }}</option>
+    <footer><button type="button" class="page-controller Back" onclick="showStep(1)">Back</button>
+        <button type="button" class="page-controller Next" onclick="showStep(3)">Next</button></footer>
+    </div>
+    <div id="step-3" class="form-step" style="display: none;">
+        <label for="id_doctor-years_of_experience">Years of Experience:</label>
+        <input type="number" name="doctor-years_of_experience" id="id_doctor-years_of_experience" value="{{ doctor_form.years_of_experience.value|default_if_none:'' }}" class="custom-input">
+        {% for error in doctor_form.years_of_experience.errors %}
+            <div class="error">{{ error }}</div>
         {% endfor %}
-    </select>
-    {% for error in doctor_form.speciality.errors %}
-        <div class="error">{{ error }}</div>
-    {% endfor %}
-    <br>
-    <!-- Subspecialities -->
-    <label for="id_doctor-subspecialities">Subspecialities:</label>
-    <select multiple name="doctor-subspecialities" id="id_doctor-subspecialities" class="custom-select">
-        {% for subspeciality in doctor_form.subspecialities.field.queryset %}
-            <option value="{{ subspeciality.pk }}" {% if subspeciality.pk in doctor_form.subspecialities.value|default_if_none:'' %}selected{% endif %}>{{ subspeciality }}</option>
-        {% endfor %}
-    </select>
-    {% for error in doctor_form.subspecialities.errors %}
-        <div class="error">{{ error }}</div>
-    {% endfor %}
-    <br>
-    <!-- Certifications -->
-    <label for="id_doctor-certifications">Certifications:</label>
-    <input type="number" name="doctor-certifications" id="id_doctor-certifications" min="0" value="{{ doctor_form.certifications.value|default_if_none:'' }}" class="custom-input">
+        <br>
 
-    <br>
-    <!-- Professional Achievements -->
-    <label for="id_doctor-publications_count">Publications Count:</label>
-    <input type="number" name="doctor-publications_count" id="id_doctor-publications_count"min="0"  value="{{ doctor_form.publications_count.value|default_if_none:'' }}" class="custom-input">
-    <br>
-    <label for="id_doctor-awards_count">Awards Count:</label>
-    <input type="number" name="doctor-awards_count" id="id_doctor-awards_count"min="0"  value="{{ doctor_form.awards_count.value|default_if_none:'' }}" class="custom-input">
-    <br>
-    <label for="id_doctor-conferences_attended_count">Conferences Attended Count:</label>
-    <input type="number" name="doctor-conferences_attended_count" id="id_doctor-conferences_attended_count" min="0" value="{{ doctor_form.conferences_attended_count.value|default_if_none:'' }}" class="custom-input">
-    <br>
-    <label for="id_doctor-seminars_attended_count">Seminars Attended Count:</label>
-    <input type="number" name="doctor-seminars_attended_count" id="id_doctor-seminars_attended_count" min="0" value="{{ doctor_form.seminars_attended_count.value|default_if_none:'' }}" class="custom-input">
-    <br>
-    <input type="submit" value="Submit" class="submit-btn">
+        <!-- Certifications -->
+        <label for="id_doctor-certifications">Certifications:</label>
+        <input type="number" name="doctor-certifications" id="id_doctor-certifications" min="0" value="{{ doctor_form.certifications.value|default_if_none:'' }}" class="custom-input">
+
+        <br>
+        <!-- Professional Achievements -->
+        <label for="id_doctor-publications_count">Publications Count:</label>
+        <input type="number" name="doctor-publications_count" id="id_doctor-publications_count"min="0"  value="{{ doctor_form.publications_count.value|default_if_none:'' }}" class="custom-input">
+        <br>
+        <label for="id_doctor-awards_count">Awards Count:</label>
+        <input type="number" name="doctor-awards_count" id="id_doctor-awards_count"min="0"  value="{{ doctor_form.awards_count.value|default_if_none:'' }}" class="custom-input">
+        <br>
+        <label for="id_doctor-conferences_attended_count">Conferences Attended Count:</label>
+        <input type="number" name="doctor-conferences_attended_count" id="id_doctor-conferences_attended_count" min="0" value="{{ doctor_form.conferences_attended_count.value|default_if_none:'' }}" class="custom-input">
+        <br>
+        <label for="id_doctor-seminars_attended_count">Seminars Attended Count:</label>
+        <input type="number" name="doctor-seminars_attended_count" id="id_doctor-seminars_attended_count" min="0" value="{{ doctor_form.seminars_attended_count.value|default_if_none:'' }}" class="custom-input">
+        <br>
+        <footer><button type="button" class="page-controller Back" onclick="showStep(2)">Back</button></footer>
+        <input type="submit" value="Submit" class="submit-btn">
+    </div>
+
 </form>
 
   {% endblock %}
 </div>
+{% block extra_js %}
 <script src="{% static 'user.js' %}"></script>
+{% endblock %}

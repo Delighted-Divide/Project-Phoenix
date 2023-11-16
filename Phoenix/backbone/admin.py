@@ -36,4 +36,6 @@ admin.site.register(PatientTest)
 admin.site.register(Customer)
 admin.site.register(DoctorWorkShift)
 admin.site.register(DoctorVisit)
+admin.site.register(Appointment)
+admin.site.register(Surgery)
 

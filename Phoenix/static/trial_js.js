@@ -114,6 +114,11 @@ function navBarOut(nav, con) {
     // console.log(document.querySelector(".content-wrapper"));
     doctor_profile_content_wrapper.style.width = "100%";
   }
+  patient_page_content_wrapper = document.querySelector(".cont");
+  if (patient_page_content_wrapper) {
+    // console.log(document.querySelector(".content-wrapper"));
+    patient_page_content_wrapper.style.width = "100%";
+  }
 }
 
 function navBarIn(nav, con) {
@@ -129,6 +134,11 @@ function navBarIn(nav, con) {
   if (doctor_profile_content_wrapper) {
     // console.log(document.querySelector(".content-wrapper"));
     doctor_profile_content_wrapper.style.width = "90%";
+  }
+  patient_page_content_wrapper = document.querySelector(".cont");
+  if (patient_page_content_wrapper) {
+    // console.log(document.querySelector(".content-wrapper"));
+    patient_page_content_wrapper.style.width = "86%";
   }
 }
 

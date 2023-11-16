@@ -1,6 +1,6 @@
 {% extends 'trial.html' %} {% block extra_css %} {% load static %}
 <link rel="stylesheet" href="{% static 'doctor_profile.css' %}" />
-{% endblock %} {% block content %}
+{% endblock %} {% block content %}{% load custom_filters %}
 <div class="content">
   <div class="profile-container">
     <div class="profile-image-container">
@@ -16,7 +16,7 @@
 
       <p>
         <strong>Other Speciality:</strong>
-        {{profile.doctor_profile.subspecialities.all|join:", " }}
+        {{profile.doctor_profile.subspecialities.all|join:", " |title}}
       </p>
       <p>
         <strong>Degree:</strong>
@@ -83,7 +83,14 @@
   </div>
   <div class="detailed-info-section">
     <h2 class="section-title">Personal Information</h2>
+
     <div class="info-boxes">
+      <div
+        class="info-box"
+        onclick="toggleInfo(this, '{{profile.birthday|calculate_age}}')"
+      >
+        Age
+      </div>
       <div class="info-box" onclick="toggleInfo(this, '{{profile.gender}}')">
         Gender
       </div>
@@ -114,9 +121,6 @@
       </div>
       <div class="info-box" onclick="toggleInfo(this, '{{profile.language}}')">
         Language
-      </div>
-      <div class="info-box" onclick="toggleInfo(this, '{{profile.birthday}}')">
-        DOB
       </div>
       <div
         class="info-box"
