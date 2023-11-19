@@ -5,28 +5,26 @@
     <div class="calendar">
         <div class="calendar-header">
             <div class="header-spacer"></div>
-            <div class="day-header">19 Sun</div>
+            <!-- <div class="day-header">19 Sun</div>
             <div class="day-header">20 Mon</div>
             <div class="day-header">21 Tue</div>
             <div class="day-header">22 Wed</div>
             <div class="day-header">23 Thu</div>
             <div class="day-header">24 Fri</div>
-            <div class="day-header">25 Sat</div>
+            <div class="day-header">25 Sat</div> -->
+            {% for date,day in week.items %}
+            <div class="day-header">{{ date }} {{ day }}</div>
+            {% endfor %}
         </div>
         <div class="calendar-main">
             <div class="time-column">
-                <div class="time-slot">01 AM</div>
-                <div class="time-slot">02 AM</div>
-                <!-- ... -->
-                <div class="time-slot">12 PM</div>
-                <!-- ... -->
-                <div class="time-slot">11 PM</div>
-                <div class="time-slot">12 AM</div>
+                {% for hour in hours %}
+            <div class="time-slot">{{ hour|add:1 }}:00</div>
+            {% endfor %}
             </div>
-            <div class="grid">
-                <!-- Repeat 24 times for each hour -->
+            <!-- <div class="grid">
                 <div class="grid-row">
-                    <!-- Repeat 7 times for each day -->
+                    
                     <div class="grid-cell">
                         <div class="half-hour"></div>
                         <div class="half-hour"></div>
@@ -38,10 +36,10 @@
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                                         
-                    <!-- ... -->
+                    
                 </div>
                 <div class="grid-row">
-                    <!-- Repeat 7 times for each day -->
+                    
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
@@ -50,10 +48,10 @@
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                                         
-                    <!-- ... -->
+                    
                 </div>
                 <div class="grid-row">
-                    <!-- Repeat 7 times for each day -->
+                    
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
@@ -62,10 +60,10 @@
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                                         
-                    <!-- ... -->
+                    
                 </div>
                 <div class="grid-row">
-                    <!-- Repeat 7 times for each day -->
+                    
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
@@ -74,10 +72,10 @@
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                                         
-                    <!-- ... -->
+                    
                 </div>
                 <div class="grid-row">
-                    <!-- Repeat 7 times for each day -->
+                    
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
@@ -86,10 +84,10 @@
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                                         
-                    <!-- ... -->
+                    
                 </div>
                 <div class="grid-row">
-                    <!-- Repeat 7 times for each day -->
+                    
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
@@ -98,10 +96,10 @@
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                                         
-                    <!-- ... -->
+                    
                 </div>
                 <div class="grid-row">
-                    <!-- Repeat 7 times for each day -->
+                    
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
@@ -110,10 +108,10 @@
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                                         
-                    <!-- ... -->
+                    
                 </div>
                 <div class="grid-row">
-                    <!-- Repeat 7 times for each day -->
+                    
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
@@ -122,10 +120,10 @@
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                                         
-                    <!-- ... -->
+                    
                 </div>
                 <div class="grid-row">
-                    <!-- Repeat 7 times for each day -->
+                    
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
@@ -134,10 +132,10 @@
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                                         
-                    <!-- ... -->
+                    
                 </div>
                 <div class="grid-row">
-                    <!-- Repeat 7 times for each day -->
+                    
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
@@ -146,10 +144,10 @@
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                                         
-                    <!-- ... -->
+                    
                 </div>
                 <div class="grid-row">
-                    <!-- Repeat 7 times for each day -->
+                    
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
@@ -158,10 +156,10 @@
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                                         
-                    <!-- ... -->
+                    
                 </div>
                 <div class="grid-row">
-                    <!-- Repeat 7 times for each day -->
+                    
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
@@ -170,10 +168,10 @@
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                                         
-                    <!-- ... -->
+                    
                 </div>
                 <div class="grid-row">
-                    <!-- Repeat 7 times for each day -->
+                    
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
@@ -182,10 +180,10 @@
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                                         
-                    <!-- ... -->
+                    
                 </div>
                 <div class="grid-row">
-                    <!-- Repeat 7 times for each day -->
+                    
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
@@ -194,10 +192,10 @@
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                                         
-                    <!-- ... -->
+                    
                 </div>
                 <div class="grid-row">
-                    <!-- Repeat 7 times for each day -->
+                    
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
@@ -206,10 +204,10 @@
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                                         
-                    <!-- ... -->
+                    
                 </div>
                 <div class="grid-row">
-                    <!-- Repeat 7 times for each day -->
+                    
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
@@ -218,10 +216,10 @@
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                                         
-                    <!-- ... -->
+                    
                 </div>
                 <div class="grid-row">
-                    <!-- Repeat 7 times for each day -->
+                    
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
@@ -230,10 +228,10 @@
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                                         
-                    <!-- ... -->
+                    
                 </div>
                 <div class="grid-row">
-                    <!-- Repeat 7 times for each day -->
+                    
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
@@ -242,10 +240,10 @@
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                                         
-                    <!-- ... -->
+                    
                 </div>
                 <div class="grid-row">
-                    <!-- Repeat 7 times for each day -->
+                    
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
@@ -254,10 +252,10 @@
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                                         
-                    <!-- ... -->
+                    
                 </div>
                 <div class="grid-row">
-                    <!-- Repeat 7 times for each day -->
+                    
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
@@ -266,11 +264,26 @@
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
                                         
-                    <!-- ... -->
+                    
                 </div>
                 
-                <!-- ... -->
+                
+            </div> -->
+            <div class="grid">
+                <!-- Loop over each hour for rows -->
+                {% for hour in hours %}
+                <div class="grid-row" id = '{{hour}}'>
+                    <!-- Loop over each day for cells -->
+                    {% for day in dates %}
+                    <div class="grid-cell" id = '{{day}}-{{hour}}'>
+                        <div class="half-hour" id = '{{day}}-{{hour}}:00:00'></div>
+                        <div class="half-hour" id = '{{day}}-{{hour}}:30:00'></div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
             </div>
+            {{ json|json_script:"profile-data" }}
         </div>
     </div>
     

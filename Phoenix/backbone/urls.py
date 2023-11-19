@@ -12,7 +12,8 @@ urlpatterns = [
     path('patient/', views.patient, name="Patient"),
     path('room/', views.room, name="Room"),
     path('surgery/', views.surgery, name="Surgery"),
-    path('appointment/', views.appointment, name="Appointment")
+    path('appointment/', views.appointment, name="Appointment"),
+    path('laboratory/', views.laboratory, name="Laboratory")
 ]
 
 if settings.DEBUG:

@@ -9,6 +9,7 @@ from django.http import JsonResponse
 from django.contrib.auth.hashers import make_password
 from django.db.models import Q
 from django.utils import timezone
+from datetime import datetime, timedelta
 # Create your views here.
 
 
@@ -64,7 +65,7 @@ def doctor_profile(request,user_id  ):
     profile = CustomUser.objects.get(id=user_id)
     user_json = serializers.serialize('json', [profile])
     
-    print(user_json)
+  
     context = {
         'pname': "Profile",
         'user': request.user,
@@ -100,7 +101,7 @@ def register(request):
 
 def patient(request):
     patient_list = Patient.objects.all()
-    paginator = Paginator(patient_list,12)  
+    paginator = Paginator(patient_list,13)  
     page_number = request.GET.get('page')  
     patients = paginator.get_page(page_number)  
 
@@ -184,6 +185,7 @@ def surgery(request):
     future_surgeries = pagination(future_surgeries)
 
     start_past_surgeries , end_past_surgeries = page_sort(past_surgeries)
+    start_future_surgeries , end_future_surgeries = page_sort(future_surgeries)
 
     context = {
         'pname': "Surgery",
@@ -191,7 +193,9 @@ def surgery(request):
         'past_surgeries': past_surgeries,
         'future_surgeries' : future_surgeries,
         'start_past_surgeries': start_past_surgeries,
-        'end_past_surgeries' : end_past_surgeries
+        'end_past_surgeries' : end_past_surgeries,
+        'start_future_surgeries':start_future_surgeries,
+        'end_future_surgeries':end_future_surgeries
     }
     return render(request, "surgery.html", context)
 
@@ -199,17 +203,64 @@ def surgery(request):
 
 
 def appointment(request):
-    appointment_list = Appointment.objects.all()  # Fetch all doctor objects
-    paginator = Paginator(appointment_list, 20)  # 7 doctors per page
-    page = request.GET.get('page')  # Get the page number from the query string
-    appointments = paginator.get_page(page)  # Get the doctors for the current page
+    today = datetime.now()
+    appointment_list = Appointment.objects.filter(Q(doctor=request.user.doctor_profile) & Q(appointment_date__gte = today))  # Fetch all doctor objects
+    
+    hours = [
+    '00', '01', '02', '03', '04', '05', '06', '07', '08', '09',
+    '10', '11', '12', '13', '14', '15', '16', '17', '18', '19',
+    '20', '21', '22', '23',
+]
+    days_of_week = []
+    dates_of_week = []
+    week = {}
+    appointment_json = {}
 
-    start,end = page_sort(appointments)
+    # Loop to get the next 7 days along with their day names
+
+    for i in range(7):
+        next_day = today + timedelta(days=i)
+        day_name = next_day.strftime('%A')  # Getting the name of the day
+        formatted_date = next_day.strftime('%d')
+        days_of_week.append(day_name[:3])
+        dates_of_week.append(formatted_date)
+        week[formatted_date] = day_name[:3]
+
+
+    for appointment in appointment_list:
+        id_creation = appointment.appointment_date.strftime('%d') + "-" + str(appointment.start_time)
+        appointment_json[id_creation] = appointment.patient.first_name
+
+    print(appointment_json)
+
+
     context = {
         'pname': "Appointment",
         'user': request.user,
-        'doctors': appointments,
+
+        'hours':hours,
+        'days' : days_of_week,
+        'dates':dates_of_week,
+        'week':week,
+        'json' : appointment_json
+    }
+    return render(request, "appointment.html", context)
+
+
+
+
+def laboratory(request):
+    lab_list = Lab.objects.all()  # Fetch all doctor objects
+    paginator = Paginator(lab_list, 11)  # 7 doctors per page
+    page = request.GET.get('page')  # Get the page number from the query string
+    labs = paginator.get_page(page)  # Get the doctors for the current page
+
+    start,end = page_sort(labs)
+    context = {
+        'pname': "Laboratory",
+        'user': request.user,
+        'labs': labs,
         'start_page':start,
         'end_page':end
     }
-    return render(request, "appointment.html", context)
+    return render(request, "laboratory.html", context)

@@ -43,15 +43,15 @@
                 <a href="?page=1">&laquo; First</a>
                 <a href="?page={{ future_surgeries.previous_page_number }}">Previous</a>
                 {% endif %} {% for num in future_surgeries.paginator.page_range %} 
-                {% if num >= start_past_surgeries and num <= end_past_surgeries %}
-                  {% if past_surgeries.number == num %}
+                {% if num >= start_future_surgeries and num <= end_future_surgeries %}
+                  {% if future_surgeries.number == num %}
                   <strong>{{ num }}</strong>
                   {% else %}
                   <a href="?page={{ num }}">{{ num }}</a>
                   {% endif %}
                 {% endif %}
                 {% endfor %} 
-                {% if past_surgeries.has_next %}
+                {% if future_surgeries.has_next %}
                 <a href="?page={{ future_surgeries.next_page_number }}">Next</a>
                 <a href="?page={{ future_surgeries.paginator.num_pages }}">Last &raquo;</a>
                 {% endif %}

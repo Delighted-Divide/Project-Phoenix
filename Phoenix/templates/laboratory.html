@@ -1,0 +1,27 @@
+{% extends 'trial.html' %} {% block extra_css %} {% load static %}
+<link rel="stylesheet" href="{% static 'laboratory.css' %}" />
+{% endblock %} {% block content %} {% load custom_filters %}
+<div class="content-wrapper">
+    <div class="size-adjust">
+        <div class="lab-container">
+            <div class="lab-box" id="toxicology-lab">
+                <i class="lab-icon">[Toxicology Icon]</i>
+                <span class="lab-name">Toxicology Lab</span>
+            </div>
+            <div class="lab-box" id="cytology-lab">
+                <i class="lab-icon">[Cytology Icon]</i>
+                <span class="lab-name">Cytology Lab</span>
+            </div>
+            <!-- Repeat for each lab -->
+            <!-- ... -->
+            <div class="lab-box" id="radiology-lab">
+                <i class="lab-icon">[Radiology Icon]</i>
+                <span class="lab-name">Radiology Lab</span>
+            </div>
+        </div>
+         
+    </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script src="{% static 'laboratory.js' %}"></script>
+{% endblock %}

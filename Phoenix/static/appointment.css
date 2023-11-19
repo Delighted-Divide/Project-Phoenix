@@ -25,6 +25,7 @@ body{
     flex: 1;
     text-align: center;
 
+
 }
 
 .calendar-main {
@@ -41,7 +42,7 @@ body{
     text-align: right;
     padding: 10px 5px;
     margin-right: 15px;
-    padding-top: 50px;
+    padding-top: 53px;
     
 }
 
@@ -49,6 +50,7 @@ body{
     display: flex;
     flex: 1;
     flex-direction: column;
+    margin-bottom: 30px;
 }
 
 .grid-row {
@@ -77,5 +79,15 @@ body{
 
 .half-hour {
     flex: 1;
+    color:white;
+    display: flex;
+    align-items: center; /* Vertically center the content */
+    justify-content: center; /* Horizontally center the content */
+    text-align: center; /* Ensure text is centered if it wraps to a new line */
+    padding: 5px; /* Optional: Adds some padding inside each half-hour cell */
 
+}
+
+.appointed:hover{
+    cursor: pointer;
 }
