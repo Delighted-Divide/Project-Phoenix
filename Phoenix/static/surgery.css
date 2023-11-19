@@ -1,0 +1,154 @@
+body {
+    font-family: Arial, sans-serif;
+    overflow-y: auto;
+}
+
+.content-wrapper {
+    margin-top: 40px;
+}
+
+.size-adjust {
+    width: 96%;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    background-color: transparent;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.tab-button:hover {
+    color: var(--third-color);
+}
+
+.add-surgery {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: var(--fifth-color);
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+
+}
+
+.tab-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.surgery-card {
+    background-color:var(--third-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 20px 0;
+    padding: 15px;
+    color: white;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 15px;
+}
+
+.surgery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.surgery-title {
+    color: var(--fifth-color);
+    font-size: 22px;
+    margin: 0;
+}
+
+.surgery-status {
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.failure{
+    background-color: red;
+}
+
+.success{
+    background-color: green;
+}
+
+.planned{
+    background-color: var(--secondary-color);
+}
+
+.surgery-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.surgery-info p, .surgery-time p {
+    margin: 8px 0;
+    font-size: 17px;
+    color: white;
+}
+
+.info-label {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.surgery-actions {
+    text-align: right;
+}
+
+.surgery-actions button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.surgery-actions button:hover {
+    background-color: var(--fifth-color);
+}
+
+
+.pagination {
+    text-align: center; /* Center align pagination */
+    padding: 20px 0; /* Add some padding */
+    margin-top: 20px; /* Space above pagination */
+  }
+  
+  .pagination a,
+  .pagination strong {
+    display: inline-block;
+    padding: 8px 16px; /* Adjust size of pagination links */
+    margin: 2px 0px; /* Space between pagination links */
+    border: 1px solid #ddd; /* Border for links */
+    text-decoration: none; /* Remove underline from links */
+    color: #666; /* Text color */
+  }
+  
+  .pagination strong {
+    background-color: #eee; /* Background for current page */
+    border-color: #bbb; /* Border color for current page */
+  }
+  
+  .pagination a:hover {
+    background-color: #ddd; /* Hover effect for links */
+  }
+  

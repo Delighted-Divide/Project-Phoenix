@@ -1,0 +1,113 @@
+{% extends 'trial.html' %} {% block extra_css %} {% load static %}
+<link rel="stylesheet" href="{% static 'surgery.css' %}" />
+{% endblock %} {% block content %} {% load custom_filters %}
+<div class="content-wrapper">
+    <div class="size-adjust">
+        <div class="header">
+            <div class="tabs">
+                <button id = 'planned-tab'class="tab-button" onclick="showTab('planned',this)" style="border-bottom: 2px solid var(--third);">Planned Surgeries</button>
+                <button id = 'completed-tab' class="tab-button" onclick="showTab('completed',this)">Completed Surgeries</button>
+            </div>
+            <button class="add-surgery">New Surgery</button>
+        </div>
+        <div id="planned" class="tab-content">
+            {% for future_surgery in future_surgeries.object_list %}
+            <div class="surgery-card">
+                <div class="surgery-header">
+                    <h3 class="surgery-title">{{future_surgery.surgery_type}}</h3>
+                    <span class="surgery-status {{future_surgery.status |lower}}">{{future_surgery.status}}</span>
+                </div>
+                <div class="surgery-content">
+                    <div class="surgery-info">
+                        <p><span class="info-label">Lead Doctor:</span> {{future_surgery.lead_doctor}}</p>
+                        <p><span class="info-label">Assisting Doctors:</span> 
+                        {% if past_surgery.assisting_doctors.all %}
+                            {{ past_surgery.assisting_doctors.all|join:", " }}
+                        {% else %}
+                            None
+                        {% endif %}</p>
+                    </div>
+                    <div class="surgery-time">
+                        <p><span class="info-label">Scheduled Time:</span> {{future_surgery.scheduled_time}}</p>
+                        <p><span class="info-label">Room:</span> {{future_surgery.operating_room}}</p>
+                    </div>
+                </div>
+                <div class="surgery-actions">
+                    <button class="edit-surgery">Edit</button>
+                    <button class="cancel-surgery">Cancel</button>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="pagination">
+                {% if future_surgeries.has_previous %}
+                <a href="?page=1">&laquo; First</a>
+                <a href="?page={{ future_surgeries.previous_page_number }}">Previous</a>
+                {% endif %} {% for num in future_surgeries.paginator.page_range %} 
+                {% if num >= start_past_surgeries and num <= end_past_surgeries %}
+                  {% if past_surgeries.number == num %}
+                  <strong>{{ num }}</strong>
+                  {% else %}
+                  <a href="?page={{ num }}">{{ num }}</a>
+                  {% endif %}
+                {% endif %}
+                {% endfor %} 
+                {% if past_surgeries.has_next %}
+                <a href="?page={{ future_surgeries.next_page_number }}">Next</a>
+                <a href="?page={{ future_surgeries.paginator.num_pages }}">Last &raquo;</a>
+                {% endif %}
+              </div>
+            
+        </div>
+        <div id="completed" class="tab-content" style="display:none;">
+            {% for past_surgery in past_surgeries.object_list %}
+            <div class="surgery-card">
+                <div class="surgery-header">
+                    <h3 class="surgery-title">{{past_surgery.surgery_type}}</h3>
+                    <span class="surgery-status {{past_surgery.status |lower}}">{{past_surgery.status}}</span>
+                </div>
+                <div class="surgery-content">
+                    <div class="surgery-info">
+                        <p><span class="info-label">Lead Doctor:</span> {{past_surgery.lead_doctor}}</p>
+                        <p><span class="info-label">Assisting Doctors:</span> 
+                        {% if past_surgery.assisting_doctors.all %}
+                            {{ past_surgery.assisting_doctors.all|join:", " }}
+                        {% else %}
+                            None
+                        {% endif %}</p>
+                    </div>
+                    <div class="surgery-time">
+                        <p><span class="info-label">Scheduled Time:</span> {{past_surgery.scheduled_time}}</p>
+                        <p><span class="info-label">Room:</span> {{past_surgery.operating_room}}</p>
+                    </div>
+                </div>
+                <div class="surgery-actions">
+                    <button class="edit-surgery">Edit</button>
+                    <button class="cancel-surgery">Cancel</button>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="pagination">
+                {% if past_surgeries.has_previous %}
+                <a href="?page=1&tab=completed">&laquo; First</a>
+                <a href="?page={{ past_surgeries.previous_page_number }}&tab=completed">Previous</a>
+                {% endif %} {% for num in past_surgeries.paginator.page_range %} 
+                {% if num >= start_past_surgeries and num <= end_past_surgeries %}
+                  {% if past_surgeries.number == num %}
+                  <strong>{{ num }}</strong>
+                  {% else %}
+                  <a href="?page={{ num }}&tab=completed">{{ num }}</a>
+                  {% endif %}
+                {% endif %}
+                {% endfor %} 
+                {% if past_surgeries.has_next %}
+                <a href="?page={{ past_surgeries.next_page_number }}&tab=completed">Next</a>
+                <a href="?page={{ past_surgeries.paginator.num_pages }}&tab=completed">Last &raquo;</a>
+                {% endif %}
+              </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script src="{% static 'surgery.js' %}"></script>
+{% endblock %}

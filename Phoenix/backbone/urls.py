@@ -10,7 +10,9 @@ urlpatterns = [
     path('profile/<uuid:user_id>/', views.doctor_profile, name='profile'),
     path('addDoctor/', views.register, name="addDoc"),
     path('patient/', views.patient, name="Patient"),
-    path('room/', views.room, name="Room")
+    path('room/', views.room, name="Room"),
+    path('surgery/', views.surgery, name="Surgery"),
+    path('appointment/', views.appointment, name="Appointment")
 ]
 
 if settings.DEBUG:

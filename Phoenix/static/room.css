@@ -20,6 +20,11 @@ body{
     border: 1px solid #ccc;
 }
 
+#searchBox {
+    position: relative;
+    left: 79%;
+}
+
 /* #searchButton {
     padding: 8px 16px;
     background-color: var(--third-color);
@@ -52,6 +57,7 @@ th, td {
 th {
     background-color: var(--third-color);
     color: white;
+
 }
 
 tr{
@@ -60,26 +66,28 @@ tr{
 
 
 .room-status {
-
+    display: inline;
     padding: 5px 10px;
-    color: white;
-    text-align: center;
-    margin: 10px; /* Adjust as needed */
+    border: 2px solid var(--fifth-color);
+    margin: 5px; /* Adjust as needed */
+    border-radius: 5px;
  
 }
 
 .status-ready {
-    background-color: var(--fifth-color);
+    color:rgb(103, 218, 103);
 
 }
 
 .status-damaged {
     background-color: red;
+    border: 2px solid var(--third-color);
 }
 
 .status-maintenance {
 
     background-color: yellow;
+    border: 2px solid yellow;
 
 }
 

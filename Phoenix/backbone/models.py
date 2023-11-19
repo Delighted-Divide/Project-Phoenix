@@ -516,6 +516,15 @@ class InpatientVisit(models.Model):
         return f"Inpatient Visit for {self.patient.first_name} {self.patient.last_name} on {self.admission_date}"
 
 
+class ICU(models.Model):
+    Label = models.CharField(max_length=5)
+
+    def __str__(self):
+        return "ICU " + self.Label
+    
+    class Meta:
+        ordering = ['Label']
+
 class Surgery(models.Model):
 
     SURGERY_STATUS = (
@@ -527,22 +536,21 @@ class Surgery(models.Model):
     )
 
 
-    surgery_name = models.CharField(max_length=200)
+    surgery_type = models.CharField(max_length=200)
     lead_doctor = models.ForeignKey(Doctor, related_name='lead_surgeries', on_delete=models.SET_NULL,null=True)
     assisting_doctors = models.ManyToManyField(Doctor, related_name='assisting_surgeries')
     inpatient_visit = models.ForeignKey(InpatientVisit, on_delete=models.CASCADE)
-    operating_room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True, limit_choices_to={'room_type': 'ICU'})
+    operating_room = models.ForeignKey(ICU, on_delete=models.SET_NULL, null=True)
     scheduled_time = models.DateTimeField()
     duration = models.DurationField()
+    was_emergency = models.BooleanField(
+        default=False, help_text="Indicates if the visit was due to an emergency situation.")
     status = models.CharField(max_length=12, choices=SURGERY_STATUS, default='PLANNED')
 
-    def clean(self):
-        # Custom validation to ensure the room is ICU
-        if self.operating_room and self.operating_room.room_type != 'ICU':
-            raise ValidationError('The room must be an ICU for surgeries.')
+
         
     def __str__(self):
-        return f"{self.surgery_type} for {self.patient.name} on {self.scheduled_time.strftime('%Y-%m-%d')}"
+        return f" {self.surgery_type} for {self.inpatient_visit.patient} on {self.scheduled_time.strftime('%Y-%m-%d')}"
     
     class Meta:
         ordering = ['scheduled_time']
@@ -601,3 +609,6 @@ class Customer(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+
+

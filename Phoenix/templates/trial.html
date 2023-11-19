@@ -79,12 +79,12 @@
     <nav>
       <ul id = "menu" >
         <a href="{% url 'Dashboard' %}"><i class="fas fa-chart-line"></i> Dashboard</a>
-        <a><i class="fas fa-calendar-check"></i> Appointments</a>
+        <a href="{% url 'Appointment' %}"><i class="fas fa-calendar-check"></i> Appointments</a>
         <a href="{% url 'Doctor' %}"><i class="fas fa-user-md"></i> Doctors</a>
         <a href="{% url 'Patient' %}"><i class="material-icons large-icon">people</i> Patients</a>
         <a href="{% url 'Room' %}"><i class="material-icons large-icon">single_bed</i> Rooms</a>
         <a><i class="fas fa-capsules"></i> Pharmacy</a>
-        <a><i class="material-icons large-icon">healing</i> Operations</a>
+        <a href="{% url 'Surgery' %}"><i class="material-icons large-icon">healing</i> Operations</a>
         <a><i class="fas fa-flask"></i> Laboratory</a>  
         
       </ul>

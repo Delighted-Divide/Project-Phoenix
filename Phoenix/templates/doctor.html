@@ -53,11 +53,13 @@
       {% endif %}
   
       {% for num in doctors.paginator.page_range %}
+      {% if num >= start_page and num <= end_page %}
           {% if doctors.number == num %}
               <strong>{{ num }}</strong>
           {% else %}
               <a href="?page={{ num }}">{{ num }}</a>
           {% endif %}
+      {% endif %}
       {% endfor %}
   
       {% if doctors.has_next %}

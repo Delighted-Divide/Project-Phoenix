@@ -1,0 +1,81 @@
+body{
+    overflow: auto;
+}
+
+
+.calendar {
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.calendar-header {
+    display: flex;
+    padding-bottom: 10px;
+    margin-left: 16px;
+}
+
+.header-spacer {
+    width: 50px; /* Match the width of the time column */
+}
+
+.day-header {
+    flex: 1;
+    text-align: center;
+
+}
+
+.calendar-main {
+    display: flex;
+}
+
+.time-column {
+    flex-direction: column;
+
+}
+
+.time-slot {
+    height: 60px; /* Match this height with the height of the grid cells */
+    text-align: right;
+    padding: 10px 5px;
+    margin-right: 15px;
+    padding-top: 50px;
+    
+}
+
+.grid {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.grid-row {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+}
+
+.grid-cell {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ccc;
+    flex: 1;
+    min-height: 59px; /* Match the height of the time slots */
+}
+
+/* Clear the bottom border on the last row and right border on the last column to maintain the grid */
+.grid-row:last-child .grid-cell {
+    border-bottom: none;
+}
+
+.grid-cell:last-child {
+    border-right: none;
+}
+
+/* Add additional styling as needed */
+
+.half-hour {
+    flex: 1;
+
+}

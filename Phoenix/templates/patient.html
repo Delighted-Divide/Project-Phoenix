@@ -48,11 +48,16 @@
     {% if patients.has_previous %}
     <a href="?page=1">&laquo; First</a>
     <a href="?page={{ patients.previous_page_number }}">Previous</a>
-    {% endif %} {% for num in patients.paginator.page_range %} {% if patients.number == num %}
-    <strong>{{ num }}</strong>
-    {% else %}
-    <a href="?page={{ num }}">{{ num }}</a>
-    {% endif %} {% endfor %} {% if patients.has_next %}
+    {% endif %} {% for num in patients.paginator.page_range %} 
+    {% if num >= start_page and num <= end_page %}
+      {% if patients.number == num %}
+      <strong>{{ num }}</strong>
+      {% else %}
+      <a href="?page={{ num }}">{{ num }}</a>
+      {% endif %}
+    {% endif %}
+    {% endfor %} 
+    {% if patients.has_next %}
     <a href="?page={{ patients.next_page_number }}">Next</a>
     <a href="?page={{ patients.paginator.num_pages }}">Last &raquo;</a>
     {% endif %}

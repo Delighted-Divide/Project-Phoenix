@@ -14,7 +14,7 @@
                     <option value="KD" {% if request.GET.roomType == "KD" %}selected{% endif %}>King's Delux</option>
                     
                 </select>
-                <input type="text" id="searchBox" name = "searchQuery" placeholder="Search Rooms...">
+                <input type="text" id="searchBox" name = "searchQuery" placeholder="Search Rooms..." value="{{ request.GET.searchQuery }}">
                 <!-- <button id="searchButton">Search</button> -->
             </div>
         </form>
@@ -27,7 +27,7 @@
                     <th>Bed Count</th>
                     <th>Occupied Beds</th>
                     <th>Available Beds</th>
-                    <th style="text-align: center;">Status</th>
+                    <th >Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,11 +52,13 @@
             {% endif %}
         
             {% for num in rooms.paginator.page_range %}
+            {% if num >= start_page and num <= end_page %}
                 {% if rooms.number == num %}
                     <strong>{{ num }}</strong>
                 {% else %}
                     <a href="?page={{ num }}&roomType={{ request.GET.roomType }}&searchQuery={{ request.GET.searchQuery }}">{{ num }}</a>
                 {% endif %}
+            {% endif %}
             {% endfor %}
         
             {% if rooms.has_next %}
