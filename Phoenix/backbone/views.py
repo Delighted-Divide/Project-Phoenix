@@ -61,7 +61,7 @@ def doctor(request):
 
 
 
-def doctor_profile(request,user_id  ):
+def doctor_profile(request,user_id):
     profile = CustomUser.objects.get(id=user_id)
     user_json = serializers.serialize('json', [profile])
     
@@ -135,7 +135,7 @@ def room(request):
     if search_query:
         room_list = room_list.filter(
             Q(room_id__icontains=search_query) 
-            # Add more fields to search within as per your model
+
         )
     paginator = Paginator(room_list,14)  
     page_number = request.GET.get('page')  
@@ -250,17 +250,38 @@ def appointment(request):
 
 
 def laboratory(request):
-    lab_list = Lab.objects.all()  # Fetch all doctor objects
-    paginator = Paginator(lab_list, 11)  # 7 doctors per page
-    page = request.GET.get('page')  # Get the page number from the query string
-    labs = paginator.get_page(page)  # Get the doctors for the current page
 
-    start,end = page_sort(labs)
     context = {
         'pname': "Laboratory",
         'user': request.user,
-        'labs': labs,
-        'start_page':start,
-        'end_page':end
+
     }
     return render(request, "laboratory.html", context)
+
+
+def lab(request,lab_name):
+    lab = Lab.objects.get(name= lab_name)
+    test_list = LabTest.objects.filter(lab=lab) 
+    scan_list = ScanTest.objects.filter(lab=lab)  
+
+
+    context = {
+        'pname': lab_name.title,
+        'user': request.user,
+        'tests':test_list,
+        'scans':scan_list
+        }
+    return render(request, "labs.html", context)
+
+
+def duty(request):
+    duty = DoctorWorkShift.objects.filter(doctor = request.user.doctor_profile)
+    print(duty)
+
+
+    context = {
+        'pname': str(request.user) + "\'s Duty",
+        'user': request.user
+        }
+    return render(request, "duty.html", context)
+

@@ -1,0 +1,44 @@
+{% extends 'trial.html' %} {% block extra_css %} {% load static %}
+<link rel="stylesheet" href="{% static 'labs.css' %}" />
+
+
+
+{% endblock %} {% block content %} {% load custom_filters %}
+<div class="content-wrapper">
+    <div class="size-adjust">
+        <div class="container">
+            <div class="box scans-box">
+                <h2 class="box-title">Scans</h2>
+                <ul class="item-list">
+                    {% for scan in scans %}
+                    <li class="item">
+                        <span class="item-name">{{scan.name}}</span>
+                        <span class="item-price">{{scan.price|cents_to_dollars}}</span>
+                    </li>
+                    {% empty %}
+                    <li class="item empty-message">No Scans Here</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        
+            <div class="box tests-box">
+                <h2 class="box-title">Tests</h2>
+                <ul class="item-list">
+                    {% for test in tests %}
+                    <li class="item">
+                        <span class="item-name">{{test.name}}</span>
+                        <span class="item-price">${{ test.price|cents_to_dollars}}</span>
+                    </li>
+                    {% empty %}
+                    <li class="item empty-message">No Tests Here</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        
+         
+    </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script src="{% static 'labs.js' %}"></script>
+{% endblock %}

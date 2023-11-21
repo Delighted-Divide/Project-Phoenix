@@ -1,3 +1,7 @@
+.size-adjust{
+    margin-top: 30px;
+}
+
 .lab-container {
     display: flex;
     flex-wrap: wrap;
@@ -11,14 +15,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 150px;
-    height: 150px;
-    border: 2px solid #007bff;
+    width: 220px;
+    height: 220px;
+    border: 2px solid var(--fifth-color);
     border-radius: 10px;
     padding: 10px;
-    background-color: #f8f9fa;
+    background-color: var(--primary-color);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+    cursor: pointer;
 }
 
 .lab-box:hover {
@@ -26,15 +31,23 @@
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.lab-icon {
-    font-size: 40px; /* Adjust size accordingly */
-    margin-bottom: 10px;
-}
+
 
 .lab-name {
-    font-size: 16px;
+    font-size: 24px;
     text-align: center;
-    color: #333;
+    padding-top: 30px;
 }
 
 /* Specific styling for each lab icon */
+
+.labicon{
+    color: var(--third-color);
+    font-size: 3.5em !important;
+}
+/* 
+.lab-icon{
+    color: var(--third-color);
+    font-size: 200px !important;
+    
+} */

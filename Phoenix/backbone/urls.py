@@ -13,7 +13,9 @@ urlpatterns = [
     path('room/', views.room, name="Room"),
     path('surgery/', views.surgery, name="Surgery"),
     path('appointment/', views.appointment, name="Appointment"),
-    path('laboratory/', views.laboratory, name="Laboratory")
+    path('laboratory/', views.laboratory, name="Laboratory"),
+    path('laboratory/<lab_name>/', views.lab, name="Lab"),
+    path('duty/', views.duty, name="Duty")
 ]
 
 if settings.DEBUG:

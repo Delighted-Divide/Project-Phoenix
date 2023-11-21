@@ -1,0 +1,62 @@
+.work-hours-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.work-hours-title {
+    color: #2e3d49;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.work-hours .day {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background-color: #fff;
+    margin: 8px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.day-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4a6572;
+}
+
+.hours {
+    font-size: 18px;
+    color: #4caf50;
+}
+
+.day.off .hours {
+    color: #f44336; /* Red color for days off */
+}
+
+.work-hours .day:hover {
+    background-color: #e8f0fe;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .work-hours .day {
+        flex-direction: column;
+        text-align: left;
+        padding: 15px;
+    }
+
+    .day-name, .hours {
+        display: block;
+        margin: 5px 0;
+    }
+}

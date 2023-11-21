@@ -1,0 +1,49 @@
+{% extends 'trial.html' %} {% block extra_css %} {% load static %}
+<link rel="stylesheet" href="{% static 'duty.css' %}" />
+
+
+
+{% endblock %} {% block content %} {% load custom_filters %}
+<div class="content-wrapper">
+    <div class="size-adjust">
+        <div class="work-hours-container">
+            <h2 class="work-hours-title">Dr. Smith's Work Hours</h2>
+            <div class="work-hours">
+                <div class="day">
+                    <span class="day-name">Monday:</span>
+                    <span class="hours">8 AM - 4 PM</span>
+                </div>
+                <div class="day">
+                    <span class="day-name">Tuesday:</span>
+                    <span class="hours">9 AM - 5 PM</span>
+                </div>
+                <div class="day">
+                    <span class="day-name">Wednesday:</span>
+                    <span class="hours">8 AM - 4 PM</span>
+                </div>
+                <div class="day">
+                    <span class="day-name">Thursday:</span>
+                    <span class="hours">9 AM - 5 PM</span>
+                </div>
+                <div class="day">
+                    <span class="day-name">Friday:</span>
+                    <span class="hours">8 AM - 2 PM</span>
+                </div>
+                <div class="day off">
+                    <span class="day-name">Saturday:</span>
+                    <span class="hours">Off</span>
+                </div>
+                <div class="day off">
+                    <span class="day-name">Sunday:</span>
+                    <span class="hours">Off</span>
+                </div>
+            </div>
+        </div>
+        
+        
+         
+    </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script src="{% static 'duty.js' %}"></script>
+{% endblock %}

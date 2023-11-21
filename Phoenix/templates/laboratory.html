@@ -1,21 +1,61 @@
 {% extends 'trial.html' %} {% block extra_css %} {% load static %}
 <link rel="stylesheet" href="{% static 'laboratory.css' %}" />
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<link  rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 {% endblock %} {% block content %} {% load custom_filters %}
 <div class="content-wrapper">
     <div class="size-adjust">
         <div class="lab-container">
-            <div class="lab-box" id="toxicology-lab">
-                <i class="lab-icon">[Toxicology Icon]</i>
+            <div class="lab-box" id="toxicology lab">
+                <i class="fa-solid fa-biohazard labicon"></i>
                 <span class="lab-name">Toxicology Lab</span>
             </div>
-            <div class="lab-box" id="cytology-lab">
-                <i class="lab-icon">[Cytology Icon]</i>
+            <div class="lab-box" id="cytology lab">
+                <i class="fa-solid fa-snowflake labicon"></i>
                 <span class="lab-name">Cytology Lab</span>
             </div>
-            <!-- Repeat for each lab -->
-            <!-- ... -->
-            <div class="lab-box" id="radiology-lab">
-                <i class="lab-icon">[Radiology Icon]</i>
+            <div class="lab-box" id="genetics Lab">
+                <i class="fa-solid fa-dna labicon"></i>
+                <span class="lab-name">Genetics Lab</span>
+            </div>
+            <div class="lab-box" id="biochemistry lab">
+                <i class="fa-solid fa-bacterium labicon"></i>
+                <span class="lab-name">Biochemistry Lab</span>
+            </div>
+            <div class="lab-box" id="hematology lab">
+                <span class="material-symbols-outlined labicon">
+                    hematology
+                    </span>
+                <span class="lab-name">Hematology Lab</span>
+            </div>
+            <div class="lab-box" id="nuclear medicine lab">
+                <i class="fa-solid fa-atom labicon"></i>
+                <span class="lab-name">Nuclear Lab</span>
+            </div>
+            <div class="lab-box" id="neurology lab">
+                <span class="material-symbols-outlined labicon">
+                    neurology
+                    </span>
+                <span class="lab-name">Neurology Lab</span>
+            </div>
+            <div class="lab-box" id="microbiology lab">
+                <i class="fa-solid fa-microscope labicon"></i>
+                <span class="lab-name">Microbiology Lab</span>
+            </div>
+            <div class="lab-box" id="cardiology lab">
+                <i class="fa-regular fa-heart labicon"></i>
+                <span class="lab-name">Cardiology Lab</span>
+            </div>
+            <div class="lab-box" id="pathology lab">
+                <i class="fa-solid fa-virus labicon"></i>
+                <span class="lab-name">Pathology Lab</span>
+            </div>
+
+
+            <div class="lab-box" id="radiology lab">
+                <i class="fa-solid fa-radiation labicon"></i>
                 <span class="lab-name">Radiology Lab</span>
             </div>
         </div>
