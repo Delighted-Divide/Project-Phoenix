@@ -315,11 +315,11 @@ class Room(models.Model):
 
     def save(self, *args, **kwargs):
         ROOM_PRICES = {
-            'GW': 1000,  # General Ward
-            'SP': 3500,  # Semi Private
-            'PR': 5000,  # Private
-            'DL': 6500,  # Deluxe
-            'KD': 8000,  # King's Deluxe
+            'GW': 1000, 
+            'SP': 3500,  
+            'PR': 5000, 
+            'DL': 6500,  
+            'KD': 8000,  
         }
         is_new = not self.room_id
         if not self.room_id:

@@ -10,6 +10,7 @@ from django.contrib.auth.hashers import make_password
 from django.db.models import Q
 from django.utils import timezone
 from datetime import datetime, timedelta
+from django.utils import timezone
 # Create your views here.
 
 
@@ -31,7 +32,7 @@ def dashboard(request):
     doctor_count = Doctor.objects.all().count()
     visitors = InpatientVisit.objects.all().count() + OutpatientVisit.objects.all().count()
     bed_occupied = Bed.objects.all().filter(is_occupied=True).count()
-    bed_occupancy = int(bed_occupied/Bed.objects.all().count())
+    bed_occupancy = int(bed_occupied/Bed.objects.all().count()*100)
     context = {
         'pname': "Dashboard",
         'user': request.user,
@@ -44,10 +45,10 @@ def dashboard(request):
 
 
 def doctor(request):
-    doctor_list = Doctor.objects.all()  # Fetch all doctor objects
-    paginator = Paginator(doctor_list, 7)  # 7 doctors per page
-    page = request.GET.get('page')  # Get the page number from the query string
-    doctors = paginator.get_page(page)  # Get the doctors for the current page
+    doctor_list = Doctor.objects.all()  
+    paginator = Paginator(doctor_list, 7) 
+    page = request.GET.get('page')  
+    doctors = paginator.get_page(page) 
 
     start,end = page_sort(doctors)
     context = {
@@ -274,14 +275,40 @@ def lab(request,lab_name):
     return render(request, "labs.html", context)
 
 
-def duty(request):
-    duty = DoctorWorkShift.objects.filter(doctor = request.user.doctor_profile)
-    print(duty)
 
+def duty(request):
+    today = timezone.localdate()
+    days_ahead = [today + timedelta(days=i) for i in range(7)]
+    weekdays = [day.strftime("%A") for day in days_ahead]
+
+    shifts_by_day = {}
+    for weekday in weekdays:
+        shifts = DoctorWorkShift.objects.filter(
+            doctor=request.user.doctor_profile,
+            day_of_week=weekday
+        )
+        shifts_by_day[weekday] = shifts
+
+
+
+    # Filter for admitting patients
+    admitting_patients_visits = InpatientVisit.objects.filter(
+        admitting_doctor=request.user.doctor_profile, discharge_date__isnull=True)
+
+    # Filter for surgeries
+    upcoming_surgeries = Surgery.objects.filter(
+    scheduled_time__gt=timezone.now()
+).filter(
+    Q(lead_doctor=request.user.doctor_profile) |
+    Q(assisting_doctors=request.user.doctor_profile)
+).distinct()
 
     context = {
         'pname': str(request.user) + "\'s Duty",
-        'user': request.user
-        }
+        'user': request.user,
+        'shifts_by_day': shifts_by_day,
+        'admitting_patients_visits': admitting_patients_visits,
+        'upcoming_surgeries': upcoming_surgeries,
+    }
     return render(request, "duty.html", context)
 

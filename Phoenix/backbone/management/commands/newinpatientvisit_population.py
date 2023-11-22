@@ -1,8 +1,9 @@
 from datetime import timedelta
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-from backbone.models import InpatientVisit, Patient,Bed
+from backbone.models import InpatientVisit, Patient,Bed,Doctor
 import random
+
 
 class Command(BaseCommand):
     help = 'Generate random inpatient visits with static data, ensuring no patient repetition'
@@ -31,6 +32,7 @@ class Command(BaseCommand):
             return
         InpatientVisit.objects.create(
             patient=patient,
+            admitting_doctor=Doctor.objects.order_by("?").first(), 
             admission_date=timezone.now(),
             discharge_date=None,
             bed=available_bed,

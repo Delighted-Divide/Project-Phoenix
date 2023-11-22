@@ -5907,7 +5907,7 @@ class Command(BaseCommand):
                     
                     InpatientVisit.objects.create(
                         patient=patient,
-                        admitting_doctor=None,  # Assign a doctor if needed
+                        admitting_doctor=Doctor.objects.order_by("?").first(),  # Assign a doctor if needed
                         bed=available_bed,
                         admission_date=admission_date,
                         discharge_date=discharge_date,

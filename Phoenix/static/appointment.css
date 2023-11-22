@@ -2,6 +2,9 @@ body{
     overflow: auto;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+}
 
 .calendar {
     display: flex;

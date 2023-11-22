@@ -13,7 +13,7 @@
                     {% for scan in scans %}
                     <li class="item">
                         <span class="item-name">{{scan.name}}</span>
-                        <span class="item-price">{{scan.price|cents_to_dollars}}</span>
+                        <span class="item-price">${{scan.price|cents_to_dollars}}</span>
                     </li>
                     {% empty %}
                     <li class="item empty-message">No Scans Here</li>

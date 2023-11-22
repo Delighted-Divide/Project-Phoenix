@@ -6,44 +6,54 @@
 {% endblock %} {% block content %} {% load custom_filters %}
 <div class="content-wrapper">
     <div class="size-adjust">
-        <div class="work-hours-container">
-            <h2 class="work-hours-title">Dr. Smith's Work Hours</h2>
-            <div class="work-hours">
-                <div class="day">
-                    <span class="day-name">Monday:</span>
-                    <span class="hours">8 AM - 4 PM</span>
+        <div class="container">
+            <!-- Surgeries Box (Left) -->
+            <div class="box surgeries-box">
+                <h2 class="box-title">Scheduled Surgeries</h2>
+                <div class="details">
+                    {% for surgery in upcoming_surgeries %}
+                        <div class="detail">{{ surgery.surgery_type }}: {{ surgery.scheduled_time | date:"F j, g A" }}</div>
+                    {% endfor %}
                 </div>
-                <div class="day">
-                    <span class="day-name">Tuesday:</span>
-                    <span class="hours">9 AM - 5 PM</span>
+            </div>
+
+            <!-- Work Hours Box (Middle) -->
+            <div class="box work-hours-container special-design">
+                <h2 class="box-title">Dr. Smith's Work Hours</h2>
+                <div class="details">
+                    {% for day, shifts in shifts_by_day.items %}
+                        <div class="day-label">{{ day }}</div>
+                        {% if shifts %}
+                            <div class="shifts">
+                                {% for shift in shifts %}
+                                    <span class="shift-tag">{{ shift.shift_start_time|date:"g:i A" }} - {{ shift.shift_end_time|date:"g:i A" }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="empty-shift">Empty</div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
-                <div class="day">
-                    <span class="day-name">Wednesday:</span>
-                    <span class="hours">8 AM - 4 PM</span>
-                </div>
-                <div class="day">
-                    <span class="day-name">Thursday:</span>
-                    <span class="hours">9 AM - 5 PM</span>
-                </div>
-                <div class="day">
-                    <span class="day-name">Friday:</span>
-                    <span class="hours">8 AM - 2 PM</span>
-                </div>
-                <div class="day off">
-                    <span class="day-name">Saturday:</span>
-                    <span class="hours">Off</span>
-                </div>
-                <div class="day off">
-                    <span class="day-name">Sunday:</span>
-                    <span class="hours">Off</span>
+            </div>
+
+            <!-- Patients Box (Right) -->
+            <div class="box patients-box">
+                <h2 class="box-title">Admitted Patients</h2>
+                <div class="details">
+                    {% for visit in admitting_patients_visits %}
+                        <div class="detail">{{ visit.patient }}: Room {{ visit.bed.room }} {{ visit.bed.bed_label }}</div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
-        
-        
-         
+        <div class="navigation">
+            <span class="nav-arrow left-arrow">&#9664;</span>
+            <span class="nav-arrow right-arrow">&#9654;</span>
+        </div>
     </div>
 </div>
+
+
 {% endblock %} {% block extra_js %}
 <script src="{% static 'duty.js' %}"></script>
 {% endblock %}

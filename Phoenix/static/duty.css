@@ -1,62 +1,237 @@
-.work-hours-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f4f4f4;
+.content-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.size-adjust {
+    position: relative;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 40px;
+}
+
+.box {
+    background-color: #f9f9f9;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 0 10px;
+    width: 400px;
+    transition: all 0.3s ease;
+    margin-top: 70px;
 }
 
-.work-hours-title {
-    color: #2e3d49;
-    font-size: 24px;
-    margin-bottom: 20px;
+.special-design {
+    background-color: #fff;
+    
+    background-size: 28px 28px;
+    color: #fff;
+    width: 600px;
+    border: 3px solid #2196f3;
+    box-shadow: 0 6px 12px rgba(33, 150, 243, 0.4);
+    padding: 25px;
+    margin-top: 0px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+.special-design::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    bottom: -50%;
+    left: -50%;
+    background-size: 10px 10px;
+    z-index: 0;
+    transition: all 0.5s ease;
+}
+
+.special-design:hover::before {
+    background-size: 15px 15px;
+}
+
+.special-design .box-title {
+    font-size: 22px;
+    color: var(--fifth-color);
+    z-index: 1;
+}
+
+.special-design .day-label, .special-design .shift-tag, .special-design .empty-shift {
+    color: var(--third-color);
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 5px 15px;
+    margin: 5px 0;
+    box-shadow: 0 2px 4px rgba(33, 150, 243, 0.2);
+    z-index: 1;
+}
+
+.special-design .shift-tag {
     font-weight: bold;
+    margin-right: 10px;
+    color: rgba(255, 255, 255, 0.9);
+    background-color: var(--third-color);
 }
 
-.work-hours .day {
+.special-design .empty-shift {
+    background-color: rgba(255, 99, 99, 0.9);
+}
+
+.shifts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+
+.box-title {
+    color: #2c3e50;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.details .detail {
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #e1bee7;
+    transition: transform 0.3s ease;
+}
+.details .detail:hover {
+    transform: scale(1.03);
+}
+
+.detail.off {
+    color: #c0392b;
+}
+.day-label {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+}
+
+.shifts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.shift-tag,.empty-shift {
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+
+.empty-shift {
+    background-color: rgb(255, 99, 99);
+    color: white !important;
+    font-style: italic;
+    margin-bottom: 10px;
+    font-size: 0.9em !important;
+    white-space: nowrap;
+    max-width: 35%;
+}
+
+/* Admitted Patients Box */
+.patients-box {
+    border-radius: 10px;
+    background-color: #f0e5ff;
+    box-shadow: 0 4px 8px rgba(102, 51, 153, 0.2);
+    padding: 20px;
+
+}
+
+.patients-box .box-title {
+    color: #6a1b9a; /* Dark purple */
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.patients-box .details .detail {
+    background-color: #e1bee7; /* Lighter purple */
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+/* Scheduled Surgeries Box */
+.surgeries-box {
+    border-radius: 10px;
+    background-color: #e3f2fd;
+    box-shadow: 0 4px 8px rgba(25, 118, 210, 0.2);
+    padding: 20px;
+
+}
+
+.surgeries-box .box-title {
+    color: #0277bd; /* Dark blue */
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.surgeries-box .details .detail {
+    background-color: #b3e5fc; /* Lighter blue */
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+.surgeries-box .details .detail:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+
+
+.navigation {
+    position: absolute;
+    top: 50%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 12px 20px;
-    background-color: #fff;
-    margin: 8px 0;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    transition: all 0.3s ease;
+    pointer-events: none;
 }
 
-.day-name {
-    font-size: 18px;
-    font-weight: bold;
-    color: #4a6572;
+.nav-arrow {
+    font-size: 24px;
+    pointer-events: auto;
+    cursor: pointer;
 }
 
-.hours {
-    font-size: 18px;
-    color: #4caf50;
-}
-
-.day.off .hours {
-    color: #f44336; /* Red color for days off */
-}
-
-.work-hours .day:hover {
-    background-color: #e8f0fe;
-    transform: translateY(-2px);
-}
-
-/* Responsive Design */
 @media (max-width: 768px) {
-    .work-hours .day {
+    .container {
         flex-direction: column;
-        text-align: left;
-        padding: 15px;
     }
 
-    .day-name, .hours {
-        display: block;
-        margin: 5px 0;
+    .box {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .navigation {
+        flex-direction: column;
+        height: 100%;
+        top: 10%;
+        align-items: center;
+    }
+
+    .nav-arrow {
+        margin-bottom: 20px;
     }
 }
