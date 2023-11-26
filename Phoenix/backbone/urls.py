@@ -15,7 +15,10 @@ urlpatterns = [
     path('appointment/', views.appointment, name="Appointment"),
     path('laboratory/', views.laboratory, name="Laboratory"),
     path('laboratory/<lab_name>/', views.lab, name="Lab"),
-    path('duty/', views.duty, name="Duty")
+    path('duty/', views.duty, name="Duty"),
+    path('update-color-index/', views.update_color_index, name='update_color_index'),
+    path('update-color2-index/', views.update_color2_index, name='update_color2_index'),
+    path('pharmacy/', views.pharmacy_view, name='Pharmacy'),
 ]
 
 if settings.DEBUG:

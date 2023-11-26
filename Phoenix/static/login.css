@@ -1,0 +1,133 @@
+body {
+    background-color: rgb(25, 31, 40);
+    overflow: hidden;
+    border: 3px solid rgb(103, 125, 236);
+    margin: 0px;
+    position: relative;
+    
+
+}
+
+.line-container {
+    position: absolute;
+    left: 20%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    z-index: 1;
+}
+
+.line {
+    background-color: #21eb5e;
+    height: 100%;
+    width: 100%;
+}
+.image-container {
+    position: absolute;
+    left: calc(25% + 2px); /* Adjust to be right of the line */
+    top: 0px;
+    right: 0px; /* Stretch to the right end of the viewport */
+    bottom: 0px; /* Stretch to the bottom of the viewport */
+
+}
+.image-container img {
+    /* width: 155.5vh; */
+    width: 1495px;
+    height: 956px;
+
+}
+.login-container {
+    position: absolute;
+    left: 16%;
+    top: 65%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 25px;
+    background-color: rgb(28, 34, 44); /* Dark theme for login box */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    text-align: center;
+    z-index: 10;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    background: rgba(255, 255, 255, 0.1); /* Subtle background */
+    border: 2px solid transparent;
+    border-radius: 5px;
+    color: #FFF;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.login-form input:focus {
+    outline: none;
+    border-color: #5cb85c; /* Highlight color */
+    box-shadow: 0 0 10px rgba(92, 184, 92, 0.5);
+}
+
+.login-form button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 15px;
+    background-color: rgb(103, 125, 236); /* Eye-catching blue for the button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.login-form button:hover {
+    background-color: rgba(103, 125, 236,0.9); /* Darker shade on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.forgot-password {
+    display: block;
+    margin-top: 15px;
+    color: #bbb;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.forgot-password:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.login-title {
+    color: #FFF;
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-align: left; /* Align text to the left */
+    font-weight: 300; /* Thinner text, you can adjust as needed */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    letter-spacing: 1px; /* Slight letter spacing for a cooler look */
+    padding-left: 20px; /* Align with the form's content */
+}
+
+
+.login-container::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 10px; /* Width of the design element */
+    background: linear-gradient(to bottom, #2196f3, #5cb85c); /* Gradient color */
+    border-top-left-radius: 15px; /* Match the border-radius of the container */
+    border-bottom-left-radius: 15px;
+}
+
+
+.corner-image-container {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+}

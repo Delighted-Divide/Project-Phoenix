@@ -12,6 +12,13 @@ import string
 
 
 class Doctor(models.Model):
+    STATUS_CHOICES = [
+        ('fired', 'Fired'),
+        ('retired', 'Retired'),
+        ('on_duty', 'On Duty'),
+        ('resigned', 'Resigned'),
+        ('not_on_duty', 'Not on Duty')  # Another word for not on duty
+    ]
     user = models.OneToOneField(
         'accounts.CustomUser', on_delete=models.CASCADE, related_name='doctor_profile')
     # specialization = models.ManyToManyField('Specialization')
@@ -25,7 +32,12 @@ class Doctor(models.Model):
         'specialist', blank=True, related_name='doctors_subspecialities')
     certifications = models.PositiveIntegerField(default=0,
                                                  help_text="Number of certifications")
+    
 
+    status = models.CharField(
+        max_length=20, choices=STATUS_CHOICES, default='not_on_duty')
+
+    fee = models.DecimalField(max_digits=10, decimal_places=2,default=0)
     # Professional Achievements
     publications_count = models.PositiveIntegerField(default=0)
     awards_count = models.PositiveIntegerField(default=0)

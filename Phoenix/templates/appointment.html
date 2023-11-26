@@ -295,5 +295,9 @@
   
 </div>
 {% endblock %} {% block extra_js %}
+<script>
+    var removeNav = document.querySelector("#page-title i")
+    removeNav.click()
+</script>
 <script src="{% static 'appointment.js' %}"></script>
 {% endblock %}

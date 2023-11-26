@@ -21,8 +21,7 @@ class Command(BaseCommand):
         parser.add_argument('--DL', type=int, default=0,
                             help='The number of Rooms')
         parser.add_argument('--KD', type=int, default=0,
-                            help='The number of Rooms')
-                            
+                            help='The number of Rooms')                         
         parser.add_argument('--all', type=int, default=0,
                             help='The number of Rooms')
 

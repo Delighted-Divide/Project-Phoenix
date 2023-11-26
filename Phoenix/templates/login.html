@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    {% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}" />
+    {% endblock %}
+</head>
+<body?>
+
+    <div class="corner-image-container">
+        <img src="{% static 'images/logo.png' %}" alt="Corner Image" style="width: 200px; height: 200px;">
+        <img src="{% static 'images/logo_name.png' %}" alt="Corner Image" style="position: relative; right: 200px;width: 200px; top: 10px; ">
+    </div>
+    <div class="line-container">
+        <div class="line"></div>
+        <div class="image-container">
+            <img src="{% static 'images\DALL·E 2023-11-05 22.27.15 - Create a high-quality, masterpiece-level image featuring a group of non-human, darkness-based warriors, with an anime style. These formidable beings a.png' %}" alt="Descriptive Image">
+        </div>
+    </div>
+
+    <div class="login-container">
+        <h2 class="login-title">Nocturne</h2>
+        <form class="login-form" action="" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="error">{{ form.username.errors.as_text }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.password }}
+                {% if form.password.errors %}
+                    <div class="error">{{ form.password.errors.as_text }}</div>
+                {% endif %}
+            </div>
+            <button type="submit">Login</button>
+            <a href="#" class="forgot-password">Forgot Password?</a>
+        </form>
+    </div>
+</body?>
+<script src="{% static 'login.js' %}"></script>
+</html>

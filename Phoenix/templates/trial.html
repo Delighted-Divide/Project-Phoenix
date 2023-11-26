@@ -16,11 +16,17 @@
 
   </head>
   <body>
+    <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <img src="{% static 'images/loadingscreen.png' %}" alt="Loading..." class="loading-image">
+  </div>
+
+    
     <div id="top"></div>
     <div id="right"></div>
     <div id="left"></div>
     <div class="top-bar">
-      <img id="logo" src="{% static 'images\caca-removebg-preview.png' %}" />
+      <img src="{% static 'images/logo_name.png' %}" alt="Corner Image" style="position: relative; width: 275px; top: 13px; right: 25px;">
       <form id="search-form" method="POST" action="">
         <input id="search" type="text" placeholder="Search here..." />
         <button id="search-button" type="submit">
@@ -84,7 +90,7 @@
         <a href="{% url 'Doctor' %}"><i class="fas fa-user-md"></i> Doctors</a>
         <a href="{% url 'Patient' %}"><i class="material-icons large-icon">people</i> Patients</a>
         <a href="{% url 'Room' %}"><i class="material-icons large-icon">single_bed</i> Rooms</a>
-        <a><i class="fas fa-capsules"></i> Pharmacy</a>
+        <a href="{% url 'Pharmacy' %}"><i class="fas fa-capsules"></i> Pharmacy</a>
         <a href="{% url 'Surgery' %}"><i class="material-icons large-icon">healing</i> Operations</a>
         <a href="{% url 'Laboratory' %}"><i class="fas fa-flask"></i> Laboratory</a>  
         
@@ -129,7 +135,17 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{% static 'trial_js.js' %}"></script>
     <script src="{% static 'node_modules\chart.js\dist\chart.umd.js' %}"></script>
-  
+    <script >
+      var userColors = JSON.parse('{{ request.user.color_index|safe }}');
+      var userColors2 = JSON.parse('{{ request.user.color2_index|safe }}');        
+
+      //color setup
+      let page_color = document.querySelectorAll("#colors li")[userColors];
+      page_color.click();
+
+      let page_color2 = document.querySelectorAll("#colors2 li")[userColors2];
+      page_color2.click()
+    </script>
     {% block extra_js %}{% endblock %}
   </body>
 </html>

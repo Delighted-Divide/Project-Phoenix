@@ -29,4 +29,11 @@ class CustomUserAdmin(UserAdmin):
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(NameList)
 admin.site.register(LastName)
+admin.site.register(Allergy)
+admin.site.register(Symptom)
+admin.site.register(Diagnosis)
+admin.site.register(PhysicalExaminationResponse)
+admin.site.register(ElectricityBill)
+admin.site.register(WaterBill)
+admin.site.register(HospitalStaff)
 

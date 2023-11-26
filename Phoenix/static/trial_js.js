@@ -7,12 +7,19 @@ let menu = document.getElementById("start").firstElementChild;
 menu.firstElementChild.classList.toggle("icon-active");
 menu.classList.add("li-active");
 
-//color setup
-let page_color = document.querySelectorAll("#colors li")[1];
-page_color.classList.add("li-active");
+window.addEventListener('load', function() {
+  var loadingScreen = document.getElementById('loading-screen');
+  if (loadingScreen) {
+      // Fade out the loading screen
+      loadingScreen.style.opacity = '0';
+      loadingScreen.style.transition = 'opacity 5s ease';
 
-let page_color2 = document.querySelectorAll("#colors2 li")[2];
-page_color2.classList.add("li-active");
+      // Remove the loading screen after the transition
+      setTimeout(function() {
+          loadingScreen.parentNode.removeChild(loadingScreen);
+      }, 500); // This should match the duration of the opacity transition
+  }
+});
 
 // _________________________________________________________________________________________________________________________________________
 // _________________________________________________________________________________________________________________________________________
@@ -21,6 +28,34 @@ page_color2.classList.add("li-active");
 // _________________________________________________________________________________________________________________________________________
 // _________________________________________________________________________________________________________________________________________
 // _________________________________________________________________________________________________________________________________________
+
+
+function getTone(color, factor) {
+  let colorValues = color.match(/\d+/g).map(Number); // Extract RGB values
+  let isRGBA = colorValues.length === 4; // Check if it's RGBA
+  let alpha = isRGBA ? colorValues.pop() : 1; // Get alpha value
+
+  let tonedValues = colorValues.map(value => {
+      let newValue = value * factor;
+      return Math.min(255, Math.max(0, Math.round(newValue))); // Clamp between 0 and 255
+  });
+
+  return `rgba(${tonedValues.join(", ")}, ${alpha})`;
+}
+
+function setTones(baseColor,label) {
+  for (let i = 1; i <= 10; i++) {
+      // Lighter tones
+      let lighterTone = getTone(baseColor, 1 + (0.1 * i)); // Incrementally lighter
+      document.documentElement.style.setProperty(`--${label}-light-color-${i}`, lighterTone);
+      console.log(`${label} Lighter Level ${i}:`, lighterTone);
+
+      // Darker tones
+      let darkerTone = getTone(baseColor, 1 - (0.1 * i)); // Incrementally darker
+      document.documentElement.style.setProperty(`--${label}-dark-color-${i}`, darkerTone);
+      console.log(`${label} Darker Level ${i}:`, darkerTone);
+  }
+}
 
 // Get all the lists in the start bar
 var lists = document.querySelectorAll(".start li");
@@ -59,6 +94,21 @@ lists.forEach(function (list) {
     }
   });
 });
+
+
+
+
+// Function to get CSRF token from cookies
+function getCSRFToken() {
+  let cookies = document.cookie.split(';');
+  for (let i = 0; i < cookies.length; i++) {
+    let cookie = cookies[i].trim();
+    if (cookie.startsWith('csrftoken=')) {
+      return cookie.substring('csrftoken='.length, cookie.length);
+    }
+  }
+  return null;
+}
 // _________________________________________________________________________________________________________________________________________
 // _________________________________________________________________________________________________________________________________________
 // _________________________________________________________________________________________________________________________________________
@@ -67,30 +117,58 @@ lists.forEach(function (list) {
 // _________________________________________________________________________________________________________________________________________
 
 var color_lists = document.querySelectorAll("#colors li");
-color_lists.forEach(function (list) {
+color_lists.forEach(function (list,index) {
   list.addEventListener("click", function () {
     color_lists.forEach(function (inactiveList) {
       inactiveList.classList.remove("li-active");
     });
+    let selectedColor = this.firstElementChild.style.backgroundColor;
     document.documentElement.style.setProperty(
       "--third-color",
       this.firstElementChild.style.backgroundColor
     );
+    setTones(selectedColor,"third");
     this.classList.add("li-active");
+
+    fetch('/update-color-index/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCSRFToken() // Function to get CSRF token
+      },
+      body: JSON.stringify({ color_index: index }) // index of clicked color
+    })
+    .then(response => response.json())
+    .then(data => console.log('Color index updated:', data))
+    .catch(error => console.error('Error:', error));
   });
 });
 
 var color_lists2 = document.querySelectorAll("#colors2 li");
-color_lists2.forEach(function (list) {
+color_lists2.forEach(function (list,index) {
   list.addEventListener("click", function () {
     color_lists2.forEach(function (inactiveList) {
       inactiveList.classList.remove("li-active");
     });
+    let selectedColor = this.firstElementChild.style.backgroundColor;
     document.documentElement.style.setProperty(
       "--fifth-color",
       this.firstElementChild.style.backgroundColor
     );
+    setTones(selectedColor,"fifth");
     this.classList.add("li-active");
+
+    fetch('/update-color2-index/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCSRFToken() // Function to get CSRF token
+      },
+      body: JSON.stringify({ color_index: index }) // index of clicked color
+    })
+    .then(response => response.json())
+    .then(data => console.log('Color2 index updated:', data))
+    .catch(error => console.error('Error:', error));
   });
 });
 

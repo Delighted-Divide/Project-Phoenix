@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
-    'backbone.apps.BackboneConfig'
+    'backbone.apps.BackboneConfig',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [

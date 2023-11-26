@@ -1,0 +1,43 @@
+{% extends 'trial.html' %} {% block extra_css %} {% load static %}
+<link rel="stylesheet" href="{% static 'pharmacy.css' %}" />
+
+
+
+{% endblock %} {% block content %} {% load custom_filters %}
+<div class="content-wrapper">
+    <div class="size-adjust">
+        <div class="pharmacy-container">
+            {% for medicine in medicines %}
+                <div class="medicine-card">
+                    <h3 class="medicine-name">{{ medicine.name }}</h3>
+                    <div class="medicine-info">
+                        <p class="medicine-price">Price: ${{ medicine.price }}</p>
+                        <p class="medicine-package">Package: {{ medicine.package }}</p>
+                        {% if 'bottle' in medicine.package.lower %}
+                            <i class="fa fa-flask" aria-hidden="true"></i>
+                        {% elif 'strip' in medicine.package.lower %}
+                            <i class="fa fa-pills" aria-hidden="true"></i>
+                        {% else %}
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        {% endif %}
+                    </div>
+                    <p class="medicine-manufacturer">Manufacturer: {{ medicine.manufacturer }}</p>
+                    <p class="medicine-composition">Composition: {{ medicine.composition }}</p>
+                    <p class="medicine-prescription">
+                        {% if medicine.prescription_required %}
+                            <span class="prescription-required">Prescription Required</span>
+                        {% else %}
+                            <span class="no-prescription">No Prescription Required</span>
+                        {% endif %}
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+        
+    </div>
+</div>
+
+
+{% endblock %} {% block extra_js %}
+<script src="{% static 'pharmacy.js' %}"></script>
+{% endblock %}

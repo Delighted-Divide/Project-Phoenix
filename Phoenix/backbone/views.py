@@ -3,7 +3,7 @@ from django.core.paginator import Paginator
 from .models import *
 from .forms import DoctorForm
 from accounts.forms import CustomUserForm
-from accounts.models import CustomUser
+from accounts.models import CustomUser,Medicine
 from django.core import serializers
 from django.http import JsonResponse
 from django.contrib.auth.hashers import make_password
@@ -11,6 +11,10 @@ from django.db.models import Q
 from django.utils import timezone
 from datetime import datetime, timedelta
 from django.utils import timezone
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+import json
 # Create your views here.
 
 
@@ -232,7 +236,7 @@ def appointment(request):
         id_creation = appointment.appointment_date.strftime('%d') + "-" + str(appointment.start_time)
         appointment_json[id_creation] = appointment.patient.first_name
 
-    print(appointment_json)
+
 
 
     context = {
@@ -271,6 +275,7 @@ def lab(request,lab_name):
         'user': request.user,
         'tests':test_list,
         'scans':scan_list
+        
         }
     return render(request, "labs.html", context)
 
@@ -304,7 +309,7 @@ def duty(request):
 ).distinct()
 
     context = {
-        'pname': str(request.user) + "\'s Duty",
+        'pname': "Duty",
         'user': request.user,
         'shifts_by_day': shifts_by_day,
         'admitting_patients_visits': admitting_patients_visits,
@@ -312,3 +317,40 @@ def duty(request):
     }
     return render(request, "duty.html", context)
 
+
+
+def pharmacy_view(request):
+    medicine_list = Medicine.objects.all()
+    paginator = Paginator(medicine_list,1000) 
+    page = request.GET.get('page')  
+    medicines = paginator.get_page(page) 
+
+    start,end = page_sort(medicines)
+    context = {
+        'pname': "Pharmacy",
+        'user': request.user,
+        'medicines': medicines,
+        'start_page':start,
+        'end_page':end,
+    }
+    return render(request, 'pharmacy.html', context)
+
+################################################################################################
+################################################################################################
+
+
+@require_POST
+def update_color_index(request):
+    data = json.loads(request.body)
+    request.user.color_index = data.get('color_index')
+    request.user.save()
+    return JsonResponse({'status': 'success'})
+
+
+
+@require_POST
+def update_color2_index(request):
+    data = json.loads(request.body)
+    request.user.color2_index = data.get('color_index')
+    request.user.save()
+    return JsonResponse({'status': 'success'})

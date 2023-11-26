@@ -1,3 +1,12 @@
+:root {
+    --sixth-color: #e3f2fd; /* Light blue for background */
+    --seventh-color: #0277bd; /* Dark blue for text and borders */
+    --detail-color: #b3e5fc; /* Lighter blue for details */
+    --shadow-color: rgba(25, 118, 210, 0.5); /* Shadow color */
+}
+
+
+
 .content-wrapper {
     display: flex;
     justify-content: center;
@@ -5,6 +14,7 @@
 
 .size-adjust {
     position: relative;
+    right: 30px;
 }
 
 .container {
@@ -23,16 +33,21 @@
     width: 400px;
     transition: all 0.3s ease;
     margin-top: 70px;
+    max-height: 650px;
+    overflow: hidden;
 }
+.details::-webkit-scrollbar {
+    display: none;
+}
+
 
 .special-design {
     background-color: #fff;
-    
     background-size: 28px 28px;
     color: #fff;
     width: 600px;
-    border: 3px solid #2196f3;
-    box-shadow: 0 6px 12px rgba(33, 150, 243, 0.4);
+    border: 3px solid var(--third-color);
+    box-shadow: 0 6px 12px var(--third-color);
     padding: 25px;
     margin-top: 0px;
     position: relative;
@@ -58,7 +73,7 @@
 
 .special-design .box-title {
     font-size: 22px;
-    color: var(--fifth-color);
+    color: var(--third-color);
     z-index: 1;
 }
 
@@ -81,13 +96,12 @@
 
 .special-design .empty-shift {
     background-color: rgba(255, 99, 99, 0.9);
+    color: white;
 }
 
-.shifts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-bottom: 10px;
+.details{
+    overflow-y: auto;
+    max-height: 650px;
 }
 
 
@@ -95,6 +109,10 @@
     color: #2c3e50;
     font-size: 20px;
     margin-bottom: 20px;
+    color: var(--fifth-color);
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px var(--shadow-color);
 }
 
 .details .detail {
@@ -108,93 +126,159 @@
 .details .detail:hover {
     transform: scale(1.03);
 }
-
-.detail.off {
-    color: #c0392b;
-}
-.day-label {
-    font-weight: bold;
-    margin-top: 10px;
-    color: #333;
-}
-
-.shifts {
+/* Styling for shift details */
+.shift-detail {
     display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-bottom: 10px;
-}
-
-.shift-tag,.empty-shift {
-    background-color: #4CAF50; /* Green background */
-    color: white;
-    padding: 5px 10px;
-    border-radius: 10px;
-    font-size: 0.9em;
-    white-space: nowrap;
-}
-
-.empty-shift {
-    background-color: rgb(255, 99, 99);
-    color: white !important;
-    font-style: italic;
-    margin-bottom: 10px;
-    font-size: 0.9em !important;
-    white-space: nowrap;
-    max-width: 35%;
-}
-
-/* Admitted Patients Box */
-.patients-box {
-    border-radius: 10px;
-    background-color: #f0e5ff;
-    box-shadow: 0 4px 8px rgba(102, 51, 153, 0.2);
-    padding: 20px;
-
-}
-
-.patients-box .box-title {
-    color: #6a1b9a; /* Dark purple */
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.patients-box .details .detail {
-    background-color: #e1bee7; /* Lighter purple */
+    align-items: center;
+    background-color: var(--third-dark-color-3);
     padding: 10px;
     border-radius: 8px;
     margin-bottom: 10px;
+    box-shadow: 0 2px 4px var(--shadow-color);
     font-size: 16px;
 }
 
-/* Scheduled Surgeries Box */
-.surgeries-box {
-    border-radius: 10px;
-    background-color: #e3f2fd;
-    box-shadow: 0 4px 8px rgba(25, 118, 210, 0.2);
-    padding: 20px;
+.shift-detail .day-label {
+    font-weight: bold;
+    color: var(--third-dark-color-1);
+    margin-right: 10px;
+}
 
+.shift-detail .shift-times {
+    display: flex;
+    gap: 5px;
+}
+
+.shift-detail .shift-tag {
+    background-color: var(--fifth-light-color-8);
+    color: var(--third-dark-color-1);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+
+
+/* Base styling for both boxes */
+.patients-box, .surgeries-box {
+    background-color: var(--sixth-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px var(--seventh-color);
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+
+
+.patients-box .details .detail, .surgeries-box .details .detail {
+    background-color: var(--fifth-light-color-8);
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    border-left: 5px solid var(--fifth-dark-color-2);
+    transition: transform 0.3s ease;
+}
+
+.patients-box .details .detail:hover, .surgeries-box .details .detail:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 10px var(--shadow-color);
+}
+
+
+.patients-box.special-design {
+    background-color: #fff;
+    color: var(--third-color);
+    width: 600px;
+    border: 3px solid var(--third-color);
+    box-shadow: 0 6px 12px rgba(102, 51, 153, 0.4);
+    padding: 25px;
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.patients-box.special-design .box-title {
+    font-size: 22px;
+    color: var(--third-color);
+    text-shadow: 1px 1px 2px rgba(102, 51, 153, 0.5);
+}
+
+.patients-box.special-design .details .detail {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 5px 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(102, 51, 153, 0.2);
+    margin-bottom: 10px;
+    transition: transform 0.3s ease;
+}
+
+.patients-box.special-design .details .detail:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 8px rgba(102, 51, 153, 0.4);
+}
+
+/* 
+.surgeries-box {
+    background-color: #e3f2fd;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(25, 118, 210, 0.5);
+    padding: 20px;
+    transition: all 0.3s ease;
 }
 
 .surgeries-box .box-title {
-    color: #0277bd; /* Dark blue */
-    font-size: 22px;
+    color: #0277bd;
+    font-size: 24px;
     font-weight: bold;
-    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(25, 118, 210, 0.5);
 }
 
 .surgeries-box .details .detail {
-    background-color: #b3e5fc; /* Lighter blue */
-    padding: 10px;
+    background-color: #b3e5fc;
+    padding: 10px 15px;
     border-radius: 8px;
     margin-bottom: 10px;
     font-size: 16px;
+    border-left: 5px solid #0277bd;
     transition: transform 0.3s ease;
 }
 
 .surgeries-box .details .detail:hover {
-    transform: scale(1.05); /* Slight zoom on hover */
+    transform: scale(1.05);
+    box-shadow: 0px 0px 10px rgba(25, 118, 210, 0.5);
+} */
+
+
+.surgeries-box.special-design {
+    background-color: #fff;
+    color: var(--third-color);
+    width: 600px;
+    border: 3px solid var(--third-color);
+    box-shadow: 0 6px 12px rgba(33, 150, 243, 0.4);
+    padding: 25px;
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.surgeries-box.special-design .box-title {
+    font-size: 22px;
+    color: var(--third-color);
+    text-shadow: 1px 1px 2px rgba(33, 150, 243, 0.5);
+}
+
+.surgeries-box.special-design .details .detail {
+    background-color: var(--fifth-light-color-4);
+    padding: 5px 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(33, 150, 243, 0.2);
+    margin-bottom: 10px;
+    transition: transform 0.3s ease;
+}
+
+.surgeries-box.special-design .details .detail:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 8px rgba(33, 150, 243, 0.4);
 }
 
 

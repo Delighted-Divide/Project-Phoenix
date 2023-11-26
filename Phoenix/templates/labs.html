@@ -36,7 +36,7 @@
             </div>
         </div>
         
-         
+        {{ profile_json|json_script:"profile-data" }}
     </div>
 </div>
 {% endblock %} {% block extra_js %}

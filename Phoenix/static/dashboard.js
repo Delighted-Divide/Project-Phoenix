@@ -1,4 +1,3 @@
-console.log("pink");
 
 var ctx = document.getElementById("line-graph").getContext("2d");
 var myChart = new Chart(ctx, {
